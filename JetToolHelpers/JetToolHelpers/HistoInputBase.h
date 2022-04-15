@@ -21,7 +21,7 @@ class HistoInputBase : public IInputBase
         std::string m_histName;
 
     protected:
-        std::unique_ptr<TH1> m_hist;
+        std::unique_ptr<TH1> m_hist;    // actual histogram from the which getValue() is done.
         bool readHistoFromFile();
 
         double enforceAxisRange(const TAxis& axis, const double inputValue) const;

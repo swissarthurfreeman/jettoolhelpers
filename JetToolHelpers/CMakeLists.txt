@@ -6,11 +6,11 @@
 atlas_subdir( JetToolHelpers )
 
 # Extra dependencies, based on the environment:
-set( extra_deps )
+set( EXTRA_DEPS )
 if( XAOD_STANDALONE )
-   set( extra_deps Control/xAODRootAccess )
+   set( EXTRA_DEPS Control/xAODRootAccess )
 else()
-   set( extra_deps GaudiKernel )
+   set( EXTRA_DEPS GaudiKernel )
 endif()
 
 # Declare the package's dependencies:
@@ -22,7 +22,7 @@ atlas_depends_on_subdirs(
    Event/xAOD/xAODTracking
    PRIVATE
    PhysicsAnalysis/POOLRootAccess
-   ${extra_deps} )
+   ${EXTRA_DEPS} )
 
 # External dependencies:
 find_package( ROOT COMPONENTS Core Tree MathCore Hist RIO Graf Gpad )
@@ -54,6 +54,14 @@ if( XAOD_STANDALONE )
       INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
       LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools xAODEventInfo xAODJet JetToolHelpersLib
       xAODTracking xAODCore xAODRootAccess )
+   
+   atlas_add_executable( Histo1DTests
+      test/Histo1DTests.cpp
+      INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
+      LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools xAODEventInfo xAODJet JetToolHelpersLib
+      xAODTracking xAODCore xAODRootAccess )
+   
+   add_test(NAME tmpTest COMMAND Histo1DTests)
    
 else()
    atlas_add_executable( JetToolHelpers_test_xAOD

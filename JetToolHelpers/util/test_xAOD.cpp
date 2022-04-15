@@ -17,14 +17,15 @@
 
 int main (int argc, char* argv[])
 {
-
     // Prepare to read the input file(s)
+    // xAOD::TEvent represents a series of events, e.g. sets of jets. 
     xAOD::TEvent event;
     xAOD::TStore store;
 
     // Check the arguments
     if (argc != 3)
     {
+        // input file contains all the .root events. 
         printf("USAGE: %s <num events, -1 for all> <input file>\n",argv[0]);
         exit(1);
     }
@@ -43,8 +44,27 @@ int main (int argc, char* argv[])
     const std::string histFile {"/cvmfs/atlas.cern.ch/repo/sw/database/GroupData/JetUncertainties/CalibArea-08/rel21/Summer2019/R4_AllComponents.root"};
     const std::string histName1D {"EffectiveNP_1_AntiKt4EMPFlow"};
     const std::string histName2D {"EtaIntercalibration_Modelling_AntiKt4EMPFlow"};
-    std::unique_ptr<IInputBase> myH1D = std::make_unique<HistoInput1D>("myH1D",histFile,histName1D,"pt","float",true);
-    std::unique_ptr<IInputBase> myH2D = std::make_unique<HistoInput2D>("myH2D",histFile,histName2D,"pt","float",true,"abseta","float",true);
+    std::unique_ptr<IInputBase> myH1D = std::make_unique<HistoInput1D>(
+        "myH1D",
+        histFile,
+        histName1D,
+        "pt",
+        "float",
+        true
+    );
+    // no object slicing happens here because we're using pointers.
+    std::unique_ptr<IInputBase> myH2D = std::make_unique<HistoInput2D>(
+        "myH2D",
+        histFile,
+        histName2D,
+        "pt",
+        "float",
+        true,
+        "abseta",
+        "float",
+        true
+    );
+
     if (!myH1D->initialize())
     {
         std::cout << "Failed to initialise HistoInput1D of name " << histName1D << "\n";
@@ -60,10 +80,14 @@ int main (int argc, char* argv[])
         std::cout << "Successfully initialized both 1D and 2D test histograms\n";
     }
 
-
-    // Parse the arguments
+    // Parse the arguments, first argument is number of events to read from provided root file.
     Long64_t numEvents = atoll(argv[1]);
+
+    // a Root chain is a collection of files containing TTree objects
+    // a ROOT TTree represents columnar dataset, pretty weird
     TChain* chain = new TChain("CollectionTree");
+    
+    // adds the file to the chain, this is how reading a root file of events is done
     chain->AddFile(argv[2]);
     if (event.readFrom(chain).isFailure())
     {
@@ -71,7 +95,7 @@ int main (int argc, char* argv[])
         exit(1);
     }
 
-    // Check the number of events
+    // Check the number of events, if number is larger than the available ones, cap...
     if (numEvents < 0)
         numEvents = event.getEntries();
     else if (numEvents > event.getEntries())
@@ -118,7 +142,7 @@ int main (int argc, char* argv[])
         const xAOD::JetContainer* jets = nullptr;
         if (event.retrieve(jets,"AntiKt4EMPFlowJets").isFailure() || !jets)
         {
-            printf("Failed to retrive jets for event %lld (entry %lld)\n",eInfo->eventNumber(),iEntry);
+            printf("Failed to retreive jets for event %lld (entry %lld)\n",eInfo->eventNumber(),iEntry);
             continue;
         }
 

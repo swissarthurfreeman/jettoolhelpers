@@ -4,7 +4,6 @@
 #include "JetToolHelpers/HistoInput1D.h"
 #include "JetToolHelpers/HistoInput2D.h"
 
-
 int main(int argc, char* argv[])
 {
     if (argc != 4)

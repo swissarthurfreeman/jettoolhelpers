@@ -29,8 +29,6 @@ class JetContext
 
 };
 
-
-
 // Base template for adding values
 // - Unsupported types are in this category
 // - All supported types have explicit specifications
