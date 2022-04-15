@@ -1,5 +1,22 @@
 # JetToolHelpers
 
+## Building and executing
+
+Supposing a directory structure :
+
+```
+~
+    athena
+        Projects
+        jettoolhelpers
+        README.md
+    build
+    run
+```
+
+cd /build
+cmake ~/athena/Projects/WorkDir
+make
 
 
 ## Getting started
