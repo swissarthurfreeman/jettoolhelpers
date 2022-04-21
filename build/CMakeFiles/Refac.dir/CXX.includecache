@@ -50,15 +50,13 @@ unordered_map
 stdexcept
 -
 
-/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Tool.cpp
+/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_refactor.cpp
 iostream
 -
+JetToolHelpers/InputVariable.h
+/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/JetToolHelpers/InputVariable.h
 JetToolHelpers/HistoInput.h
-/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/JetToolHelpers/HistoInput.h
-
-/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/JetContext.cpp
-JetToolHelpers/JetContext.h
-/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/JetToolHelpers/JetContext.h
+/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/JetToolHelpers/HistoInput.h
 
 /home/gordon/Root/install/include/DllImport.h
 

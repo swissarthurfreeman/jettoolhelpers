@@ -57,44 +57,44 @@ include CMakeFiles/JetToolHelpersLib.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/JetToolHelpersLib.dir/flags.make
 
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.o: CMakeFiles/JetToolHelpersLib.dir/flags.make
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.o: /home/gordon/Documents/gordon_bsci/Sem6/Bachelors\ Project/jettoolhelpers/JetToolHelpers/Root/HistoInput1D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.o -c "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput1D.cpp"
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.o: CMakeFiles/JetToolHelpersLib.dir/flags.make
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.o: /home/gordon/Documents/gordon_bsci/Sem6/Bachelors\ Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Ctr.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.o -c "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Ctr.cpp"
 
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput1D.cpp" > CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.i
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Ctr.cpp" > CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.i
 
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput1D.cpp" -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.s
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Ctr.cpp" -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.s
 
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.o: CMakeFiles/JetToolHelpersLib.dir/flags.make
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.o: /home/gordon/Documents/gordon_bsci/Sem6/Bachelors\ Project/jettoolhelpers/JetToolHelpers/Root/HistoInput2D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.o -c "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput2D.cpp"
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.o: CMakeFiles/JetToolHelpersLib.dir/flags.make
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.o: /home/gordon/Documents/gordon_bsci/Sem6/Bachelors\ Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Static.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.o -c "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Static.cpp"
 
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput2D.cpp" > CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.i
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Static.cpp" > CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.i
 
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput2D.cpp" -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.s
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Static.cpp" -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.s
 
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.o: CMakeFiles/JetToolHelpersLib.dir/flags.make
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.o: /home/gordon/Documents/gordon_bsci/Sem6/Bachelors\ Project/jettoolhelpers/JetToolHelpers/Root/HistoInputBase.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.o -c "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInputBase.cpp"
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.o: CMakeFiles/JetToolHelpersLib.dir/flags.make
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.o: /home/gordon/Documents/gordon_bsci/Sem6/Bachelors\ Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Tool.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.o -c "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Tool.cpp"
 
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInputBase.cpp" > CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.i
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Tool.cpp" > CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.i
 
-CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInputBase.cpp" -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.s
+CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Tool.cpp" -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.s
 
 CMakeFiles/JetToolHelpersLib.dir/Root/InputVariable.cpp.o: CMakeFiles/JetToolHelpersLib.dir/flags.make
 CMakeFiles/JetToolHelpersLib.dir/Root/InputVariable.cpp.o: /home/gordon/Documents/gordon_bsci/Sem6/Bachelors\ Project/jettoolhelpers/JetToolHelpers/Root/InputVariable.cpp
@@ -137,9 +137,9 @@ CMakeFiles/JetToolHelpersLib.dir/Root/Jet.cpp.s: cmake_force
 
 # Object files for target JetToolHelpersLib
 JetToolHelpersLib_OBJECTS = \
-"CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.o" \
-"CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.o" \
-"CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.o" \
+"CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.o" \
+"CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.o" \
+"CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.o" \
 "CMakeFiles/JetToolHelpersLib.dir/Root/InputVariable.cpp.o" \
 "CMakeFiles/JetToolHelpersLib.dir/Root/JetContext.cpp.o" \
 "CMakeFiles/JetToolHelpersLib.dir/Root/Jet.cpp.o"
@@ -147,9 +147,9 @@ JetToolHelpersLib_OBJECTS = \
 # External object files for target JetToolHelpersLib
 JetToolHelpersLib_EXTERNAL_OBJECTS =
 
-libJetToolHelpersLib.a: CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.o
-libJetToolHelpersLib.a: CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.o
-libJetToolHelpersLib.a: CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.o
+libJetToolHelpersLib.a: CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.o
+libJetToolHelpersLib.a: CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.o
+libJetToolHelpersLib.a: CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.o
 libJetToolHelpersLib.a: CMakeFiles/JetToolHelpersLib.dir/Root/InputVariable.cpp.o
 libJetToolHelpersLib.a: CMakeFiles/JetToolHelpersLib.dir/Root/JetContext.cpp.o
 libJetToolHelpersLib.a: CMakeFiles/JetToolHelpersLib.dir/Root/Jet.cpp.o

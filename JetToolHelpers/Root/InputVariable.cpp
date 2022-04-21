@@ -2,6 +2,9 @@
 
 std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& name, const std::string& type, const bool isJetVar)
 {
+    if(name == "" || type == "")
+        return nullptr;
+
     if (isJetVar)
     {
         // Variables stored on the xAOD::Jet

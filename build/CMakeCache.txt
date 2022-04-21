@@ -214,6 +214,12 @@ JetToolHelpers_BINARY_DIR:STATIC=/home/gordon/Documents/gordon_bsci/Sem6/Bachelo
 //Value Computed by CMake
 JetToolHelpers_SOURCE_DIR:STATIC=/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers
 
+//Value Computed by CMake
+Project_BINARY_DIR:STATIC=/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build
+
+//Value Computed by CMake
+Project_SOURCE_DIR:STATIC=/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers
+
 //Path to a library.
 ROOT_Core_LIBRARY:FILEPATH=/home/gordon/Root/install/lib/libCore.so
 

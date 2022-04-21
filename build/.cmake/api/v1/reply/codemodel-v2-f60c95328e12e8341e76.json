@@ -40,15 +40,15 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "JetToolHelpersLib::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-JetToolHelpersLib-Debug-320e9b4b7bd3d7b0ac81.json",
+					"jsonFile" : "target-JetToolHelpersLib-Debug-5e527e55cb9962f266db.json",
 					"name" : "JetToolHelpersLib",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
-					"id" : "Test::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Test-Debug-8a135fe4ef274b53d81a.json",
-					"name" : "Test",
+					"id" : "Refac::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Refac-Debug-b02ce58cce47a3223065.json",
+					"name" : "Refac",
 					"projectIndex" : 0
 				}
 			]

@@ -7,12 +7,13 @@
 #include "Jet.h"
 #include "JetContext.h"
 #include "InputVariable.h"
+#include "IInputBase.h"
 
-class HistoInput {
+class HistoInput : public IInputBase {
     public:         
-        static bool readHistoFromFile();
+        static bool readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string m_filename, const std::string m_histName);
         static double enforceAxisRange(const TAxis& axis, const double inputValue);
-        static double readFromHisto(const TH1& m_hist, const double X, const double Y=0, const double Z=0);
+        static double readFromHisto(TH1& m_hist, const double X, const double Y=0, const double Z=0);
 
         /**
          * @brief Construct a new 1D Histogram Input Object.
@@ -28,7 +29,7 @@ class HistoInput {
          */
         HistoInput(
             const std::string& name, 
-            const std::string& filename, 
+            const std::string& fileName, 
             const std::string& histName,
             const std::string& varName, const std::string& varType,
             bool isJetVar
@@ -39,7 +40,7 @@ class HistoInput {
          */
         HistoInput(
             const std::string& name, 
-            const std::string& filename, 
+            const std::string& fileName, 
             const std::string& histName,
             const std::string& varName1, const std::string& varType1, const bool isJetVar1,
             const std::string& varName2, const std::string& varType2, const bool isJetVar2
@@ -50,7 +51,7 @@ class HistoInput {
          */
         HistoInput(
             const std::string& name, 
-            const std::string& filename, 
+            const std::string& fileName, 
             const std::string& histName,
             const std::string& varName1, const std::string& varType1, const bool isJetVar1,
             const std::string& varName2, const std::string& varType2, const bool isJetVar2,
@@ -65,11 +66,13 @@ class HistoInput {
         std::string getFileName() const { return m_fileName; }
         std::string getHistName() const { return m_histName; }
     private:
-        std::string m_fileName;
-        std::string m_histName;
+        const Int_t nDims;
+
+        const std::string name; 
+        const std::string m_fileName;
+        const std::string m_histName;
 
         std::unique_ptr<TH1> m_hist;    // actual histogram from the which getValue() is done.
-        const Int_t ndims;
 
         const std::string m_varName1;
         const std::string m_varType1;
@@ -80,11 +83,6 @@ class HistoInput {
         const std::string m_varType2;
         const bool m_isJetVar2;
         std::unique_ptr<InputVariable> m_inVar2;
-        
-        const std::string m_varName3;
-        const std::string m_varType3;
-        const bool m_isJetVar3;
-        std::unique_ptr<InputVariable> m_inVar3;
 };
 
 #endif

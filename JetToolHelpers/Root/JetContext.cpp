@@ -5,11 +5,6 @@ JetContext::JetContext()
     : m_intVars{}, m_floatVars{}
 { }
 
-
-
-
-
-
 template <>
 bool JetContext::setValue<int>(const std::string& name, const int value, bool allowOverwrite)
 {

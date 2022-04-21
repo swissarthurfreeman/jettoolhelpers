@@ -26,13 +26,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 31,
+				"line" : 29,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 32,
+				"line" : 30,
 				"parent" : 0
 			}
 		]
@@ -60,12 +60,12 @@
 			"language" : "CXX",
 			"sourceIndexes" : 
 			[
+				5,
+				6,
 				7,
 				8,
 				9,
-				10,
-				11,
-				12
+				10
 			]
 		}
 	],
@@ -87,21 +87,19 @@
 				1,
 				2,
 				3,
-				4,
-				5,
-				6
+				4
 			]
 		},
 		{
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
+				5,
+				6,
 				7,
 				8,
 				9,
-				10,
-				11,
-				12
+				10
 			]
 		}
 	],
@@ -109,17 +107,7 @@
 	[
 		{
 			"backtrace" : 1,
-			"path" : "JetToolHelpers/HistoInput1D.h",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "JetToolHelpers/HistoInput2D.h",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "JetToolHelpers/HistoInputBase.h",
+			"path" : "JetToolHelpers/HistoInput.h",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -145,19 +133,19 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Root/HistoInput1D.cpp",
+			"path" : "Root/HistoInput.Ctr.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Root/HistoInput2D.cpp",
+			"path" : "Root/HistoInput.Static.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Root/HistoInputBase.cpp",
+			"path" : "Root/HistoInput.Tool.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{

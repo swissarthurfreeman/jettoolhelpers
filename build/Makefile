@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Test
+# Target rules for targets named Refac
 
 # Build rule for target.
-Test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Test
-.PHONY : Test
+Refac: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Refac
+.PHONY : Refac
 
 # fast build rule for target.
-Test/fast:
-	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
-.PHONY : Test/fast
+Refac/fast:
+	$(MAKE) -f CMakeFiles/Refac.dir/build.make CMakeFiles/Refac.dir/build
+.PHONY : Refac/fast
 
 #=============================================================================
 # Target rules for targets named JetToolHelpersLib
@@ -136,86 +136,86 @@ JetToolHelpersLib/fast:
 	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/build
 .PHONY : JetToolHelpersLib/fast
 
-Root/HistoInput1D.o: Root/HistoInput1D.cpp.o
+Root/HistoInput.Ctr.o: Root/HistoInput.Ctr.cpp.o
 
-.PHONY : Root/HistoInput1D.o
-
-# target to build an object file
-Root/HistoInput1D.cpp.o:
-	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.o
-.PHONY : Root/HistoInput1D.cpp.o
-
-Root/HistoInput1D.i: Root/HistoInput1D.cpp.i
-
-.PHONY : Root/HistoInput1D.i
-
-# target to preprocess a source file
-Root/HistoInput1D.cpp.i:
-	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.i
-.PHONY : Root/HistoInput1D.cpp.i
-
-Root/HistoInput1D.s: Root/HistoInput1D.cpp.s
-
-.PHONY : Root/HistoInput1D.s
-
-# target to generate assembly for a file
-Root/HistoInput1D.cpp.s:
-	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.s
-.PHONY : Root/HistoInput1D.cpp.s
-
-Root/HistoInput2D.o: Root/HistoInput2D.cpp.o
-
-.PHONY : Root/HistoInput2D.o
+.PHONY : Root/HistoInput.Ctr.o
 
 # target to build an object file
-Root/HistoInput2D.cpp.o:
-	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.o
-.PHONY : Root/HistoInput2D.cpp.o
+Root/HistoInput.Ctr.cpp.o:
+	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.o
+.PHONY : Root/HistoInput.Ctr.cpp.o
 
-Root/HistoInput2D.i: Root/HistoInput2D.cpp.i
+Root/HistoInput.Ctr.i: Root/HistoInput.Ctr.cpp.i
 
-.PHONY : Root/HistoInput2D.i
+.PHONY : Root/HistoInput.Ctr.i
 
 # target to preprocess a source file
-Root/HistoInput2D.cpp.i:
-	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.i
-.PHONY : Root/HistoInput2D.cpp.i
+Root/HistoInput.Ctr.cpp.i:
+	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.i
+.PHONY : Root/HistoInput.Ctr.cpp.i
 
-Root/HistoInput2D.s: Root/HistoInput2D.cpp.s
+Root/HistoInput.Ctr.s: Root/HistoInput.Ctr.cpp.s
 
-.PHONY : Root/HistoInput2D.s
+.PHONY : Root/HistoInput.Ctr.s
 
 # target to generate assembly for a file
-Root/HistoInput2D.cpp.s:
-	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.s
-.PHONY : Root/HistoInput2D.cpp.s
+Root/HistoInput.Ctr.cpp.s:
+	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.s
+.PHONY : Root/HistoInput.Ctr.cpp.s
 
-Root/HistoInputBase.o: Root/HistoInputBase.cpp.o
+Root/HistoInput.Static.o: Root/HistoInput.Static.cpp.o
 
-.PHONY : Root/HistoInputBase.o
+.PHONY : Root/HistoInput.Static.o
 
 # target to build an object file
-Root/HistoInputBase.cpp.o:
-	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.o
-.PHONY : Root/HistoInputBase.cpp.o
+Root/HistoInput.Static.cpp.o:
+	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.o
+.PHONY : Root/HistoInput.Static.cpp.o
 
-Root/HistoInputBase.i: Root/HistoInputBase.cpp.i
+Root/HistoInput.Static.i: Root/HistoInput.Static.cpp.i
 
-.PHONY : Root/HistoInputBase.i
+.PHONY : Root/HistoInput.Static.i
 
 # target to preprocess a source file
-Root/HistoInputBase.cpp.i:
-	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.i
-.PHONY : Root/HistoInputBase.cpp.i
+Root/HistoInput.Static.cpp.i:
+	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.i
+.PHONY : Root/HistoInput.Static.cpp.i
 
-Root/HistoInputBase.s: Root/HistoInputBase.cpp.s
+Root/HistoInput.Static.s: Root/HistoInput.Static.cpp.s
 
-.PHONY : Root/HistoInputBase.s
+.PHONY : Root/HistoInput.Static.s
 
 # target to generate assembly for a file
-Root/HistoInputBase.cpp.s:
-	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.s
-.PHONY : Root/HistoInputBase.cpp.s
+Root/HistoInput.Static.cpp.s:
+	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.s
+.PHONY : Root/HistoInput.Static.cpp.s
+
+Root/HistoInput.Tool.o: Root/HistoInput.Tool.cpp.o
+
+.PHONY : Root/HistoInput.Tool.o
+
+# target to build an object file
+Root/HistoInput.Tool.cpp.o:
+	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.o
+.PHONY : Root/HistoInput.Tool.cpp.o
+
+Root/HistoInput.Tool.i: Root/HistoInput.Tool.cpp.i
+
+.PHONY : Root/HistoInput.Tool.i
+
+# target to preprocess a source file
+Root/HistoInput.Tool.cpp.i:
+	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.i
+.PHONY : Root/HistoInput.Tool.cpp.i
+
+Root/HistoInput.Tool.s: Root/HistoInput.Tool.cpp.s
+
+.PHONY : Root/HistoInput.Tool.s
+
+# target to generate assembly for a file
+Root/HistoInput.Tool.cpp.s:
+	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.s
+.PHONY : Root/HistoInput.Tool.cpp.s
 
 Root/InputVariable.o: Root/InputVariable.cpp.o
 
@@ -298,32 +298,32 @@ Root/JetContext.cpp.s:
 	$(MAKE) -f CMakeFiles/JetToolHelpersLib.dir/build.make CMakeFiles/JetToolHelpersLib.dir/Root/JetContext.cpp.s
 .PHONY : Root/JetContext.cpp.s
 
-util/test_independent.o: util/test_independent.cpp.o
+util/test_refactor.o: util/test_refactor.cpp.o
 
-.PHONY : util/test_independent.o
+.PHONY : util/test_refactor.o
 
 # target to build an object file
-util/test_independent.cpp.o:
-	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/util/test_independent.cpp.o
-.PHONY : util/test_independent.cpp.o
+util/test_refactor.cpp.o:
+	$(MAKE) -f CMakeFiles/Refac.dir/build.make CMakeFiles/Refac.dir/util/test_refactor.cpp.o
+.PHONY : util/test_refactor.cpp.o
 
-util/test_independent.i: util/test_independent.cpp.i
+util/test_refactor.i: util/test_refactor.cpp.i
 
-.PHONY : util/test_independent.i
+.PHONY : util/test_refactor.i
 
 # target to preprocess a source file
-util/test_independent.cpp.i:
-	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/util/test_independent.cpp.i
-.PHONY : util/test_independent.cpp.i
+util/test_refactor.cpp.i:
+	$(MAKE) -f CMakeFiles/Refac.dir/build.make CMakeFiles/Refac.dir/util/test_refactor.cpp.i
+.PHONY : util/test_refactor.cpp.i
 
-util/test_independent.s: util/test_independent.cpp.s
+util/test_refactor.s: util/test_refactor.cpp.s
 
-.PHONY : util/test_independent.s
+.PHONY : util/test_refactor.s
 
 # target to generate assembly for a file
-util/test_independent.cpp.s:
-	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/util/test_independent.cpp.s
-.PHONY : util/test_independent.cpp.s
+util/test_refactor.cpp.s:
+	$(MAKE) -f CMakeFiles/Refac.dir/build.make CMakeFiles/Refac.dir/util/test_refactor.cpp.s
+.PHONY : util/test_refactor.cpp.s
 
 # Help Target
 help:
@@ -333,17 +333,17 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... Test"
+	@echo "... Refac"
 	@echo "... JetToolHelpersLib"
-	@echo "... Root/HistoInput1D.o"
-	@echo "... Root/HistoInput1D.i"
-	@echo "... Root/HistoInput1D.s"
-	@echo "... Root/HistoInput2D.o"
-	@echo "... Root/HistoInput2D.i"
-	@echo "... Root/HistoInput2D.s"
-	@echo "... Root/HistoInputBase.o"
-	@echo "... Root/HistoInputBase.i"
-	@echo "... Root/HistoInputBase.s"
+	@echo "... Root/HistoInput.Ctr.o"
+	@echo "... Root/HistoInput.Ctr.i"
+	@echo "... Root/HistoInput.Ctr.s"
+	@echo "... Root/HistoInput.Static.o"
+	@echo "... Root/HistoInput.Static.i"
+	@echo "... Root/HistoInput.Static.s"
+	@echo "... Root/HistoInput.Tool.o"
+	@echo "... Root/HistoInput.Tool.i"
+	@echo "... Root/HistoInput.Tool.s"
 	@echo "... Root/InputVariable.o"
 	@echo "... Root/InputVariable.i"
 	@echo "... Root/InputVariable.s"
@@ -353,9 +353,9 @@ help:
 	@echo "... Root/JetContext.o"
 	@echo "... Root/JetContext.i"
 	@echo "... Root/JetContext.s"
-	@echo "... util/test_independent.o"
-	@echo "... util/test_independent.i"
-	@echo "... util/test_independent.s"
+	@echo "... util/test_refactor.o"
+	@echo "... util/test_refactor.i"
+	@echo "... util/test_refactor.s"
 .PHONY : help
 
 

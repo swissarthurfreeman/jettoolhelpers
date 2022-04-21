@@ -26,7 +26,7 @@ class IInputBase
             return returnVal;
         }
 
-        virtual bool runUnitTests() const = 0;
+        //virtual bool runUnitTests() const = 0;
 
     private:
         std::string m_name;

@@ -1,23 +1,23 @@
 [
 {
   "directory": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build",
-  "command": "/usr/bin/g++   -I\"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/.\" -I/home/gordon/Root/install/include  -pthread -std=c++17 -m64 -I/home/gordon/Root/install/include -g   -o CMakeFiles/Test.dir/util/test_independent.cpp.o -c \"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_independent.cpp\"",
-  "file": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_independent.cpp"
+  "command": "/usr/bin/g++   -I\"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/.\" -I/home/gordon/Root/install/include  -pthread -std=c++17 -m64 -I/home/gordon/Root/install/include -g   -o CMakeFiles/Refac.dir/util/test_refactor.cpp.o -c \"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_refactor.cpp\"",
+  "file": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_refactor.cpp"
 },
 {
   "directory": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build",
-  "command": "/usr/bin/g++   -I\"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/.\" -I/home/gordon/Root/install/include  -pthread -std=c++17 -m64 -I/home/gordon/Root/install/include -g   -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.o -c \"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput1D.cpp\"",
-  "file": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput1D.cpp"
+  "command": "/usr/bin/g++   -I\"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/.\" -I/home/gordon/Root/install/include  -pthread -std=c++17 -m64 -I/home/gordon/Root/install/include -g   -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.o -c \"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Ctr.cpp\"",
+  "file": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Ctr.cpp"
 },
 {
   "directory": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build",
-  "command": "/usr/bin/g++   -I\"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/.\" -I/home/gordon/Root/install/include  -pthread -std=c++17 -m64 -I/home/gordon/Root/install/include -g   -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.o -c \"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput2D.cpp\"",
-  "file": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput2D.cpp"
+  "command": "/usr/bin/g++   -I\"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/.\" -I/home/gordon/Root/install/include  -pthread -std=c++17 -m64 -I/home/gordon/Root/install/include -g   -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.o -c \"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Static.cpp\"",
+  "file": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Static.cpp"
 },
 {
   "directory": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build",
-  "command": "/usr/bin/g++   -I\"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/.\" -I/home/gordon/Root/install/include  -pthread -std=c++17 -m64 -I/home/gordon/Root/install/include -g   -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.o -c \"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInputBase.cpp\"",
-  "file": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInputBase.cpp"
+  "command": "/usr/bin/g++   -I\"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/.\" -I/home/gordon/Root/install/include  -pthread -std=c++17 -m64 -I/home/gordon/Root/install/include -g   -o CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.o -c \"/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Tool.cpp\"",
+  "file": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/Root/HistoInput.Tool.cpp"
 },
 {
   "directory": "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build",

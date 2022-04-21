@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput1D.cpp.o"
-  "CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput2D.cpp.o"
-  "CMakeFiles/JetToolHelpersLib.dir/Root/HistoInputBase.cpp.o"
+  "CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Ctr.cpp.o"
+  "CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Static.cpp.o"
+  "CMakeFiles/JetToolHelpersLib.dir/Root/HistoInput.Tool.cpp.o"
   "CMakeFiles/JetToolHelpersLib.dir/Root/InputVariable.cpp.o"
   "CMakeFiles/JetToolHelpersLib.dir/Root/Jet.cpp.o"
   "CMakeFiles/JetToolHelpersLib.dir/Root/JetContext.cpp.o"

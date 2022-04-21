@@ -57,27 +57,27 @@ include CMakeFiles/Test.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Test.dir/flags.make
 
-CMakeFiles/Test.dir/util/test_independent.cpp.o: CMakeFiles/Test.dir/flags.make
-CMakeFiles/Test.dir/util/test_independent.cpp.o: /home/gordon/Documents/gordon_bsci/Sem6/Bachelors\ Project/jettoolhelpers/JetToolHelpers/util/test_independent.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Test.dir/util/test_independent.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test.dir/util/test_independent.cpp.o -c "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_independent.cpp"
+CMakeFiles/Test.dir/util/test_refactor.cpp.o: CMakeFiles/Test.dir/flags.make
+CMakeFiles/Test.dir/util/test_refactor.cpp.o: /home/gordon/Documents/gordon_bsci/Sem6/Bachelors\ Project/jettoolhelpers/JetToolHelpers/util/test_refactor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Test.dir/util/test_refactor.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test.dir/util/test_refactor.cpp.o -c "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_refactor.cpp"
 
-CMakeFiles/Test.dir/util/test_independent.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Test.dir/util/test_independent.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_independent.cpp" > CMakeFiles/Test.dir/util/test_independent.cpp.i
+CMakeFiles/Test.dir/util/test_refactor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Test.dir/util/test_refactor.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_refactor.cpp" > CMakeFiles/Test.dir/util/test_refactor.cpp.i
 
-CMakeFiles/Test.dir/util/test_independent.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test.dir/util/test_independent.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_independent.cpp" -o CMakeFiles/Test.dir/util/test_independent.cpp.s
+CMakeFiles/Test.dir/util/test_refactor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test.dir/util/test_refactor.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/util/test_refactor.cpp" -o CMakeFiles/Test.dir/util/test_refactor.cpp.s
 
 # Object files for target Test
 Test_OBJECTS = \
-"CMakeFiles/Test.dir/util/test_independent.cpp.o"
+"CMakeFiles/Test.dir/util/test_refactor.cpp.o"
 
 # External object files for target Test
 Test_EXTERNAL_OBJECTS =
 
-Test: CMakeFiles/Test.dir/util/test_independent.cpp.o
+Test: CMakeFiles/Test.dir/util/test_refactor.cpp.o
 Test: CMakeFiles/Test.dir/build.make
 Test: libJetToolHelpersLib.a
 Test: /home/gordon/Root/install/lib/libCore.so
