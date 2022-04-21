@@ -1,0 +1,197 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "Test"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 35,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 36,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-pthread -std=c++17 -m64 -I/home/gordon/Root/install/include -g  "
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 2,
+					"path" : "/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/JetToolHelpers/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/gordon/Root/install/include"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "JetToolHelpersLib::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "Test::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-pthread -std=c++17 -m64 -I/home/gordon/Root/install/include -g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/gordon/Root/install/lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "libJetToolHelpersLib.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libCore.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libImt.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libRIO.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libNet.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libHist.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libGraf.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libGraf3d.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libGpad.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libROOTDataFrame.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libTree.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libTreePlayer.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libRint.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libPostscript.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libMatrix.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libPhysics.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libMathCore.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libThread.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/home/gordon/Root/install/lib/libMultiProc.so",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "Test",
+	"nameOnDisk" : "Test",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "util/test_independent.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

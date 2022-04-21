@@ -3,9 +3,9 @@
 
 #include <string>
 
-#include "AsgTools/IAsgTool.h" // For definition of StatusCode
+// #include "AsgTools/IAsgTool.h" // For definition of bool
 
-#include "xAODJet/Jet.h"
+#include "JetToolHelpers/Jet.h"
 #include "JetToolHelpers/JetContext.h"
 
 class IInputBase
@@ -14,8 +14,8 @@ class IInputBase
         IInputBase(const std::string& name) : m_name{name} {}
         virtual ~IInputBase() {}
 
-        virtual StatusCode initialize() = 0;
-        virtual StatusCode finalize() = 0;
+        virtual bool initialize() = 0;
+        virtual bool finalize() = 0;
 
         virtual bool   getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const = 0;
         virtual double getValue(const xAOD::Jet& jet, const JetContext& event) const
@@ -32,7 +32,5 @@ class IInputBase
         std::string m_name;
 
 };
-
-
 
 #endif
