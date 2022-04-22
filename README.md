@@ -1,5 +1,11 @@
 # JetToolHelpers
 
+## Reading List
+
+[Correct Exception Handling in C++](https://docs.microsoft.com/en-us/cpp/cpp/errors-and-exception-handling-modern-cpp?view=msvc-170)
+
+[Constexpr in C++](https://docs.microsoft.com/en-us/cpp/cpp/constexpr-cpp?view=msvc-170)
+
 ## Building and executing
 
 We're adding stuff here

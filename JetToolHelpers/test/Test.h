@@ -6,6 +6,10 @@
 #include <string>
 
 /*
+Documentation for this : 
+https://gcc.gnu.org/onlinedocs/cpp/Macros.html
+https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html#Stringizing
+
 __FILE__ is a magic constant containing the name of current file !
 __LINE__ is the current line
 __PRETTY_FUNCTION__ is the current function

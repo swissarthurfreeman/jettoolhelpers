@@ -1,62 +1,38 @@
 #include <iostream>
+#include <random>
+#include <limits>
 
 #include "JetToolHelpers/InputVariable.h"
 #include "JetToolHelpers/HistoInput.h"
 
 #include "test/Test.h"
 
+#define MAX_DOUBLE std::numeric_limits<double>::max()
+
 int main() {
-    TEST_BEGIN("R4ComponentsTest");
+    TEST_BEGIN("R4ComponentsTest"); // prints to cerr in order to be visible in ctest --verbose
+
     std::string fileName("R4_AllComponents.root");
     std::string histName1D("EffectiveNP_1_AntiKt4EMTopo");
     std::string histName2D("RelativeNonClosure_AFII_AntiKt4EMTopo");
 
-    IInputBase* myH1D = new HistoInput("Test HistoGram", fileName, histName1D, "pt", "float", true);
-    if (!myH1D->initialize()) {
-        std::cout << "Failed to initialise 1D HistoInput\n";
-        return 1;
-    }
-    else
-        std::cout << "Initialised HistoInput with 1D histogram\n";
+    HistoInput myH1D = HistoInput("Test HistoGram", fileName, histName1D, "pt", "float", true);
     
     JetContext jc;
-    xAOD::Jet jet{30,3.5,0,0};
     double value{0};
 
-    TEST_ASSERT_THROW(myH1D->getValue(jet, jc, value) == true);
-    /*
+    TEST_ASSERT_THROW(myH1D.initialize() == true);
 
-    if (!myH1D->getValue(jet, jc, value))
-        std::cout << "Failed to get 1D value\n";
-
-    IInputBase* myH2Djc = new HistoInput("testInput", fileName, histName2D, "pt", "float", false, "abseta", "float", false);
-    IInputBase* myH2Djj = new HistoInput("testInput", fileName, histName2D, "pt", "float",true, "myVar","float", true);
+    std::default_random_engine generator;
+    std::uniform_real_distribution<double> distribution(-MAX_DOUBLE, MAX_DOUBLE);
     
-    if (!myH2Djj->initialize() || !myH2Djc->initialize()) {
-        std::cout << "Failed to initialise HistoInput2D\n";
-        return 1;
+    for(int i=0; i < 1000; i++) {
+        xAOD::Jet jet{distribution(generator), distribution(generator), distribution(generator), distribution(generator)};
+        TEST_ASSERT_THROW(myH1D.getValue(jet, jc, value) == true);
     }
-    else
-        std::cout << "Initialised HistoInput with 2D histogram\n";
+    
+    
 
-    jc.setValue("myVar", (float) 3.5);
-
-    if (!myH1D->getValue(jet,jc,value))
-        std::cout << "Failed to get 1D value\n";
-    else
-        std::cout << "1D value is " << value << "\n";
-
-    if (!myH2Djj->getValue(jet,jc,value))
-        std::cout << "Failed to get 2D value\n";
-    else
-        std::cout << "2D value is " << value << " via the jet\n";
-    */
-    /*
-    if (!myH2Djc->getValue(jet,jc,value))
-        std::cout << "Failed to get 2D value\n";
-    else
-        std::cout << "2D value is " << value << " via the jet context\n";
-    */
     TEST_END();
     return 0;
 }
