@@ -15,11 +15,10 @@ bool HistoInput::initialize()
     m_inVar2 = InputVariable::createVariable(m_varName2, m_varType2, m_isJetVar2);
     
     // m_varName2 will be "" (default string ctr) if 1D Histo constructor was called.
-    if ( !m_inVar1 || (!m_inVar2 && m_varName2 != "") ) {
+    if ( !m_inVar1 ) {
         std::cout << "Failed to create an input variable" << std::endl;
         return false;
     }
-
     // Now deal with the histogram
     // Make sure we haven't already retrieved the histogram
     if (m_hist != nullptr) {
@@ -58,7 +57,9 @@ bool HistoInput::finalize() {
 }
 
 bool HistoInput::getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const {
+
     float varValue1 {m_inVar1->getValue(jet, event)};
+    
     varValue1 = HistoInput::enforceAxisRange(*m_hist->GetXaxis(), varValue1);
     
     float varValue2{0};

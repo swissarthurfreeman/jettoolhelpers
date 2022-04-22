@@ -1,3 +1,14 @@
+/**
+ * @file HistoInput.h
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2022-04-22
+ * 
+ * @copyright Copyright (C) 2002-2022 CERN for the benefit of the ATLAS collaboration
+ * 
+ */
+
 #ifndef JET_HISTOINPUT_H
 #define JET_HISTOINPUT_H
 

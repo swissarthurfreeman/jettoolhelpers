@@ -3,12 +3,16 @@
 
 #include <unordered_map>
 #include <stdexcept>
+#include <variant>
 
-class JetContext
-{
+class JetContext {
     public:
-        JetContext();
-
+        /**
+         * @brief Set the Value object
+         * 
+         * @tparam T the template type parameter mus be supported and of same type as 
+         * value, if it is float be sure to cast the value into a float. 
+         */
         template <typename T>
         bool setValue(const std::string& name, const T value, bool allowOverwrite = false);
 
@@ -24,53 +28,28 @@ class JetContext
         static constexpr int ERRORVALUE {-999};
 
     private:
-        std::unordered_map<std::string,int>   m_intVars;
-        std::unordered_map<std::string,float> m_floatVars;
-
+        std::unordered_map<std::string, std::variant<int, float>> dict_;
 };
 
-// Base template for adding values
-// - Unsupported types are in this category
-// - All supported types have explicit specifications
-template <typename T>
-bool JetContext::setValue(const std::string&, const T /*value*/, bool /*allowOverwrite*/)
-{
-    // Unsupported type
-    return false;
+template <typename T> bool JetContext::getValue(const std::string& name, T& value) const {
+    // to do : add error checking.
+    value = std::get<T>(dict_.at(name));
+    return true;
 }
 
-// Base template for getting values (with error checking)
-// - Unsupported types are in this category
-// - All supported types have explicit specifications
-template <typename T>
-bool JetContext::getValue(const std::string&, T& /*value*/) const
-{
-    // Unsupported type
-    return false;
+template <typename T> T JetContext::getValue(const std::string& name) const {
+    return std::get<T>(dict_.at(name));
 }
 
-// Generic template for getting values (without error checking)
-// Calls the above error-checked template, so no need for specifications here
-template <typename T>
-T JetContext::getValue(const std::string& name) const
-{
-    T toReturn;
-    if (getValue<T>(name,toReturn))
-        return toReturn;
-    return ERRORVALUE;
+template <typename T> bool JetContext::setValue(const std::string& name, const T value, bool allowOverwrite) {
+    std::pair<std::string, T> val(name, value);
+    dict_.insert(val);
+    return true;
 }
 
-// Base template for checking if a value exists
-// - Unsupported types are in this category
-// - All supported types have explicit specifications
-template <typename T>
-bool JetContext::isAvailable(const std::string& /*name*/) const
-{
-    // Unsupported type
-    return false;
+template <typename T> bool JetContext::isAvailable(const std::string& name) const {
+    return dict_.find(name) != dict_.end();    
 }
-
-
 
 #endif
 

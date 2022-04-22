@@ -105,8 +105,10 @@ class InputVariableJetContext : public InputVariable
 {
     public:
         InputVariableJetContext(const std::string& name) : InputVariable(name) {}
-        virtual float getValue(const xAOD::Jet&, const JetContext& event) const { return event.isAvailable<T>(m_name) ? event.getValue<T>(m_name) : ERRORVALUE; }
+        // should be T
+        virtual float getValue(const xAOD::Jet&, const JetContext& event) const { 
+            return event.isAvailable<T>(m_name) ? event.getValue<T>(m_name) : ERRORVALUE; 
+        }
 };
-
 
 #endif

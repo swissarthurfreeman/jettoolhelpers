@@ -1,4 +1,0 @@
-/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles/rebuild_cache.dir
-/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles/edit_cache.dir
-/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles/Refac.dir
-/home/gordon/Documents/gordon_bsci/Sem6/Bachelors Project/jettoolhelpers/build/CMakeFiles/JetToolHelpersLib.dir

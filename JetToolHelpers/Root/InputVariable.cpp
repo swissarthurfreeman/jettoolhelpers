@@ -35,17 +35,14 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
 
         // Unsupported type for a generic attribute
         return nullptr;
-    }
-    else
-    {
+    } else {
         // Variables not stored on the xAOD::Jet
-
         // Here, we need only to check the type of the variable
         // The variables are then stored in string-indexed maps
         if (type == "float")
-            return std::make_unique< InputVariableJetContext<float> >(name);
+            return std::make_unique<InputVariableJetContext<float>>(name);
         if (type == "int")
-            return std::make_unique< InputVariableJetContext<int> >(name);
+            return std::make_unique<InputVariableJetContext<int>>(name);
         
         // Unsupported type for a non-jet-level variable
         return nullptr;

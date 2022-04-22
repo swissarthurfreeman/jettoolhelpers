@@ -16,7 +16,6 @@ set(SOURCES
    "./Root/HistoInput.Static.cpp"
    "./Root/HistoInput.Tool.cpp"
    "./Root/InputVariable.cpp" 
-   "./Root/JetContext.cpp"
    "./Root/Jet.cpp")
 
 set(HEADER_FILES
@@ -29,6 +28,9 @@ set(HEADER_FILES
 add_library(JetToolHelpersLib ${HEADER_FILES} ${SOURCES})
 target_include_directories(JetToolHelpersLib PUBLIC "." PUBLIC ${ROOT_INCLUDE_DIRS})
 target_link_libraries( JetToolHelpersLib PUBLIC ${ROOT_LIBRARIES} )
+
+enable_testing()
+add_subdirectory(test)
 
 add_executable(Refac "./util/test_refactor.cpp")
 target_link_libraries(Refac JetToolHelpersLib)

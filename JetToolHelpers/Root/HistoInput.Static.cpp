@@ -9,14 +9,15 @@
  * 
  */
 #include <iostream>
-
+#include <filesystem>
 #include "JetToolHelpers/HistoInput.h"
 #include "TFile.h"
 
 bool HistoInput::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string m_fileName, const std::string m_histName) {
     // Open the input file
-    TFile inputFile(m_fileName.c_str(),"READ");
+    TFile inputFile(m_fileName.c_str(), "READ");
     if (inputFile.IsZombie()) {
+        std::cout << std::filesystem::current_path() << std::endl;
         std::cout << "Failed to open the file to read: " << m_fileName << "\n";
         inputFile.Close();
         return false;
@@ -54,18 +55,20 @@ double HistoInput::enforceAxisRange(const TAxis& axis, const double inputValue) 
     const int binIndex {axis.FindFixBin(inputValue)};
 
     if (binIndex < 1)
-        // Return just inside the range of the first real bin
         return axis.GetBinLowEdge(1) + edgeOffset*axis.GetBinWidth(1);
+        // Return just inside the range of the first real bin
     if (binIndex > numBins)
+        return axis.GetBinLowEdge(numBins) + (1-edgeOffset)*axis.GetBinWidth(numBins);
         // Return just inside the range of the last real bin
         // Don't use the upper edge as floating point can make it roll into the next bin (which is overflow)
         // Instead, use the last bin width to go slightly within the boundary
-        return axis.GetBinLowEdge(numBins) + (1-edgeOffset)*axis.GetBinWidth(numBins);
+    return inputValue;
 }
 
 double HistoInput::readFromHisto(TH1& m_hist, const double X, const double Y, const double Z) {
     // TODO: extend this to have different reading strategies
     const int nDim {m_hist.GetDimension()};
+    
     if (nDim == 1)
         return m_hist.Interpolate(X);
     else if (nDim == 2)
