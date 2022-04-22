@@ -1,7 +1,8 @@
 add_executable(myTest "./firstTest.cpp")
 
-
-
 # is available because of compilation order
 target_link_libraries(myTest JetToolHelpersLib)
-add_test(firstTest myTest WORKING_DIRECTORY "/home/gordon/Documents/gordon_bsci/Sem6/BachelorsProject/jettoolhelpers/test")
+
+# copy file to build/test directory.
+configure_file(R4_AllComponents.root ${CMAKE_CURRENT_BINARY_DIR}/R4_AllComponents.root COPYONLY)
+add_test(firstTest myTest)

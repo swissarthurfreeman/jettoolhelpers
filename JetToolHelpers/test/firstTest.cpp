@@ -9,15 +9,14 @@ int main() {
     std::string histName2D("RelativeNonClosure_AFII_AntiKt4EMTopo");
 
     IInputBase* myH1D = new HistoInput("Test HistoGram", fileName, histName1D, "pt", "float", true);
-    myH1D->initialize();
-    /*if (!myH1D->initialize()) {
+    if (!myH1D->initialize()) {
         std::cout << "yo" << std::endl;
         std::cout << "Failed to initialise 1D HistoInput\n";
         return 1;
     }
     else
         std::cout << "Initialised HistoInput with 1D histogram\n";
-    
+    /*
     JetContext jc;
     xAOD::Jet jet{30,3.5,0,0};
     double value{0};
