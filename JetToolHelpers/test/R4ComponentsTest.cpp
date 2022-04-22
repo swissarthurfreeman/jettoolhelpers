@@ -3,23 +3,28 @@
 #include "JetToolHelpers/InputVariable.h"
 #include "JetToolHelpers/HistoInput.h"
 
+#include "test/Test.h"
+
 int main() {
+    TEST_BEGIN("R4ComponentsTest");
     std::string fileName("R4_AllComponents.root");
     std::string histName1D("EffectiveNP_1_AntiKt4EMTopo");
     std::string histName2D("RelativeNonClosure_AFII_AntiKt4EMTopo");
 
     IInputBase* myH1D = new HistoInput("Test HistoGram", fileName, histName1D, "pt", "float", true);
     if (!myH1D->initialize()) {
-        std::cout << "yo" << std::endl;
         std::cout << "Failed to initialise 1D HistoInput\n";
         return 1;
     }
     else
         std::cout << "Initialised HistoInput with 1D histogram\n";
-    /*
+    
     JetContext jc;
     xAOD::Jet jet{30,3.5,0,0};
     double value{0};
+
+    TEST_ASSERT_THROW(myH1D->getValue(jet, jc, value) == true);
+    /*
 
     if (!myH1D->getValue(jet, jc, value))
         std::cout << "Failed to get 1D value\n";
@@ -52,5 +57,6 @@ int main() {
     else
         std::cout << "2D value is " << value << " via the jet context\n";
     */
+    TEST_END();
     return 0;
 }
