@@ -15,7 +15,7 @@ __LINE__ is the current line
 __PRETTY_FUNCTION__ is the current function
 */
 namespace Test {
-    #define TEST_ASSERT_EQUAL( x, y )                                   \
+    #define ASSERT_EQUAL( x, y )                                   \
     {                                                                   \
     if( ( x ) != ( y ) )                                                \
     {                                                                   \
@@ -32,7 +32,7 @@ namespace Test {
     }                                                                   \
     }
 
-    #define TEST_ASSERT_THROW( condition )                              \
+    #define ASSERT_THROW( condition )                              \
     {                                                                   \
     if( !( condition ) )                                                \
     {                                                                   \
@@ -69,9 +69,9 @@ namespace Test {
     std::cerr << "-- Running test \"" << name << "\"...";\
     }
 
-    #define TEST_END() \
+    #define TEST_END( name ) \
     {\
-    std::cerr << "finished\n";\
+    std::cerr << name << " successfully finished\n";\
     }
 }
 

@@ -6,6 +6,7 @@ cmake_minimum_required(VERSION 3.16)
 project(JetToolHelpers)
 
 set(CMAKE_CXX_FLAGS "-pthread -std=c++17 -m64 -I/home/gordon/Root/install/include")
+add_compile_options("-Wall")
 
 find_package( ROOT COMPONENTS Core Tree MathCore Hist RIO Graf Gpad )
 

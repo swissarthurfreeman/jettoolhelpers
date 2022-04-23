@@ -65,7 +65,7 @@ double HistoInput::enforceAxisRange(const TAxis& axis, const double inputValue) 
     return inputValue;
 }
 
-double HistoInput::readFromHisto(TH1& m_hist, const double X, const double Y, const double Z) {
+double HistoInput::readFromHisto(const TH1& m_hist, const double X, const double Y, const double Z) {
     // TODO: extend this to have different reading strategies
     const int nDim {m_hist.GetDimension()};
     

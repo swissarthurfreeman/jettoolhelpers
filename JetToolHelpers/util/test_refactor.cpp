@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
     
     // should return 30
     // std::cout << a->getValue(jet, jc) << std::endl;
-
+    /*
     IInputBase* myH1D = new HistoInput("Test HistoGram", fileName, histName1D, "pt", "float", true);
     if (!myH1D->initialize()) {
         std::cout << "Failed to initialise 1D HistoInput\n";
@@ -63,6 +63,6 @@ int main(int argc, char* argv[])
         std::cout << "Failed to get 2D jetContext value\n";
     else 
         std::cout << "2D HistoInput value = " << value << std::endl;
-
+*/
     return 0;
 }

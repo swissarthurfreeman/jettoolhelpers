@@ -10,3 +10,7 @@
  * @copyright Copyright (c) 2022
  * 
  */
+
+int main() {
+    
+}

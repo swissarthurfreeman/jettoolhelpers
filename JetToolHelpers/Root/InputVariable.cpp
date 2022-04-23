@@ -5,8 +5,7 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
     if(name == "" || type == "")
         return nullptr;
 
-    if (isJetVar)
-    {
+    if (isJetVar) {
         // Variables stored on the xAOD::Jet
         
         // First, check for pre-defined attributes (not stored as generic auxdata)

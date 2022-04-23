@@ -24,7 +24,7 @@ class HistoInput : public IInputBase {
     public:         
         static bool readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string m_filename, const std::string m_histName);
         static double enforceAxisRange(const TAxis& axis, const double inputValue);
-        static double readFromHisto(TH1& m_hist, const double X, const double Y=0, const double Z=0);
+        static double readFromHisto(const TH1& m_hist, const double X, const double Y=0, const double Z=0);
 
         /**
          * @brief Construct a new 1D Histogram Input Object.

@@ -21,18 +21,18 @@ int main() {
     JetContext jc;
     double value{0};
 
-    TEST_ASSERT_THROW(myH1D.initialize() == true);
+    ASSERT_THROW(myH1D.initialize() == true);
 
     std::default_random_engine generator;
     std::uniform_real_distribution<double> distribution(-MAX_DOUBLE, MAX_DOUBLE);
     
     for(int i=0; i < 1000; i++) {
         xAOD::Jet jet{distribution(generator), distribution(generator), distribution(generator), distribution(generator)};
-        TEST_ASSERT_THROW(myH1D.getValue(jet, jc, value) == true);
+        ASSERT_THROW(myH1D.getValue(jet, jc, value) == true);
     }
     
     
 
-    TEST_END();
+    TEST_END("R4ComponentsTest");
     return 0;
 }

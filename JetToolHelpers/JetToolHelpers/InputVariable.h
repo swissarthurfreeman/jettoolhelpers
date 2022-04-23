@@ -9,11 +9,7 @@
 #include "JetToolHelpers/JetContext.h"
 
 // #include "AthContainers/AuxElement.h"
-
-
-
-class InputVariable
-{
+class InputVariable {
     public:
         // static creation method (map config strings to a given instance)
         static std::unique_ptr<InputVariable> createVariable(const std::string& name, const std::string& type, const bool isJetVar);
@@ -87,6 +83,7 @@ class InputVariableAbsRapidity : public InputVariable
         InputVariableAbsRapidity(const std::string& name) : InputVariable(name) {}
         virtual float getValue(const xAOD::Jet& jet, const JetContext&) const { return std::abs(jet.rapidity()); }
 };
+
 /*
 template <typename T>
 class InputVariableAttribute : public InputVariable
@@ -100,14 +97,13 @@ class InputVariableAttribute : public InputVariable
 };
 */
 
-template <typename T>
-class InputVariableJetContext : public InputVariable
-{
+
+template <typename T> class InputVariableJetContext : public InputVariable {
     public:
         InputVariableJetContext(const std::string& name) : InputVariable(name) {}
         // should be T
         virtual float getValue(const xAOD::Jet&, const JetContext& event) const { 
-            return event.isAvailable<T>(m_name) ? event.getValue<T>(m_name) : ERRORVALUE; 
+            return event.isAvailable(m_name) ? event.getValue<T>(m_name) : ERRORVALUE; 
         }
 };
 
