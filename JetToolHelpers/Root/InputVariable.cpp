@@ -3,7 +3,7 @@
 std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& name, const std::string& type, const bool isJetVar)
 {
     if(name == "" || type == "")
-        return nullptr;
+        return nullptr; // we should throw exceptions instead of returning nullptrs no ? 
 
     if (isJetVar) {
         // Variables stored on the xAOD::Jet

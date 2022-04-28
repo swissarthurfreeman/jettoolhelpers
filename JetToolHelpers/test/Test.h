@@ -15,7 +15,7 @@ __LINE__ is the current line
 __PRETTY_FUNCTION__ is the current function
 */
 namespace Test {
-    #define ASSERT_EQUAL( x, y )                                   \
+    #define ASSERT_EQUAL( x, y )                                       \
     {                                                                   \
     if( ( x ) != ( y ) )                                                \
     {                                                                   \

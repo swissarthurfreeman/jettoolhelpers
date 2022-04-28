@@ -84,6 +84,10 @@ class InputVariableAbsRapidity : public InputVariable
         virtual float getValue(const xAOD::Jet& jet, const JetContext&) const { return std::abs(jet.rapidity()); }
 };
 
+/*simple template to cover case where a variable is a jet variable but not part of the 
+predefined attributes (eta, rapidity, E, Et, pt...) we suppose it's a generic one and store
+it in ConstAccessor<T>, const accessor means the reference returned is constant therefore unmodifiable,
+see https://stackoverflow.com/questions/26917441/accessor-functions-in-class-c*/
 /*
 template <typename T>
 class InputVariableAttribute : public InputVariable
@@ -96,7 +100,6 @@ class InputVariableAttribute : public InputVariable
         SG::AuxElement::ConstAccessor<T> m_acc;
 };
 */
-
 
 template <typename T> class InputVariableJetContext : public InputVariable {
     public:

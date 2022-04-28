@@ -45,7 +45,6 @@ class JetContext {
 
         static constexpr int ERRORVALUE {-999}; // set at compile time.
     private:
-        // it would probably make more sense to replace all templates by std::variant<int, float>...
         std::unordered_map<std::string, std::variant<int, float>> dict_;
 };
 
