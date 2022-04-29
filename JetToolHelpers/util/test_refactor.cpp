@@ -5,19 +5,15 @@
 
 int main(int argc, char* argv[])
 {
-    if (argc != 4)
-    {
-        std::cout << "USAGE: " << argv[0] << " <ROOT file name> <1D histogram name> <2D histogram name>\n";
-        return 1;
-    }
-    std::string fileName {argv[1]};
-    std::string histName1D {argv[2]};
-    std::string histName2D {argv[3]};
-
+    std::string fileName{"/cvmfs/atlas.cern.ch/repo/sw/database/GroupData/JetUncertainties/CalibArea-08/rel21/Summer2019/R4_AllComponents.root"};
+    std::string histName1D{"EffectiveNP_1_AntiKt4EMPFlow"};
+    std::string histName2D{"EtaIntercalibration_Modelling_AntiKt4EMPFlow"};
     std::unique_ptr<InputVariable> a = InputVariable::createVariable("pt", "float", true);
     JetContext jc;
     xAOD::Jet jet{30,3.5,0,0};
     double value{0};
+    std::cout << jet.pt() << std::endl;
+    IInputBase* myH1D = new HistoInput("Test HistoGram", fileName, histName1D, "pt", "float", true);
     
     // should return 30
     // std::cout << a->getValue(jet, jc) << std::endl;

@@ -5,7 +5,6 @@
 #define EIGEN_DONT_VECTORIZE
 #endif // __GCCXML__
 
-#include "JetToolHelpers/HistoInput1D.h"
-#include "JetToolHelpers/HistoInput2D.h"
+#include "JetToolHelpers/HistoInput.h"
 
 #endif

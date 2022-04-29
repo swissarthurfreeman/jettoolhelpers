@@ -17,7 +17,6 @@ bool HistoInput::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::stri
     // Open the input file
     TFile inputFile(m_fileName.c_str(), "READ");
     if (inputFile.IsZombie()) {
-        std::cout << std::filesystem::current_path() << std::endl;
         std::cout << "Failed to open the file to read: " << m_fileName << "\n";
         inputFile.Close();
         return false;

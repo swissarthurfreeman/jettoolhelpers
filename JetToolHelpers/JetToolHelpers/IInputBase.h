@@ -3,7 +3,7 @@
 
 #include <string>
 
-// #include "AsgTools/IAsgTool.h" // For definition of bool
+#include "AsgTools/IAsgTool.h" // For definition of bool
 
 #include "JetToolHelpers/Jet.h"
 #include "JetToolHelpers/JetContext.h"
