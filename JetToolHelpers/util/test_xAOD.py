@@ -9,13 +9,13 @@ if len(sys.argv) != 1:
 histFile = "/cvmfs/atlas.cern.ch/repo/sw/database/GroupData/JetUncertainties/CalibArea-08/rel21/Summer2019/R4_AllComponents.root"
 histName1D = "EffectiveNP_1_AntiKt4EMPFlow"
 histName2D = "EtaIntercalibration_Modelling_AntiKt4EMPFlow"
-myH1D = ROOT.HistoInput1D("myH1D",histFile,histName1D,"pt","float",False)
-myH2D = ROOT.HistoInput2D("myH2D",histFile,histName2D,"pt",    "float",False,
-                                                      "abseta","float",False)
+#myH1D = ROOT.HistoInput1D("myH1D",histFile,histName1D,"pt","float",False)
+#myH2D = ROOT.HistoInput2D("myH2D",histFile,histName2D,"pt",    "float",False,"abseta","float",False)
 #myH1D = ROOT.HistoInput1D("myH1D",histFile,histName1D,"pt","float",True)
 #myH2D = ROOT.HistoInput2D("myH2D",histFile,histName2D,"pt",    "float",True,
 #                                                      "abseta","float",True)
 
+"""
 if not myH1D.initialize():
     print("Failed to initialise HistoInput1D of name",histName1D)
     sys.exit(1)
@@ -24,7 +24,7 @@ elif not myH2D.initialize():
     sys.exit(1)
 else:
     print("Successfully initialised both 1D and 2D test histograms")
-
+"""
 
 #event = ROOT.xAOD.TEvent()
 #store = ROOT.xAOD.TStore()

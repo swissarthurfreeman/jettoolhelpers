@@ -1,4 +1,4 @@
-#ifndef XAOD_JET_H
+/*#ifndef XAOD_JET_H
 #define XAOD_JET_H
 
 // purely a mock class mimicking what there is in the xAOD namespace
@@ -43,3 +43,4 @@ namespace xAOD {
 }
 
 #endif
+*/

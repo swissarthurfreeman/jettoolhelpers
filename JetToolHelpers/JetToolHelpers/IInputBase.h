@@ -4,8 +4,8 @@
 #include <string>
 
 #include "AsgTools/IAsgTool.h" // For definition of bool
-
-#include "JetToolHelpers/Jet.h"
+#include "xAODJet/Jet.h"
+//#include "JetToolHelpers/Jet.h"
 #include "JetToolHelpers/JetContext.h"
 
 class IInputBase
@@ -18,7 +18,7 @@ class IInputBase
         virtual bool finalize() = 0;
 
         virtual bool   getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const = 0;
-        double getValue(const xAOD::Jet& jet, const JetContext& event) const
+        virtual double getValue(const xAOD::Jet& jet, const JetContext& event) const
         {
             double returnVal {0};
             if (!getValue(jet,event,returnVal))

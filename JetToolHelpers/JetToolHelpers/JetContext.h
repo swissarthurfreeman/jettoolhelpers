@@ -34,6 +34,7 @@ class JetContext {
         template <typename T> void getValue(const std::string& name, T& value) const;
         template <typename T> T getValue(const std::string& name) const;
 
+        
         /**
          * @brief Return true if dictionary has an entry with key name.
          * @param name the key of the dictionary. 
@@ -62,15 +63,18 @@ template <typename T> T JetContext::getValue(const std::string& name) const {
 }
 
 template <typename T> bool JetContext::setValue(const std::string& name, const T value, bool allowOverwrite) {
-    if constexpr (!std::is_same<T, int>::value && !std::is_same<T, float>::value) {
-        throw std::invalid_argument("Unsupported type");
-    } else {
-        if(name == "" || ( !allowOverwrite && isAvailable(name))) 
-            return false;
+    if(name == "" || ( !allowOverwrite && isAvailable(name))) 
+        return false;
         
+    if constexpr (!std::is_same<T, int>::value && !std::is_same<T, float>::value) {
+        if constexpr ( std::is_same<T, double>::value) // if instantiated with double cast to float. 
+            dict_.insert_or_assign(name, (float) value);
+        else
+            throw std::invalid_argument("Unsupported type provided, please use integers or doubles.");
+    } else {
         dict_.insert_or_assign(name, value);         // insert returns pair with iterator and return code
-        return true;                                 // if true => insertion, if false => assignement.
     }
+    return true;                                     // if true => insertion, if false => assignement.
 }
 
 #endif

@@ -15,7 +15,7 @@
 #include <string>
 #include <memory>
 #include "TH1.h"
-#include "Jet.h"
+
 #include "JetContext.h"
 #include "InputVariable.h"
 #include "IInputBase.h"

@@ -25,11 +25,11 @@ int main() {
 
     std::default_random_engine generator;
     std::uniform_real_distribution<double> distribution(-MAX_DOUBLE, MAX_DOUBLE);
-    
+    /*
     for(int i=0; i < 1000; i++) {
         xAOD::Jet jet{distribution(generator), distribution(generator), distribution(generator), distribution(generator)};
         ASSERT_THROW(myH1D.getValue(jet, jc, value) == true);
-    }
+    }*/
     
     
 

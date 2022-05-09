@@ -5,7 +5,8 @@
 #include <cmath>
 #include <memory>
 
-#include "JetToolHelpers/Jet.h"
+//#include "JetToolHelpers/Jet.h"
+#include "xAODJet/Jet.h"
 #include "JetToolHelpers/JetContext.h"
 
 // #include "AthContainers/AuxElement.h"
