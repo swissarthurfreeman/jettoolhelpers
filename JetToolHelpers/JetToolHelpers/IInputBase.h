@@ -18,7 +18,7 @@ class IInputBase
         virtual bool finalize() = 0;
 
         virtual bool   getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const = 0;
-        virtual double getValue(const xAOD::Jet& jet, const JetContext& event) const
+        double getValue(const xAOD::Jet& jet, const JetContext& event) const
         {
             double returnVal {0};
             if (!getValue(jet,event,returnVal))

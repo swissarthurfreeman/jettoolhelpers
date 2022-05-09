@@ -69,22 +69,24 @@ class HistoInput : public IInputBase {
             const std::string& varName3, const std::string& varType3, const bool isJetVar3
         );
         virtual ~HistoInput() {}
-
         virtual bool getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const;
+
         virtual bool initialize();
         virtual bool finalize();
 
         std::string getFileName() const { return m_fileName; }
         std::string getHistName() const { return m_histName; }
     private:
-        const Int_t nDims;
-
         const std::string name; 
+        const int nDims;
+        
         const std::string m_fileName;
         const std::string m_histName;
 
         std::unique_ptr<TH1> m_hist;    // actual histogram from the which getValue() is done.
 
+        // TODO : Investigate possibility of refactoring this
+        // to a vector of input variables.
         const std::string m_varName1;
         const std::string m_varType1;
         const bool m_isJetVar1;
