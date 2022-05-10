@@ -36,7 +36,7 @@ class JetContext {
         
         /**
          * @brief Return true if dictionary has an entry with key name.
-         * @param name the key of the dictionary. 
+         * @param name the key of the dictionary.
          * @return true/false denoting wether the key is there or not. 
          */
         bool isAvailable(const std::string& name) const {
