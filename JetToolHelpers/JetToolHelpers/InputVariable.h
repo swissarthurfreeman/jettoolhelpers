@@ -5,9 +5,14 @@
 #include <cmath>
 #include <memory>
 
-//#include "JetToolHelpers/Jet.h"
-#include "xAODJet/Jet.h"
+//#include "Config.h"
+
 #include "JetToolHelpers/JetContext.h"
+#ifdef USE_ATHENA
+    #include "xAODJet/Jet.h"
+#else
+    #include "JetToolHelpers/Jet.h"
+#endif
 
 // #include "AthContainers/AuxElement.h"
 class InputVariable {

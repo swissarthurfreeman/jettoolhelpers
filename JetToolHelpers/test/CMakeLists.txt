@@ -1,3 +1,7 @@
+if(USE_ATHENA)
+    add_compile_definitions(USE_ATHENA=yes)
+endif()
+
 add_executable(myTest "./R4ComponentsTest.cpp")
 add_executable(JetContextUnitTest "./JetContextUnitTest.cpp")
 add_executable(InputVariableUnitTest "./InputVariableUnitTest.cpp")

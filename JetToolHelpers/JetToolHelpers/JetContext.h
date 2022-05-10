@@ -33,7 +33,6 @@ class JetContext {
          */
         template <typename T> void getValue(const std::string& name, T& value) const;
         template <typename T> T getValue(const std::string& name) const;
-
         
         /**
          * @brief Return true if dictionary has an entry with key name.
