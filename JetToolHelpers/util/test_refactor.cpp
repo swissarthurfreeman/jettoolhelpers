@@ -12,7 +12,7 @@ int main()
     JetContext jc;
     xAOD::Jet jet;
     double value{0};
-    std::cout << jet.pt() << std::endl;
+    //std::cout << jet.pt() << std::endl;
     //IInputBase* myH1D = new HistoInput("Test HistoGram", fileName, histName1D, "pt", "float", true);
 
     // should return 30

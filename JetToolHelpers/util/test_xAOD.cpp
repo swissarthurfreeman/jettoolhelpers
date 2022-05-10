@@ -44,41 +44,12 @@ int main (int argc, char* argv[])
     const std::string histFile {"/cvmfs/atlas.cern.ch/repo/sw/database/GroupData/JetUncertainties/CalibArea-08/rel21/Summer2019/R4_AllComponents.root"};
     const std::string histName1D {"EffectiveNP_1_AntiKt4EMPFlow"};
     const std::string histName2D {"EtaIntercalibration_Modelling_AntiKt4EMPFlow"};
-    std::unique_ptr<IInputBase> myH1D = std::make_unique<HistoInput1D>(
-        "myH1D",
-        histFile,
-        histName1D,
-        "pt",
-        "float",
-        true
-    );
+    std::unique_ptr<IInputBase> myH1D = std::make_unique<HistoInput1D>("myH1D", histFile, histName1D, "pt", "float", true);
     // no object slicing happens here because we're using pointers.
-    std::unique_ptr<IInputBase> myH2D = std::make_unique<HistoInput2D>(
-        "myH2D",
-        histFile,
-        histName2D,
-        "pt",
-        "float",
-        true,
-        "abseta",
-        "float",
-        true
-    );
+    std::unique_ptr<IInputBase> myH2D = std::make_unique<HistoInput2D>("myH2D", histFile, histName2D, "pt", "float", true, "abseta", "float", true);
 
-    if (!myH1D->initialize())
-    {
-        std::cout << "Failed to initialise HistoInput1D of name " << histName1D << "\n";
-        return 1;
-    }
-    else if (!myH2D->initialize())
-    {
-        std::cout << "Failed to initialise HistoInput2D of name " << histName2D << "\n";
-        return 1;
-    }
-    else
-    {
-        std::cout << "Successfully initialized both 1D and 2D test histograms\n";
-    }
+    if(myH1D->initialize() != 1 || myH2D->initialize() != 1)
+        exit(1);
 
     // Parse the arguments, first argument is number of events to read from provided root file.
     Long64_t numEvents = atoll(argv[1]);
@@ -89,21 +60,14 @@ int main (int argc, char* argv[])
     
     // adds the file to the chain, this is how reading a root file of events is done
     chain->AddFile(argv[2]);
-    if (event.readFrom(chain).isFailure())
-    {
+    if (event.readFrom(chain).isFailure()) {
         printf("Failed to read from the input file\n");
         exit(1);
     }
 
     // Check the number of events, if number is larger than the available ones, cap...
-    if (numEvents < 0)
-        numEvents = event.getEntries();
-    else if (numEvents > event.getEntries())
-    {
-        printf("Asked for %lld events, but only %lld are available, capping to number of available events\n",numEvents,event.getEntries());
-        numEvents = event.getEntries();
-    }
-    printf("Processing %lld events...\n",numEvents);
+    numEvents = event.getEntries();
+    printf("Processing %lld events...\n", numEvents);
 
     // Loop over the events
     for (Long64_t iEntry = 0; iEntry < numEvents; ++iEntry)
@@ -166,7 +130,6 @@ int main (int argc, char* argv[])
         // End of the event, clear the store to free memory
         store.clear();
     }
-
     // Done!
 
     return 0;

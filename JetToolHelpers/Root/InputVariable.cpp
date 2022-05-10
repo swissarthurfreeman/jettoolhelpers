@@ -9,14 +9,14 @@ InputVariable::InputVariable(
     customFunction = func;
 }
 
+// TODO : Confer with steven about throwing exceptions instead of returning nullptrs. 
 std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& name, const std::string& type, const bool isJetVar)
 {
     if(name == "" || type == "")
-        return nullptr; // we should throw exceptions instead of returning nullptrs no ? 
+        return nullptr; 
 
     if (isJetVar) {
         // Variables stored on the xAOD::Jet
-        
         // First, check for pre-defined attributes (not stored as generic auxdata)
         if (name == "e")
             return std::make_unique<InputVariable>(name,

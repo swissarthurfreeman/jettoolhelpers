@@ -20,7 +20,14 @@
  */
 class InputVariable {
     public:
-        // static creation method (map config strings to a given instance)
+        /**
+         * @brief Create a Variable object by mapping config strings to a given instance
+         * 
+         * @param name 
+         * @param type 
+         * @param isJetVar 
+         * @return std::unique_ptr<InputVariable> 
+         */
         static std::unique_ptr<InputVariable> createVariable(
             const std::string& name, 
             const std::string& type, 
@@ -29,6 +36,7 @@ class InputVariable {
 
         // Constructors
         InputVariable(const std::string& name): m_name{name}, m_scale{1.} {}
+        
         /**
          * @brief Construct a new Input Variable with a custom function for returning
          * a value of Jet correctly. 

@@ -10,7 +10,6 @@ add_compile_definitions(USE_ATHENA=yes)
 # cmake -D USE_ATHENA=yes
 # External dependencies:
 find_package( ROOT COMPONENTS Core Tree MathCore Hist RIO Graf Gpad )
-list(APPEND ${ROOT_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR}/Config.h)
 
 # Declare the package name:
 if( USE_ATHENA )

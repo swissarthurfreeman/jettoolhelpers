@@ -16,8 +16,10 @@ target_include_directories(JetContextUnitTest PUBLIC ".")
 target_link_libraries(InputVariableUnitTest JetToolHelpersLib)
 target_include_directories(InputVariableUnitTest PUBLIC ".")
 
-# copy file to build/test directory.
+# copy test files to build/test directory.
 configure_file(R4_AllComponents.root ${CMAKE_CURRENT_BINARY_DIR}/R4_AllComponents.root COPYONLY)
+configure_file(R4_AllComponents.root ${CMAKE_CURRENT_BINARY_DIR}/testfile.root COPYONLY)
+
 add_test(firstTest myTest)
 add_test(JetContextUnitTest JetContextUnitTest)
 add_test(InputVariableUnitTest InputVariableUnitTest)
