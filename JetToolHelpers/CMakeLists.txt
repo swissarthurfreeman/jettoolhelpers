@@ -5,7 +5,7 @@ project(JetToolHelpers)
 set(CMAKE_CXX_FLAGS "-pthread -std=c++17 -m64")
 add_compile_options("-Wall")
 
-set(SOURCES 
+set(SOURCES
    ./Root/HistoInput.Static.cpp
    ./Root/HistoInput.Tool.cpp
    ./Root/InputVariable.cpp)
