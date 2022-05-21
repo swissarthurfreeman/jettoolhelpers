@@ -8,18 +8,17 @@
  * @copyright Copyright (C) 2002-2022 CERN for the benefit of the ATLAS collaboration
  * 
  */
-
 #ifndef JET_HISTOINPUT_H
 #define JET_HISTOINPUT_H
 
 #include <string>
 #include <memory>
 #include <vector>
-#include "TH1.h"
+#include "JetToolHelpers/Mock.h"
 
-#include "JetContext.h"
-#include "InputVariable.h"
-#include "IInputBase.h"
+#include "JetToolHelpers/JetContext.h"
+#include "JetToolHelpers/InputVariable.h"
+#include "JetToolHelpers/IInputBase.h"
 
 class HistoInput : public IInputBase {
     public:         

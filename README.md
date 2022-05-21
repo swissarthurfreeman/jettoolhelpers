@@ -1,12 +1,10 @@
-# JetToolHelpers
+# JetToolHelpers Initialization List Prototype
+
+This prototype mocks the entirety of root and only requires a local c++17
+installation. 
 
 
 ## Notes
-
-// constexpr sur la dimension ? :9
-// types fantômes ? Comment ça s'appelle en C++
-// rajouter la dimension en paramètre de template
-// macro benchmarking à faire
 
 ## Reading List
 

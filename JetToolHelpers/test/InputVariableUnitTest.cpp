@@ -1,39 +1,10 @@
+#include <memory>
 #include "JetToolHelpers/InputVariable.h"
-#include "JetToolHelpers/HistoInput.h"
-
 #include "test/Test.h"
-#include "TChain.h"
 
-#ifndef USE_ATHENA
-    #include "JetToolHelpers/Jet.h"
-#else
-    #include "xAODJet/Jet.h"
-    #include "AthContainers/AuxElement.h"
-    #include "xAODRootAccess/TEvent.h"
-    #include "xAODJet/JetContainer.h"
-    #include "xAODEventInfo/EventInfo.h"
-    #include "xAODJet/Jet.h"
-    #include "xAODJet/JetContainer.h"
-    #include "xAODTracking/Vertex.h"
-    #include "xAODTracking/VertexContainer.h"
+void testClassicalSupportedAttributes() {
+    TEST_BEGIN("InputVariable Classical Attributes Support");
 
-    #include "xAODRootAccess/Init.h"
-    #include "xAODRootAccess/TEvent.h"
-    #include "xAODRootAccess/TStore.h"
-#endif
-
-/**
- * @brief Tests specification of InputVariable.
- * STEVEN : We should refactor to throw invalid_argument exception
- * in case of non supported arguments no ? 
- * What we test for : 
- * - Creating supported variables (jetVar or not jetVar).
- * - Creating unsupported variables (jetVar or not).
- * - getting var name, getting scale, setting scale.
- * - getting GeV setting GeV...
- */
-
-void testSupportedNames() {
     std::unique_ptr<InputVariable> c = InputVariable::createVariable("e", "float", true);
     ASSERT_THROW(c->getName() == "e");
     
@@ -64,67 +35,75 @@ void testSupportedNames() {
     c = InputVariable::createVariable("y", "double", true);
     ASSERT_THROW(c->getName() == "y");
 
-    std::unique_ptr<InputVariable> a = InputVariable::createVariable("random", "float", true);
-    ASSERT_THROW(a == nullptr);
-
-    std::unique_ptr<InputVariable> b = InputVariable::createVariable("e", "double", false);
-    ASSERT_THROW(b == nullptr);
+    TEST_END("InputVariable Classical Attributes Support");
 }
 
-void testSupportedFunctions() {
-    xAOD::TEvent event;
-
-    // Hard-code the ROOT histogram file for now (for our tool tests)
-    const std::string histFile{"./R4_AllComponents.root"};
-    const std::string histName1D{"EffectiveNP_1_AntiKt4EMPFlow"};
-    const std::string histName2D{"EtaIntercalibration_Modelling_AntiKt4EMPFlow"};
-    std::unique_ptr<HistoInput> myHist = std::make_unique<HistoInput>("myH1D", histFile, histName1D, "pt", "float", true);
-    myHist->initialize();
-
-    TChain* chain = new TChain("CollectionTree");
+void testSupportedJetContextAttributes() {
+    TEST_BEGIN("InputVariable JetContext Attributes Support");
     
-    chain->AddFile("./testfile.root");
+    // testing JetContext InputVariables.
+    std::unique_ptr<InputVariable> b = InputVariable::createVariable("randomSupportedJetContextVar", "float", false);
+    ASSERT_THROW(b->getName() == "randomSupportedJetContextVar");
 
-    // Get the event
-    event.getEntry(0);
+    b = InputVariable::createVariable("randomSupportedJetContextVar", "int", false);
+    ASSERT_THROW(b->getName() == "randomSupportedJetContextVar");
+
+    b = InputVariable::createVariable("randomUnsupportedJetContextVar", "double", false);
+    ASSERT_THROW(b == nullptr);
+
+    TEST_END("InputVariable JetContext Attributes Support");
+}
+
+void testArbitrarySupportedJetAttributes() {
+    // these tests try to access arbitrary jet data, this is done using ATLAS's AuxElement interface
+    // we do not test that interface, we test ours.
+    // use different names because AuxElement is typesafe
+    TEST_BEGIN("InputVariable Attribute Support");
     
-    // Get EventInfo and metadata
-    const xAOD::EventInfo* eInfo = nullptr;
-    if(event.retrieve(eInfo,"EventInfo").isFailure() || !eInfo) {
-        printf("Failed to retrieve EventInfo\n");
-        exit(1);
-    }
+    std::unique_ptr<InputVariable> a = InputVariable::createVariable("randomSupportedJetVar", "float", true);
+    ASSERT_THROW(a->getName() == "randomSupportedJetVar");
 
-    // Get jets
-    const xAOD::JetContainer* jets = nullptr;
-    if (event.retrieve(jets, "AntiKt4EMPFlowJets").isFailure() || !jets) {
-        printf("Failed to retreive jets for event %lld (entry %lld)\n",eInfo->eventNumber(),0);
-        exit(1);
-    }
+    a = InputVariable::createVariable("anotherRandomSupportedJetVar", "int", true);
+    ASSERT_THROW(a->getName() == "anotherRandomSupportedJetVar"); 
 
-    // Make an empty JetContext object
+    TEST_END("InputVariable Arbitrary Attribute Support");
+}
+
+void testJetContextAttributeGetValue() {
+    TEST_BEGIN("JetContext Attribute GetValue");
+
+    std::unique_ptr<InputVariable> b = InputVariable::createVariable("floatAttribute", "float", false);
+    
+    xAOD::Jet jet;
     JetContext jc;
 
-    // Print some info
-    printf(", leading jet (pt,eta,phi,m) = (%.1f,%.1f,%.1f,%.1f)\n",jets->at(0)->pt()/1.e3,jets->at(0)->eta(),jets->at(0)->phi(),jets->at(0)->m()/1.e3);
+    ASSERT_EQUAL(jc.setValue("someRandomAttribute", 12.04), true);
+    ASSERT_EQUAL(jc.setValue("floatAttribute", (float) 12.04), true);
+
+    ASSERT_EQUAL(b->getValue(jet, jc), 12.04f);
+
+    b = InputVariable::createVariable("anotherJetContextAttribute", "int", false);
     
-    double myVal{0};
-    myHist->getValue(*jets->at(0), jc, myVal);
-    printf("Histogram values are %f (H1D)\n", myVal);
+    ASSERT_EQUAL(jc.setValue("anotherJetContextAttribute", 12), true);
+    ASSERT_EQUAL(b->getValue(jet, jc), 12);
+
+    b = InputVariable::createVariable("randomAttributeNotInJetContext", "int", false);
+    ASSERT_EQUAL(b->getValue(jet, jc), -999);
+
+    b = InputVariable::createVariable("randomAttributeNotInJetContext", "float", false);
+    ASSERT_EQUAL(b->getValue(jet, jc), -999);
+
+    TEST_END("JetContext Attribute GetValue");
 }
 
 int main() {
     TEST_BEGIN("InputVariable Unit Test");
 
-    testSupportedNames();
+    testClassicalSupportedAttributes();
+    testArbitrarySupportedJetAttributes();
+    testSupportedJetContextAttributes();
+    testJetContextAttributeGetValue();
     
-    std::unique_ptr<InputVariable> c = InputVariable::createVariable("e", "float", true);
-    
-    // read local histogram file.
-    HistoInput Histo1D = HistoInput("Histo1D", "./R4_AllComponents.root", "EffectiveNP_1_AntiKt4EMPFlow", "pt", "float", true);
-    Histo1D.initialize();
-    testSupportedFunctions();
-
     TEST_END("InputVariable Unit Test");
     return 0;
 }

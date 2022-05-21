@@ -11,7 +11,7 @@
 #include <iostream>
 #include <filesystem>
 #include "JetToolHelpers/HistoInput.h"
-#include "TFile.h"
+#include "JetToolHelpers/Mock.h"
 
 bool HistoInput::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string m_fileName, const std::string m_histName) {
     // Open the input file
@@ -31,7 +31,9 @@ bool HistoInput::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::stri
     }
 
     // Confirm that the input object is a histogram
+    std::cout << inputObject << std::endl;
     m_hist = std::unique_ptr<TH1>(dynamic_cast<TH1*>(inputObject));
+    std::cout << m_hist.get() << std::endl;
     if (!m_hist) {
         std::cout << "Failed to convert the retrieved input to a histogram \"" << m_histName << "\" from the file: " << m_fileName << "\n";
         inputFile.Close();

@@ -7,12 +7,7 @@
 #include <functional>
 
 #include "JetToolHelpers/JetContext.h"
-#ifdef USE_ATHENA
-    #include "xAODJet/Jet.h"
-    #include "AthContainers/AuxElement.h"
-#else
-    #include "JetToolHelpers/Jet.h"
-#endif
+#include "JetToolHelpers/Mock.h"
 
 /**
  * @brief 

@@ -2,10 +2,9 @@
 
 #include "JetToolHelpers/HistoInput.h"
 #include "JetToolHelpers/InputVariable.h"
-#include "TH1.h"
+#include "JetToolHelpers/Mock.h"
 
 int main() {
-    TH1 * a;
     std::unique_ptr<InputVariable> i1 = InputVariable::createVariable("pt", "float", true);
     std::unique_ptr<InputVariable> i2 = InputVariable::createVariable("et", "float", true);
     
@@ -14,5 +13,9 @@ int main() {
 
     HistoInput histogram = HistoInput("Test histogram", fileName, histName2D, {*i1, *i2});
     histogram.initialize();
+
+    xAOD::Jet a(0.54, 0.5, 0.53, 0.44);
+    std::cout << a.e() << std::endl;
+
     return 0;
 }

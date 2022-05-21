@@ -2,16 +2,9 @@
 #define JET_IINPUTBASE_H
 
 #include <string>
+
 #include "JetToolHelpers/JetContext.h"
-
-//#include "Config.h"
-
-#ifdef USE_ATHENA
-    #include "AsgTools/IAsgTool.h" // For definition of bool
-    #include "xAODJet/Jet.h"
-#else
-    #include "JetToolHelpers/Jet.h"
-#endif
+#include "JetToolHelpers/Mock.h"
 
 class IInputBase
 {

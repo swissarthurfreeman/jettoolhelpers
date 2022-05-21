@@ -1,8 +1,3 @@
-if(USE_ATHENA)
-    add_compile_definitions(USE_ATHENA=yes)
-endif()
-
-add_executable(myTest "./R4ComponentsTest.cpp")
 add_executable(JetContextUnitTest "./JetContextUnitTest.cpp")
 add_executable(InputVariableUnitTest "./InputVariableUnitTest.cpp")
 
@@ -15,10 +10,6 @@ target_include_directories(JetContextUnitTest PUBLIC ".")
 
 target_link_libraries(InputVariableUnitTest JetToolHelpersLib)
 target_include_directories(InputVariableUnitTest PUBLIC ".")
-
-# copy test files to build/test directory.
-configure_file(R4_AllComponents.root ${CMAKE_CURRENT_BINARY_DIR}/R4_AllComponents.root COPYONLY)
-configure_file(R4_AllComponents.root ${CMAKE_CURRENT_BINARY_DIR}/testfile.root COPYONLY)
 
 add_test(firstTest myTest)
 add_test(JetContextUnitTest JetContextUnitTest)
