@@ -4,7 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/gordon/Root/install/include"
+                "/home/gordon/Documents/gordon_bsci/Sem6/BProject/root/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

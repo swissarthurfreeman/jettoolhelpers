@@ -60,20 +60,21 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
                 }); 
 
         // Not a pre-defined attribute, assume it is a generic attribute
-        /*
+        #ifdef USE_ATHENA
         if (type == "float")
             return std::make_unique<InputVariableAttribute<float>>(name);
         
         if (type == "int")
             return std::make_unique<InputVariableAttribute<int>>(name);
-        */        
+        #endif
         // Unsupported type for a generic attribute
         return nullptr;
     } else {
         // Variables not stored on the xAOD::Jet
         // Here, we need only to check the type of the variable
         // The variables are then stored in string-indexed maps
-        /*if(type == "int")
+        /*
+        if(type == "int")
             return std::make_unique<InputVariable>(name,
                 [name](const xAOD::Jet&, const JetContext& event) {
                     event.isAvailable(name) ? event.getValue<int>(name) : ERRORVALUE;
@@ -82,7 +83,7 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
         if(type == "float")
             return std::make_unique<InputVariable>(name,
                 [name](const xAOD::Jet&, const JetContext& event) {
-                    event.isAvailable(name) ? event.getValue<int>(name) : ERRORVALUE;
+                    event.isAvailable(name) ? event.getValue<float>(name) : ERRORVALUE;
                 });
         */
         // Unsupported type for a non-jet-level variable

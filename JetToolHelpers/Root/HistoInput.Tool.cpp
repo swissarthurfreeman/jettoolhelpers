@@ -45,7 +45,7 @@ bool HistoInput::getValue(const xAOD::Jet& jet, const JetContext& event, double&
 
     std::vector<double> values{0, 0, 0};
     
-    for(int i=0; i < in_vars_.size(); i++)
+    for(int i=0; i < (int) in_vars_.size(); i++)
         values.at(i) = in_vars_.at(i).getValue(jet, event);
 
     // *a if a is unique_ptr returns a reference to the managed object

@@ -1,7 +1,7 @@
 /**
  * @file Mock.h
- * @brief Contains all mock implementations of ROOT and 
- * Athena required to run JetToolHelpers.
+ * @brief Contains all mock implementations of  Athena 
+ * required to run JetToolHelpers.
  */
 #include <string>
 
@@ -45,45 +45,5 @@ namespace xAOD {
             double m_mass;
     };
 }
-
-#endif
-
-#ifndef ROOT_TH1
-#define ROOT_TH1
-
-class TAxis {
-    public:
-        int GetNbins() const { return 10; }
-        int GetBinWidth(double i) const { return i; }
-        int GetBinLowEdge(int i) const { return i; }
-        int GetBinWidth(int i) const { return i; }
-        int FindFixBin(int i) const { return i; }
-};
-
-class TObject {
-    public:
-        TObject() {};
-        virtual void doNothing() {}
-};
-
-class TH1: public TObject {
-    public:
-        TH1(TObject*): TObject() {}
-        double Interpolate(double X) const { return 0; }
-        double Interpolate(double X, double Y) const { return 0; }
-        double Interpolate(double X, double Y, double Z) const { return 0; }
-        void SetDirectory(double i) {}
-        int GetDimension() const { return 2; }
-        virtual void doNothing() {}
-        TObject * get(const char * str) { return this; }
-};
-
-class TFile {
-    public:
-        TFile(std::string, std::string) {}
-        bool IsZombie() { return false; }
-        void Close() {}
-        TObject * Get(const char * str) { return new TH1(new TObject); }
-};
 
 #endif

@@ -38,7 +38,10 @@ class InputVariable {
          * @param name 
          * @param func 
          */
-        InputVariable(const std::string& name, std::function<float(const xAOD::Jet& jet, const JetContext& jc)> func);
+        InputVariable(
+            const std::string& name, 
+            std::function<float(const xAOD::Jet& jet, const JetContext& jc)> func
+        );
         std::function<float(const xAOD::Jet& jet, const JetContext& jc)> customFunction;
 
         // Core method for returning the value generically
