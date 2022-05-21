@@ -1,19 +1,20 @@
 #include "TFile.h"
 #include "TChain.h"
 
-#include "xAODEventInfo/EventInfo.h"
-#include "xAODJet/Jet.h"
-#include "xAODJet/JetContainer.h"
-#include "xAODTracking/Vertex.h"
-#include "xAODTracking/VertexContainer.h"
+#ifdef USE_ATHENA
+    #include "xAODEventInfo/EventInfo.h"
+    #include "xAODJet/Jet.h"
+    #include "xAODJet/JetContainer.h"
+    #include "xAODTracking/Vertex.h"
+    #include "xAODTracking/VertexContainer.h"
 
-#include "xAODRootAccess/Init.h"
-#include "xAODRootAccess/TEvent.h"
-#include "xAODRootAccess/TStore.h"
+    #include "xAODRootAccess/Init.h"
+    #include "xAODRootAccess/TEvent.h"
+    #include "xAODRootAccess/TStore.h"
 
-#include "JetToolHelpers/InputVariable.h"
-#include "JetToolHelpers/HistoInput1D.h"
-#include "JetToolHelpers/HistoInput2D.h"
+    #include "JetToolHelpers/InputVariable.h"
+    #include "JetToolHelpers/HistoInput1D.h"
+    #include "JetToolHelpers/HistoInput2D.h"
 
 int main (int argc, char* argv[])
 {
@@ -134,4 +135,5 @@ int main (int argc, char* argv[])
 
     return 0;
 }
+#endif
 

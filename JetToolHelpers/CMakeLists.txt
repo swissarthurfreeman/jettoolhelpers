@@ -2,9 +2,9 @@
 # Package: SSS
 ################################################################################
 
-option(USE_ATHENA "Set to off if athena includes are being mocked" ON)
+option(USE_ATHENA "Set to off if athena includes are being mocked" OFF)
 
-# add_compile_options(-D USE_ATHENA=yes)
+# adds USE_ATHENA as compile definition accessible in source code.
 add_compile_definitions(USE_ATHENA=yes)
 
 # cmake -D USE_ATHENA=yes

@@ -1,4 +1,4 @@
-/*#ifndef XAOD_JET_H
+#ifndef XAOD_JET_H
 #define XAOD_JET_H
 
 // purely a mock class mimicking what there is in the xAOD namespace
@@ -19,7 +19,6 @@ class LocalP4 {
         double m_phi;
         double m_mass;
 };
-
 
 namespace xAOD {
     class Jet {
@@ -43,4 +42,3 @@ namespace xAOD {
 }
 
 #endif
-*/

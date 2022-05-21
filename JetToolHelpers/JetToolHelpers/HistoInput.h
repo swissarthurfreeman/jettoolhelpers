@@ -96,6 +96,12 @@ class HistoInput : public IInputBase {
         const std::string m_varType2;
         const bool m_isJetVar2;
         std::unique_ptr<InputVariable> m_inVar2;
+
+
+        const std::string m_varName3;
+        const std::string m_varType3;
+        const bool m_isJetVar3;
+        std::unique_ptr<InputVariable> m_inVar3;
 };
 
 #endif
