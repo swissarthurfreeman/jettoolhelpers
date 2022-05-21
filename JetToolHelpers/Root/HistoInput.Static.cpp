@@ -70,11 +70,18 @@ double HistoInput::readFromHisto(const TH1& m_hist, const std::vector<double>& v
     const int nDim {m_hist.GetDimension()};
     
     if (nDim == 1)
-        return m_hist.Interpolate(values.at(0));
+        return m_hist.Interpolate(enforceAxisRange(*m_hist.GetXaxis(), values.at(0)));
     else if (nDim == 2)
-        return m_hist.Interpolate(values.at(0), values.at(1));
+        return m_hist.Interpolate(
+            enforceAxisRange(*m_hist.GetXaxis(),values.at(0)), 
+            enforceAxisRange(*m_hist.GetYaxis(),values.at(1))
+        );
     else if (nDim == 3)
-        return m_hist.Interpolate(values.at(0), values.at(1), values.at(2));
+        return m_hist.Interpolate(
+            enforceAxisRange(*m_hist.GetXaxis(),values.at(0)), 
+            enforceAxisRange(*m_hist.GetYaxis(),values.at(1)), 
+            enforceAxisRange(*m_hist.GetZaxis(),values.at(2))
+        );
         
     throw std::runtime_error("Unexpected number of dimensions of histogram: " + nDim);
     return 0;
