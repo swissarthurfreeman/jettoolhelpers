@@ -1,109 +1,42 @@
-################################################################################
-# Package: SSS
-################################################################################
+cmake_minimum_required(VERSION 3.0)
 
-option(USE_ATHENA "Set to off if athena includes are being mocked" ON)
+project(JetToolHelpers)
 
-# add_compile_options(-D USE_ATHENA=yes)
-add_compile_definitions(USE_ATHENA=yes)
+set(CMAKE_CXX_FLAGS "-pthread -std=c++17 -m64")
+add_compile_options("-Wall")
 
-# cmake -D USE_ATHENA=yes
-# External dependencies:
-find_package( ROOT COMPONENTS Core Tree MathCore Hist RIO Graf Gpad )
+set(SOURCES
+./Root/HistoInput.Ctr.cpp
+   ./Root/HistoInput.Static.cpp
+   ./Root/HistoInput.Tool.cpp
+   ./Root/InputVariable.cpp)
 
-# Declare the package name:
-if( USE_ATHENA )
-   message("ATTEMPTING TO BUILD")
-   atlas_subdir( JetToolHelpers )
+set(HEADER_FILES
+   ./JetToolHelpers/HistoInput.h
+   ./JetToolHelpers/IInputBase.h
+   ./JetToolHelpers/InputVariable.h
+   ./JetToolHelpers/JetContext.h
+   ./JetToolHelpers/Mock.h)   # to mock root and athena-
 
-   set( extra_deps )
-   if( XAOD_STANDALONE )
-      set( extra_deps Control/xAODRootAccess )
-   else()
-      set( extra_deps GaudiKernel )
-   endif()
+set(ROOT_DIR /home/gordon/Documents/gordon_bsci/Sem6/BProject/root)
+find_package( ROOT COMPONENTS Core Tree MathCore Hist RIO Graf Gpad)   # configs ROOT_INCLUDE_DIRS and ROOT_LIBRARIES
 
-   # Declare the package's dependencies:
-   atlas_depends_on_subdirs(
-      PUBLIC
-      Control/AthToolSupport/AsgTools
-      Event/xAOD/xAODEventInfo
-      Event/xAOD/xAODJet
-      Event/xAOD/xAODTracking
-      PRIVATE
-      PhysicsAnalysis/POOLRootAccess
-      ${extra_deps} )
+#message(${ROOT_INCLUDE_DIRS})
+#message(${ROOT_LIBRARIES})
 
+message("Adding JetToolHelpers library")
+add_library(JetToolHelpers ${HEADER_FILES} ${SOURCES})
 
-   # Create atlas library Libraries in the package:
-   # and include all dependencies (root and atlas software stack)
-   atlas_add_library( JetToolHelpersLib
-      JetToolHelpers/*.h Root/*.cxx Root/*.cpp
-      PUBLIC_HEADERS JetToolHelpers    
-      INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-      LINK_LIBRARIES ${ROOT_LIBRARIES}
-      AsgTools xAODEventInfo xAODJet xAODTracking
-      PRIVATE_LINK_LIBRARIES xAODCore)
+message("Adding include directories")
+target_include_directories(JetToolHelpers PUBLIC "." PUBLIC ${ROOT_INCLUDE_DIRS})
 
-   if( NOT XAOD_STANDALONE )
-      atlas_add_component( JetToolHelpers
-         src/components/*.cxx
-         LINK_LIBRARIES JetToolHelpersLib )
-   endif()
+message("Linking...")
+target_link_libraries( JetToolHelpers PUBLIC ${PROJECT_BINARY_DIR} ${ROOT_LIBRARIES} )
 
-   atlas_add_dictionary( JetToolHelpersDict
-      JetToolHelpers/JetToolHelpersDict.h
-      JetToolHelpers/selection.xml
-      LINK_LIBRARIES JetToolHelpersLib )
+#enable_testing()
+#add_subdirectory(test)
+message("Configuring Benchmarking...")
+find_package(benchmark REQUIRED)
 
-   # Executable(s) in the package
-   if( XAOD_STANDALONE )
-      atlas_add_executable( JetToolHelpers_test_xAOD
-         util/test_refactor.cpp
-         INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-         LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools xAODEventInfo xAODJet JetToolHelpersLib
-         xAODTracking xAODCore xAODRootAccess )
-   else()
-      atlas_add_executable( JetToolHelpers_test_xAOD
-         util/test_refactor.cxx
-         INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-         LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools xAODEventInfo xAODJet JetToolHelpersLib
-         xAODTracking xAODCore POOLRootAccessLib xAODRootAccess )
-   endif()
-
-   message("Setup your IDE include dir paths with this : ")
-   message(ROOT_INCLUDE_DIRS : ${ROOT_INCLUDE_DIRS})
-   message(ATLAS_INCLUDE_DIRS : ${ROOT_INCLUDE_DIRS})
-else()
-   project(JetToolHelpers)
-
-   set(CMAKE_CXX_FLAGS "-pthread -std=c++17 -m64 -I/home/gordon/Root/install/include")
-   add_compile_options("-Wall")
-
-   set(SOURCES 
-      "./Root/HistoInput.Ctr.cpp"
-      "./Root/HistoInput.Static.cpp"
-      "./Root/HistoInput.Tool.cpp"
-      "./Root/InputVariable.cpp" 
-      "./Root/Jet.cpp")
-
-   set(HEADER_FILES
-      "./JetToolHelpers/Config.h"
-      "./JetToolHelpers/HistoInput.h"
-      "./JetToolHelpers/IInputBase.h"
-      "./JetToolHelpers/InputVariable.h"
-      "./JetToolHelpers/Jet.h"
-      "./JetToolHelpers/JetContext.h")
-
-   add_library(JetToolHelpersLib ${HEADER_FILES} ${SOURCES})
-   target_include_directories(JetToolHelpersLib PUBLIC "." PUBLIC ${ROOT_INCLUDE_DIRS})
-   target_link_libraries( JetToolHelpersLib PUBLIC ${PROJECT_BINARY_DIR} ${ROOT_LIBRARIES} )
-
-   enable_testing()
-   add_subdirectory(test)
-
-   add_executable(Refac "./util/test_refactor.cpp")
-   target_link_libraries(Refac JetToolHelpersLib)
-endif()
-
-
+add_executable(perf_test "./perf_test.cpp")
+target_link_libraries(perf_test JetToolHelpers benchmark::benchmark)

@@ -1,17 +1,21 @@
-/*#ifndef XAOD_JET_H
+/**
+ * @file Mock.h
+ * @brief Contains all mock implementations of  Athena 
+ * required to run JetToolHelpers.
+ */
+#include <string>
+
+#ifndef XAOD_JET_H
 #define XAOD_JET_H
 
-// purely a mock class mimicking what there is in the xAOD namespace
-// xAOD stuff is part of the atlas software framework. I just wonder
-// where's the documentation...
 class LocalP4 {
     public:
         LocalP4(double pt, double eta, double phi, double m)
             : m_pt{pt}, m_eta{eta}, m_phi{phi}, m_mass{m} {}
         
-        double E() const { return m_pt; } // Not correct, for mocking
-        double Et() const { return m_pt; } // Not correct, for mocking
-        double Rapidity() const { return m_eta; } // Not correct, for mocking
+        double E() const { return m_pt; } 
+        double Et() const { return m_pt; } 
+        double Rapidity() const { return m_eta; }
 
     private:
         double m_pt;
@@ -24,7 +28,7 @@ class LocalP4 {
 namespace xAOD {
     class Jet {
         public:
-            Jet(double pt, double eta, double phi, double m);
+            Jet(double pt, double eta, double phi, double m): m_pt{pt}, m_eta{eta}, m_phi{phi}, m_mass{m} {};
 
             double pt()  const { return m_pt;   }
             double eta() const { return m_eta;  }
@@ -43,4 +47,3 @@ namespace xAOD {
 }
 
 #endif
-*/

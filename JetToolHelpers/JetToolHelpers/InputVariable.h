@@ -7,13 +7,7 @@
 #include <functional>
 
 #include "JetToolHelpers/JetContext.h"
-#ifdef USE_ATHENA
-    #include "xAODJet/Jet.h"
-    #include "AthContainers/AuxElement.h"
-#else
-    #include "JetToolHelpers/Jet.h"
-#endif
-
+#include "JetToolHelpers/Mock.h"
 /**
  * @brief 
  * 
@@ -72,6 +66,7 @@ class InputVariable {
  * 
  * @tparam T 
  */
+/*
 template <typename T> class InputVariableAttribute : public InputVariable {
     public:
         InputVariableAttribute(const std::string& name) : InputVariable(name), m_acc{name} {}
@@ -80,7 +75,7 @@ template <typename T> class InputVariableAttribute : public InputVariable {
         }
     private:
         SG::AuxElement::ConstAccessor<T> m_acc;
-};
+};*/
 
 template <typename T> class InputVariableJetContext : public InputVariable {
     public:
