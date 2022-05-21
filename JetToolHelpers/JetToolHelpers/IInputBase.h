@@ -24,6 +24,7 @@ class IInputBase
             return returnVal;
         }
 
+
         //virtual bool runUnitTests() const = 0;
 
     private:
