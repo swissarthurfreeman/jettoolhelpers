@@ -74,7 +74,7 @@ void testJetContextAttributeGetValue() {
 
     std::unique_ptr<InputVariable> b = InputVariable::createVariable("floatAttribute", "float", false);
     
-    xAOD::Jet jet;
+    xAOD::Jet jet{0.5, 0.5, 0.5, 0.5};
     JetContext jc;
 
     ASSERT_EQUAL(jc.setValue("someRandomAttribute", 12.04), true);

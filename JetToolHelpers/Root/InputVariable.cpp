@@ -73,19 +73,19 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
         // Variables not stored on the xAOD::Jet
         // Here, we need only to check the type of the variable
         // The variables are then stored in string-indexed maps
-        /*
+        
         if(type == "int")
             return std::make_unique<InputVariable>(name,
                 [name](const xAOD::Jet&, const JetContext& event) {
-                    event.isAvailable(name) ? event.getValue<int>(name) : ERRORVALUE;
+                    return event.isAvailable(name) ? event.getValue<int>(name) : ERRORVALUE;
                 });
 
         if(type == "float")
             return std::make_unique<InputVariable>(name,
                 [name](const xAOD::Jet&, const JetContext& event) {
-                    event.isAvailable(name) ? event.getValue<float>(name) : ERRORVALUE;
+                    return event.isAvailable(name) ? event.getValue<float>(name) : ERRORVALUE;
                 });
-        */
+
         // Unsupported type for a non-jet-level variable
         return nullptr;
     }
