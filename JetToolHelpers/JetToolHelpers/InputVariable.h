@@ -72,6 +72,7 @@ class InputVariable {
  * 
  * @tparam T 
  */
+#ifdef USE_ATHENA
 template <typename T> class InputVariableAttribute : public InputVariable {
     public:
         InputVariableAttribute(const std::string& name) : InputVariable(name), m_acc{name} {}
@@ -81,6 +82,7 @@ template <typename T> class InputVariableAttribute : public InputVariable {
     private:
         SG::AuxElement::ConstAccessor<T> m_acc;
 };
+#endif
 
 template <typename T> class InputVariableJetContext : public InputVariable {
     public:

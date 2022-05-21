@@ -64,17 +64,17 @@ double HistoInput::enforceAxisRange(const TAxis& axis, const double inputValue) 
     return inputValue;
 }
 
-double HistoInput::readFromHisto(const TH1& m_hist, const double X, const double Y, const double Z) {
+double HistoInput::readFromHisto(const TH1& m_hist, const std::vector<double>& values) {
     // TODO: extend this to have different reading strategies
     const int nDim {m_hist.GetDimension()};
     
     if (nDim == 1)
-        return m_hist.Interpolate(X);
+        return m_hist.Interpolate(values.at(0));
     else if (nDim == 2)
-        return m_hist.Interpolate(X, Y);
+        return m_hist.Interpolate(values.at(0), values.at(1));
     else if (nDim == 3)
-        return m_hist.Interpolate(X, Y, Z);
-    // Shouldn't reach here due to previous checks
+        return m_hist.Interpolate(values.at(0), values.at(1), values.at(2));
+        
     throw std::runtime_error("Unexpected number of dimensions of histogram: " + nDim);
     return 0;
 }

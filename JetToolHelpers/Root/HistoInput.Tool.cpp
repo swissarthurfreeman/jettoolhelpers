@@ -2,23 +2,7 @@
 
 #include "JetToolHelpers/HistoInput.h"
 
-bool HistoInput::initialize()
-{
-    // First deal with the input variable
-    // Make sure we haven't already configured the input variable
-    if (m_inVar1 != nullptr) {
-        std::cout << "The input variable(s) were already configured" << std::endl;
-        return false;
-    }
-
-    m_inVar1 = InputVariable::createVariable(m_varName1, m_varType1, m_isJetVar1);
-    m_inVar2 = InputVariable::createVariable(m_varName2, m_varType2, m_isJetVar2);
-    
-    // m_varName2 will be "" (default string ctr) if 1D Histo constructor was called.
-    if ( !m_inVar1 ) {
-        std::cout << "Failed to create an input variable" << std::endl;
-        return false;
-    }
+bool HistoInput::initialize() {
     // Now deal with the histogram
     // Make sure we haven't already retrieved the histogram
     if (m_hist != nullptr) {
@@ -28,6 +12,7 @@ bool HistoInput::initialize()
 
     if (!HistoInput::readHistoFromFile(m_hist, m_fileName, m_histName)) {
         std::cout << "Failed while reading histogram from file" << std::endl;
+        throw std::runtime_error("Error reading histogram from file");
         return false;
     }
 
@@ -58,16 +43,12 @@ bool HistoInput::finalize() {
 
 bool HistoInput::getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const {
 
-    float varValue1 {m_inVar1->getValue(jet, event)};
+    std::vector<double> values{0, 0, 0};
     
-    varValue1 = HistoInput::enforceAxisRange(*m_hist->GetXaxis(), varValue1);
-    
-    float varValue2{0};
-    if (nDims > 1) {
-        varValue2 = m_inVar2->getValue(jet,event);
-        varValue2 = HistoInput::enforceAxisRange(*m_hist->GetYaxis(), varValue2);
-    }
+    for(int i=0; i < in_vars_.size(); i++)
+        values.at(i) = in_vars_.at(i).getValue(jet, event);
+
     // *a if a is unique_ptr returns a reference to the managed object
-    value = HistoInput::readFromHisto(*m_hist, varValue1, varValue2);
+    value = HistoInput::readFromHisto(*m_hist, values);
     return true;
 }

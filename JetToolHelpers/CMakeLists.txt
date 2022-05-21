@@ -5,7 +5,7 @@
 option(USE_ATHENA "Set to off if athena includes are being mocked" OFF)
 
 # adds USE_ATHENA as compile definition accessible in source code.
-add_compile_definitions(USE_ATHENA=yes)
+# add_compile_definitions(USE_ATHENA=yes)
 
 # cmake -D USE_ATHENA=yes
 # External dependencies:
@@ -81,14 +81,12 @@ else()
    add_compile_options("-Wall")
 
    set(SOURCES 
-      "./Root/HistoInput.Ctr.cpp"
       "./Root/HistoInput.Static.cpp"
       "./Root/HistoInput.Tool.cpp"
       "./Root/InputVariable.cpp" 
       "./Root/Jet.cpp")
 
    set(HEADER_FILES
-      "./JetToolHelpers/Config.h"
       "./JetToolHelpers/HistoInput.h"
       "./JetToolHelpers/IInputBase.h"
       "./JetToolHelpers/InputVariable.h"
@@ -99,11 +97,11 @@ else()
    target_include_directories(JetToolHelpersLib PUBLIC "." PUBLIC ${ROOT_INCLUDE_DIRS})
    target_link_libraries( JetToolHelpersLib PUBLIC ${PROJECT_BINARY_DIR} ${ROOT_LIBRARIES} )
 
-   enable_testing()
-   add_subdirectory(test)
+   #enable_testing()
+   #add_subdirectory(test)
 
-   add_executable(Refac "./util/test_refactor.cpp")
-   target_link_libraries(Refac JetToolHelpersLib)
+   add_executable(perf_test "./perf_test.cpp")
+   target_link_libraries(perf_test JetToolHelpersLib)
 endif()
 
 

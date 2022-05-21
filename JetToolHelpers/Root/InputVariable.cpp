@@ -10,8 +10,7 @@ InputVariable::InputVariable(
 }
 
 // TODO : Confer with steven about throwing exceptions instead of returning nullptrs. 
-std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& name, const std::string& type, const bool isJetVar)
-{
+std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& name, const std::string& type, const bool isJetVar) {
     if(name == "" || type == "")
         return nullptr; 
 
