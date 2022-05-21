@@ -4,22 +4,19 @@
 #include "JetToolHelpers/HistoInput1D.h"
 
 HistoInput1D::HistoInput1D(const std::string&name, const std::string& fileName, const std::string& histName)
-    : HistoInputBase{name,fileName,histName}, asg::AsgTool{name}
+    : HistoInputBase{name,fileName,histName}
     , m_varName{""}, m_varType{""}, m_isJetVar{true}
     , m_inVar{nullptr}
 {
-    declareProperty("VariableName",m_varName);
-    declareProperty("VariableType",m_varType);
-    declareProperty("VarIsFromJet",m_isJetVar);
 }
 
 HistoInput1D::HistoInput1D(const std::string& name, const std::string& fileName, const std::string& histName, const std::string& varName, const std::string& varType, const bool isJetVar)
-    : HistoInputBase{name,fileName,histName}, asg::AsgTool{name}
+    : HistoInputBase{name,fileName,histName}
     , m_varName{varName}, m_varType{varType}, m_isJetVar{isJetVar}
     , m_inVar{nullptr}
 { }
 
-StatusCode HistoInput1D::initialize()
+bool HistoInput1D::initialize()
 {
     // First deal with the input variable
     // Make sure we haven't already configured the input variable
@@ -71,7 +68,7 @@ StatusCode HistoInput1D::initialize()
     return true;
 }
 
-StatusCode HistoInput1D::finalize()
+bool HistoInput1D::finalize()
 {
     if (m_hist)
         m_hist.reset();

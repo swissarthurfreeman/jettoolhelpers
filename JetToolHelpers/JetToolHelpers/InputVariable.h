@@ -5,12 +5,8 @@
 #include <cmath>
 #include <memory>
 
-#include "xAODJet/Jet.h"
 #include "JetToolHelpers/JetContext.h"
-
-#include "AthContainers/AuxElement.h"
-
-
+#include "JetToolHelpers/Mock.h"
 
 class InputVariable
 {
@@ -86,17 +82,6 @@ class InputVariableAbsRapidity : public InputVariable
     public:
         InputVariableAbsRapidity(const std::string& name) : InputVariable(name) {}
         virtual float getValue(const xAOD::Jet& jet, const JetContext&) const { return std::abs(jet.rapidity()); }
-};
-
-template <typename T>
-class InputVariableAttribute : public InputVariable
-{
-    public:
-        InputVariableAttribute(const std::string& name) : InputVariable(name) , m_acc{name} {}
-        virtual float getValue(const xAOD::Jet& jet, const JetContext&) const { return m_acc.isAvailable(jet) ? m_acc(jet)*m_scale : ERRORVALUE; }
-
-    private:
-        SG::AuxElement::ConstAccessor<T> m_acc;
 };
 
 template <typename T>

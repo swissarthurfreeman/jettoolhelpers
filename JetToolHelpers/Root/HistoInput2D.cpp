@@ -4,27 +4,21 @@
 #include "JetToolHelpers/HistoInput2D.h"
 
 HistoInput2D::HistoInput2D(const std::string& name, const std::string& fileName, const std::string& histName)
-    : HistoInputBase{name,fileName,histName}, asg::AsgTool{name}
+    : HistoInputBase{name,fileName,histName}
     , m_varName1{""}, m_varType1{""}, m_isJetVar1{true}
     , m_varName2{""}, m_varType2{""}, m_isJetVar2{true}
     , m_inVar1{nullptr}, m_inVar2{nullptr}
 {
-    declareProperty("VariableName1",m_varName1);
-    declareProperty("VariableType1",m_varType1);
-    declareProperty("VarIsFromJet1",m_isJetVar1);
-    declareProperty("VariableName2",m_varName2);
-    declareProperty("VariableType2",m_varType2);
-    declareProperty("VarIsFromJet2",m_isJetVar2);
 }
 
 HistoInput2D::HistoInput2D(const std::string& name, const std::string& fileName, const std::string& histName, const std::string& varName1, const std::string& varType1, const bool isJetVar1, const std::string& varName2, const std::string& varType2, const bool isJetVar2)
-    : HistoInputBase{name,fileName,histName}, asg::AsgTool{name}
+    : HistoInputBase{name,fileName,histName}
     , m_varName1{varName1}, m_varType1{varType1}, m_isJetVar1{isJetVar1}
     , m_varName2{varName2}, m_varType2{varType2}, m_isJetVar2{isJetVar2}
     , m_inVar1{nullptr}, m_inVar2{nullptr}
 { }
 
-StatusCode HistoInput2D::initialize()
+bool HistoInput2D::initialize()
 {
     // First deal with the input variables
     // Make sure we haven't already configured the input variables
@@ -78,7 +72,7 @@ StatusCode HistoInput2D::initialize()
     return true;
 }
 
-StatusCode HistoInput2D::finalize()
+bool HistoInput2D::finalize()
 {
     if (m_hist)
         m_hist.reset();

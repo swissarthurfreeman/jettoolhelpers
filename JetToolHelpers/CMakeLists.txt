@@ -1,66 +1,44 @@
-################################################################################
-# Package: SSS
-################################################################################
+cmake_minimum_required(VERSION 3.0)
 
-# Declare the package name:
-atlas_subdir( JetToolHelpers )
+project(JetToolHelpers)
 
-# Extra dependencies, based on the environment:
-set( extra_deps )
-if( XAOD_STANDALONE )
-   set( extra_deps Control/xAODRootAccess )
-else()
-   set( extra_deps GaudiKernel )
-endif()
+set(CMAKE_CXX_FLAGS "-pthread -std=c++17 -m64")
+add_compile_options("-Wall")
 
-# Declare the package's dependencies:
-atlas_depends_on_subdirs(
-   PUBLIC
-   Control/AthToolSupport/AsgTools
-   Event/xAOD/xAODEventInfo
-   Event/xAOD/xAODJet
-   Event/xAOD/xAODTracking
-   PRIVATE
-   PhysicsAnalysis/POOLRootAccess
-   ${extra_deps} )
+set(SOURCES 
+   ./Root/HistoInput1D.cpp
+   ./Root/HistoInput2D.cpp
+   ./Root/HistoInputBase.cpp
+   ./Root/JetContext.cpp
+   ./Root/InputVariable.cpp)
 
-# External dependencies:
-find_package( ROOT COMPONENTS Core Tree MathCore Hist RIO Graf Gpad )
+set(HEADER_FILES
+   ./JetToolHelpers/HistoInput1D.h
+   ./JetToolHelpers/HistoInput2D.h
+   ./JetToolHelpers/HistoInputBase.h
+   ./JetToolHelpers/InputVariable.h
+   ./JetToolHelpers/JetContext.h
+   ./JetToolHelpers/Mock.h)   # to mock root and athena-
 
-# Libraries in the package:
-atlas_add_library( JetToolHelpersLib
-   JetToolHelpers/*.h Root/*.cxx Root/*.cpp
-   PUBLIC_HEADERS JetToolHelpers
-   INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-   LINK_LIBRARIES ${ROOT_LIBRARIES}
-   AsgTools xAODEventInfo xAODJet xAODTracking
-   PRIVATE_LINK_LIBRARIES xAODCore)
+set(ROOT_DIR /home/gordon/Documents/gordon_bsci/Sem6/BProject/root)
+find_package( ROOT COMPONENTS Core Tree MathCore Hist RIO Graf Gpad)   # configs ROOT_INCLUDE_DIRS and ROOT_LIBRARIES
 
-if( NOT XAOD_STANDALONE )
-   atlas_add_component( JetToolHelpers
-      src/components/*.cxx
-      LINK_LIBRARIES JetToolHelpersLib )
-endif()
+#message(${ROOT_INCLUDE_DIRS})
+#message(${ROOT_LIBRARIES})
 
-atlas_add_dictionary( JetToolHelpersDict
-   JetToolHelpers/JetToolHelpersDict.h
-   JetToolHelpers/selection.xml
-   LINK_LIBRARIES JetToolHelpersLib )
+message("Adding JetToolHelpers library")
+add_library(JetToolHelpers ${HEADER_FILES} ${SOURCES})
 
-# Executable(s) in the package:
-if( XAOD_STANDALONE )
-   atlas_add_executable( JetToolHelpers_test_xAOD
-      util/test_xAOD.cpp
-      INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-      LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools xAODEventInfo xAODJet JetToolHelpersLib
-      xAODTracking xAODCore xAODRootAccess )
-   
-else()
-   atlas_add_executable( JetToolHelpers_test_xAOD
-      util/test_xAOD.cxx
-      INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-      LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools xAODEventInfo xAODJet JetToolHelpersLib
-      xAODTracking xAODCore POOLRootAccessLib xAODRootAccess )
+message("Adding include directories")
+target_include_directories(JetToolHelpers PUBLIC "." PUBLIC ${ROOT_INCLUDE_DIRS})
 
-endif()
+message("Linking...")
+target_link_libraries( JetToolHelpers PUBLIC ${PROJECT_BINARY_DIR} ${ROOT_LIBRARIES} )
 
+#enable_testing()
+#add_subdirectory(test)
+message("Configuring Benchmarking...")
+find_package(benchmark REQUIRED)
+
+add_executable(perf_test "./perf_test.cpp")
+target_link_libraries(perf_test JetToolHelpers benchmark::benchmark)
