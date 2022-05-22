@@ -33,8 +33,8 @@ target_include_directories(JetToolHelpers PUBLIC "." PUBLIC ${ROOT_INCLUDE_DIRS}
 message("Linking...")
 target_link_libraries( JetToolHelpers PUBLIC ${PROJECT_BINARY_DIR} ${ROOT_LIBRARIES} )
 
-#enable_testing()
-#add_subdirectory(test)
+enable_testing()
+add_subdirectory(test)
 message("Configuring Benchmarking...")
 find_package(benchmark REQUIRED)
 

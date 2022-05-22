@@ -2,25 +2,7 @@
 #include "JetToolHelpers/HistoInput.h"
 
 #include "test/Test.h"
-#include "TChain.h"
-
-#ifndef USE_ATHENA
-    #include "JetToolHelpers/Jet.h"
-#else
-    #include "xAODJet/Jet.h"
-    #include "AthContainers/AuxElement.h"
-    #include "xAODRootAccess/TEvent.h"
-    #include "xAODJet/JetContainer.h"
-    #include "xAODEventInfo/EventInfo.h"
-    #include "xAODJet/Jet.h"
-    #include "xAODJet/JetContainer.h"
-    #include "xAODTracking/Vertex.h"
-    #include "xAODTracking/VertexContainer.h"
-
-    #include "xAODRootAccess/Init.h"
-    #include "xAODRootAccess/TEvent.h"
-    #include "xAODRootAccess/TStore.h"
-#endif
+#include "JetToolHelpers/Mock.h"
 
 /**
  * @brief Tests specification of InputVariable.
@@ -70,7 +52,7 @@ void testSupportedNames() {
     std::unique_ptr<InputVariable> b = InputVariable::createVariable("e", "double", false);
     ASSERT_THROW(b == nullptr);
 }
-
+/*
 void testSupportedFunctions() {
     xAOD::TEvent event;
 
@@ -112,19 +94,12 @@ void testSupportedFunctions() {
     myHist->getValue(*jets->at(0), jc, myVal);
     printf("Histogram values are %f (H1D)\n", myVal);
 }
-
+*/
 int main() {
     TEST_BEGIN("InputVariable Unit Test");
 
     testSupportedNames();
     
-    std::unique_ptr<InputVariable> c = InputVariable::createVariable("e", "float", true);
-    
-    // read local histogram file.
-    HistoInput Histo1D = HistoInput("Histo1D", "./R4_AllComponents.root", "EffectiveNP_1_AntiKt4EMPFlow", "pt", "float", true);
-    Histo1D.initialize();
-    testSupportedFunctions();
-
     TEST_END("InputVariable Unit Test");
     return 0;
 }

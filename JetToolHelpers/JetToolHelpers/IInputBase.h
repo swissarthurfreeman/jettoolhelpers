@@ -3,9 +3,6 @@
 
 #include <string>
 #include "JetToolHelpers/JetContext.h"
-
-//#include "Config.h"
-
 #include "Mock.h"
 
 class IInputBase
@@ -25,8 +22,6 @@ class IInputBase
                 throw std::runtime_error("An unchecked problem occurred in IInputBase::getValue()");
             return returnVal;
         }
-
-        //virtual bool runUnitTests() const = 0;
 
     private:
         std::string m_name;
