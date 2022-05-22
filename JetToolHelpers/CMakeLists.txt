@@ -18,8 +18,8 @@ set(HEADER_FILES
 set(ROOT_DIR /home/gordon/Documents/gordon_bsci/Sem6/BProject/root)
 find_package( ROOT COMPONENTS Core Tree MathCore Hist RIO Graf Gpad)   # configs ROOT_INCLUDE_DIRS and ROOT_LIBRARIES
 
-#message(${ROOT_INCLUDE_DIRS})
-#message(${ROOT_LIBRARIES})
+#message(${ROOT_INCLUDE_DIRS})   # uncomment these lines to get the include dirs of your environment
+#message(${ROOT_LIBRARIES})      # very useful to setup include path in vscode ! 
 
 message("Adding JetToolHelpers library")
 add_library(JetToolHelpers ${HEADER_FILES} ${SOURCES})
@@ -30,8 +30,9 @@ target_include_directories(JetToolHelpers PUBLIC "." PUBLIC ${ROOT_INCLUDE_DIRS}
 message("Linking...")
 target_link_libraries( JetToolHelpers PUBLIC ${PROJECT_BINARY_DIR} ${ROOT_LIBRARIES} )
 
-#enable_testing()
-#add_subdirectory(test)
+enable_testing()
+add_subdirectory(test)
+
 message("Configuring Benchmarking...")
 find_package(benchmark REQUIRED)
 

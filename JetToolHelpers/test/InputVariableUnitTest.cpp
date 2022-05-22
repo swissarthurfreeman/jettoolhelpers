@@ -3,7 +3,7 @@
 #include "test/Test.h"
 
 void testClassicalSupportedAttributes() {
-    TEST_BEGIN("InputVariable Classical Attributes Support");
+    TEST_BEGIN_CASE("InputVariable Classical Attributes Support");
 
     std::unique_ptr<InputVariable> c = InputVariable::createVariable("e", "float", true);
     ASSERT_THROW(c->getName() == "e");
@@ -35,11 +35,11 @@ void testClassicalSupportedAttributes() {
     c = InputVariable::createVariable("y", "double", true);
     ASSERT_THROW(c->getName() == "y");
 
-    TEST_END("InputVariable Classical Attributes Support");
+    TEST_END_CASE("InputVariable Classical Attributes Support");
 }
 
 void testSupportedJetContextAttributes() {
-    TEST_BEGIN("InputVariable JetContext Attributes Support");
+    TEST_BEGIN_CASE("InputVariable JetContext Attributes Support");
     
     // testing JetContext InputVariables.
     std::unique_ptr<InputVariable> b = InputVariable::createVariable("randomSupportedJetContextVar", "float", false);
@@ -51,14 +51,14 @@ void testSupportedJetContextAttributes() {
     b = InputVariable::createVariable("randomUnsupportedJetContextVar", "double", false);
     ASSERT_THROW(b == nullptr);
 
-    TEST_END("InputVariable JetContext Attributes Support");
+    TEST_END_CASE("InputVariable JetContext Attributes Support");
 }
 
 void testArbitrarySupportedJetAttributes() {
     // these tests try to access arbitrary jet data, this is done using ATLAS's AuxElement interface
     // we do not test that interface, we test ours.
     // use different names because AuxElement is typesafe
-    TEST_BEGIN("InputVariable Attribute Support");
+    TEST_BEGIN_CASE("InputVariable Attribute Support");
     
     std::unique_ptr<InputVariable> a = InputVariable::createVariable("randomSupportedJetVar", "float", true);
     ASSERT_THROW(a->getName() == "randomSupportedJetVar");
@@ -66,11 +66,11 @@ void testArbitrarySupportedJetAttributes() {
     a = InputVariable::createVariable("anotherRandomSupportedJetVar", "int", true);
     ASSERT_THROW(a->getName() == "anotherRandomSupportedJetVar"); 
 
-    TEST_END("InputVariable Arbitrary Attribute Support");
+    TEST_END_CASE("InputVariable Arbitrary Attribute Support");
 }
 
 void testJetContextAttributeGetValue() {
-    TEST_BEGIN("JetContext Attribute GetValue");
+    TEST_BEGIN_CASE("JetContext Attribute GetValue");
 
     std::unique_ptr<InputVariable> b = InputVariable::createVariable("floatAttribute", "float", false);
     
@@ -93,7 +93,7 @@ void testJetContextAttributeGetValue() {
     b = InputVariable::createVariable("randomAttributeNotInJetContext", "float", false);
     ASSERT_EQUAL(b->getValue(jet, jc), -999);
 
-    TEST_END("JetContext Attribute GetValue");
+    TEST_END_CASE("JetContext Attribute GetValue");
 }
 
 int main() {

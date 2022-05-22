@@ -9,6 +9,7 @@ InputVariable::InputVariable(
     customFunction = func;
 }
 
+// TODO : why are we returning a unique_ptr ? 
 // TODO : Confer with steven about throwing exceptions instead of returning nullptrs. 
 std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& name, const std::string& type, const bool isJetVar) {
     if(name == "" || type == "")
