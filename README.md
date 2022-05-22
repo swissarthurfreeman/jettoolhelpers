@@ -7,9 +7,9 @@ This project is an Athena interface to ROOT Histograms whose goal is to allow th
 ## Usage
 
 ```c++
-#include "make_histo.h"
+#include "HistoInput.h"
 
-HistoInput histogram = make_histogram(
+HistoInput histogram = HistoInput(
     "MachuPichu",                   
     "./R4_AllComponents.root",                            // the .root file containing 
     "EtaIntercalibration_Modelling_AntiKt4EMPFlow",       // this Histogram
