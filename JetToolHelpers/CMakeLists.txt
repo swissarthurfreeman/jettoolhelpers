@@ -12,6 +12,7 @@ set(SOURCES
 
 set(HEADER_FILES
    ./JetToolHelpers/HistoInput.h
+   ./JetToolHelpers/make_histoinput.h
    ./JetToolHelpers/IInputBase.h
    ./JetToolHelpers/InputVariable.h
    ./JetToolHelpers/JetContext.h

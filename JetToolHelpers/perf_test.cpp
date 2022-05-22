@@ -3,10 +3,9 @@
 #include <limits>
 #include <benchmark/benchmark.h>
 
-#include "JetToolHelpers/HistoInput.h"
-#include "JetToolHelpers/InputVariable.h"
+#include "JetToolHelpers/make_histoinput.h"
 #include "JetToolHelpers/Mock.h"
-
+/*
 class JetFixture : public benchmark::Fixture {
     protected:
         std::vector<xAOD::Jet> jets;
@@ -49,14 +48,14 @@ class JetContextFixture: public benchmark::Fixture {
 
 BENCHMARK_DEFINE_F(JetFixture, BM_getJetValueOver2DHistogram)(benchmark::State& state) {
     // benchmarking with 2D histogram.
-    std::unique_ptr<InputVariable> i1 = InputVariable::createVariable("pt", "float", true);
-    std::unique_ptr<InputVariable> i2 = InputVariable::createVariable("abseta", "float", true);
-    std::string fileName("./R4_AllComponents.root");
-    std::string histName2D("EtaIntercalibration_Modelling_AntiKt4EMPFlow");
+    Config conf = {
+        "Test Histogram",
+        "./R4_AllComponents.root",
+        "EtaIntercalibration_Modelling_AntiKt4EMPFlow"
+    };
 
-    HistoInput histogram = HistoInput("Test histogram", fileName, histName2D, {*i1, *i2});
-    histogram.initialize();
-
+    auto histogram = make_histo(conf, "pt", "float", true, "abseta", "float", true);
+    
     JetContext jc;
     
     for(auto _: state) {
@@ -123,9 +122,16 @@ BENCHMARK_DEFINE_F(JetContextFixture, BM_getJetContextValueOver2DHistogram)(benc
     }
 }
 
-BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver1DHistogram)->RangeMultiplier(2)->Range(100, 10<<5);
 BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver2DHistogram)->RangeMultiplier(2)->Range(100, 10<<5);
 BENCHMARK_REGISTER_F(JetContextFixture, BM_getJetContextValueOver1DHistogram)->RangeMultiplier(2)->Range(100, 10<<5);
 BENCHMARK_REGISTER_F(JetContextFixture, BM_getJetContextValueOver2DHistogram)->RangeMultiplier(2)->Range(100, 10<<5);
 
-BENCHMARK_MAIN();
+BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver2DHistogram)->RangeMultiplier(2)->Range(100, 10<<5);
+
+BENCHMARK_MAIN();*/
+
+int main() {
+    auto hist = make_histo("pt", "float", true);
+    
+    return 0;
+}

@@ -14,7 +14,9 @@
 #include "JetToolHelpers/Mock.h"
 #include "TFile.h"
 
-bool HistoInput::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string m_fileName, const std::string m_histName) {
+// since HistoInput is now templated.
+template <typename T>
+bool HistoInput<T>::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string m_fileName, const std::string m_histName) {
     // Open the input file
     TFile inputFile(m_fileName.c_str(), "READ");
     if (inputFile.IsZombie()) {
@@ -45,7 +47,8 @@ bool HistoInput::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::stri
     return true;
 }
 
-double HistoInput::enforceAxisRange(const TAxis& axis, const double inputValue) {
+template <typename T>
+double HistoInput<T>::enforceAxisRange(const TAxis& axis, const double inputValue) {
     // edgeOffset should be chosen to be above floating point precision, but negligible compared to the bin size
     // An offset of edgeOffset*binWidth is therefore irrelevant for physics as the values don't change fast (but avoids edge errors)
     static constexpr double edgeOffset {1.e-4};
@@ -65,24 +68,3 @@ double HistoInput::enforceAxisRange(const TAxis& axis, const double inputValue) 
     return inputValue;
 }
 
-double HistoInput::readFromHisto(const TH1& m_hist, const std::vector<double>& values) {
-    // TODO: extend this to have different reading strategies
-    const int nDim {m_hist.GetDimension()};
-    
-    if (nDim == 1)
-        return m_hist.Interpolate(enforceAxisRange(*m_hist.GetXaxis(), values.at(0)));
-    else if (nDim == 2)
-        return m_hist.Interpolate(
-            enforceAxisRange(*m_hist.GetXaxis(),values.at(0)), 
-            enforceAxisRange(*m_hist.GetYaxis(),values.at(1))
-        );
-    else if (nDim == 3)
-        return m_hist.Interpolate(
-            enforceAxisRange(*m_hist.GetXaxis(),values.at(0)), 
-            enforceAxisRange(*m_hist.GetYaxis(),values.at(1)), 
-            enforceAxisRange(*m_hist.GetZaxis(),values.at(2))
-        );
-        
-    throw std::runtime_error("Unexpected number of dimensions of histogram: " + nDim);
-    return 0;
-}
