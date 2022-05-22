@@ -24,7 +24,7 @@ double x{0};
 
 // getValue will know how to read abs(jet.rapidity) and abs(jet.eta)
 // when interpolating in the histogram. 
-std::cout << histogram.getValue(jet, jc, x) std << cout;
+std::cout << histogram.getValue(jet, jc, x) << std::cout;
 ```
 
 ## Dependencies
