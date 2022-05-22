@@ -29,10 +29,27 @@ class HistoInput : public IInputBase {
 
         HistoInput(const std::string& name, const std::string& filename, const std::string histName, const std::initializer_list<InputVariable>& lst): 
             IInputBase(name),
-            nDims{(int)lst.size()}, 
             m_fileName{filename},
             m_histName{histName},
-            in_vars_{lst} {};
+            in_vars_{lst},
+            nDims{(int)lst.size()} {};
+
+        HistoInput(
+            const std::string& name, const std::string& filename, const std::string histName, 
+            const std::string& name1, const std::string& type1, const bool isJetVar1): IInputBase(name), 
+                m_fileName{filename},
+                m_histName{histName},
+                in_vars_{*InputVariable::createVariable(name1, type1, isJetVar1)},
+                nDims{(int)in_vars_.size()} {};
+        
+        HistoInput(const std::string& name, const std::string& filename, const std::string histName, 
+        const std::string& name1, const std::string& type1, const bool isJetVar1,
+        const std::string& name2, const std::string& type2, const bool isJetVar2): 
+            IInputBase(name),
+            m_fileName{filename},
+            m_histName{histName},
+            in_vars_{*InputVariable::createVariable(name1, type1, isJetVar1), *InputVariable::createVariable(name2, type2, isJetVar2)},
+            nDims{(int)in_vars_.size()} {};
 
         virtual ~HistoInput() {}
         virtual bool getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const;
@@ -44,12 +61,13 @@ class HistoInput : public IInputBase {
         std::string getHistName() const { return m_histName; }
             
         const std::string name; 
-        const int nDims;
         const std::string m_fileName;
         const std::string m_histName;
 
-        std::unique_ptr<TH1> m_hist;
         std::vector<InputVariable> in_vars_;
+        const int nDims;
+
+        std::unique_ptr<TH1> m_hist;
 };
 
 #endif

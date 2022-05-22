@@ -54,7 +54,7 @@ BENCHMARK_DEFINE_F(JetFixture, BM_getJetValueOver2DHistogram)(benchmark::State& 
     std::string fileName("./R4_AllComponents.root");
     std::string histName2D("EtaIntercalibration_Modelling_AntiKt4EMPFlow");
 
-    HistoInput histogram = HistoInput("Test histogram", fileName, histName2D, {*i1, *i2});
+    HistoInput histogram = HistoInput("Test histogram", fileName, histName2D, "pt", "float", true, "abseta", "float", true);
     histogram.initialize();
 
     JetContext jc;
