@@ -3,9 +3,9 @@
 #include <limits>
 #include <benchmark/benchmark.h>
 
-#include "JetToolHelpers/make_histoinput.h"
+#include "JetToolHelpers/make_histo.h"
 #include "JetToolHelpers/Mock.h"
-/*
+
 class JetFixture : public benchmark::Fixture {
     protected:
         std::vector<xAOD::Jet> jets;
@@ -48,14 +48,12 @@ class JetContextFixture: public benchmark::Fixture {
 
 BENCHMARK_DEFINE_F(JetFixture, BM_getJetValueOver2DHistogram)(benchmark::State& state) {
     // benchmarking with 2D histogram.
-    Config conf = {
+    auto histogram = make_histogram(
         "Test Histogram",
         "./R4_AllComponents.root",
-        "EtaIntercalibration_Modelling_AntiKt4EMPFlow"
-    };
-
-    auto histogram = make_histo(conf, "pt", "float", true, "abseta", "float", true);
-    
+        "EtaIntercalibration_Modelling_AntiKt4EMPFlow", 
+        "pt", "float", true, "abseta", "float", true);
+    histogram.initialize();
     JetContext jc;
     
     for(auto _: state) {
@@ -67,11 +65,10 @@ BENCHMARK_DEFINE_F(JetFixture, BM_getJetValueOver2DHistogram)(benchmark::State& 
 }
 
 BENCHMARK_DEFINE_F(JetFixture, BM_getJetValueOver1DHistogram)(benchmark::State& state) {
-    std::unique_ptr<InputVariable> i1 = InputVariable::createVariable("pt", "float", true);
     std::string fileName("./R4_AllComponents.root");
     std::string histName1D("EffectiveNP_1_AntiKt4EMTopo");
 
-    HistoInput histogram = HistoInput("Test histogram", fileName, histName1D, {*i1});
+    HistoInput histogram = make_histogram("Test histogram", fileName, histName1D, "pt", "float", true);
     histogram.initialize();
 
     JetContext jc;
@@ -89,7 +86,7 @@ BENCHMARK_DEFINE_F(JetContextFixture, BM_getJetContextValueOver1DHistogram)(benc
     std::string fileName("./R4_AllComponents.root");
     std::string histName1D("EffectiveNP_1_AntiKt4EMTopo");
 
-    HistoInput histogram = HistoInput("Test histogram", fileName, histName1D, {*i1});
+    HistoInput histogram = make_histogram("Test histogram", fileName, histName1D, "saspidity", "float", false);
     histogram.initialize();
 
     xAOD::Jet jet{5, 5, 5, 5};
@@ -104,12 +101,10 @@ BENCHMARK_DEFINE_F(JetContextFixture, BM_getJetContextValueOver1DHistogram)(benc
 
 BENCHMARK_DEFINE_F(JetContextFixture, BM_getJetContextValueOver2DHistogram)(benchmark::State& state) {
     // benchmarking with 2D histogram.
-    std::unique_ptr<InputVariable> i1 = InputVariable::createVariable("pt", "float", true);
-    std::unique_ptr<InputVariable> i2 = InputVariable::createVariable("abseta", "float", true);
     std::string fileName("./R4_AllComponents.root");
     std::string histName2D("EtaIntercalibration_Modelling_AntiKt4EMPFlow");
 
-    HistoInput histogram = HistoInput("Test histogram", fileName, histName2D, {*i1, *i2});
+    HistoInput histogram = make_histogram("Test histogram", fileName, histName2D, "pt", "float", true, "abseta", "float", true);
     histogram.initialize();
 
     xAOD::Jet jet{5, 5, 5, 5};
@@ -122,16 +117,12 @@ BENCHMARK_DEFINE_F(JetContextFixture, BM_getJetContextValueOver2DHistogram)(benc
     }
 }
 
-BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver2DHistogram)->RangeMultiplier(2)->Range(100, 10<<5);
-BENCHMARK_REGISTER_F(JetContextFixture, BM_getJetContextValueOver1DHistogram)->RangeMultiplier(2)->Range(100, 10<<5);
-BENCHMARK_REGISTER_F(JetContextFixture, BM_getJetContextValueOver2DHistogram)->RangeMultiplier(2)->Range(100, 10<<5);
+BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver1DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
+BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver2DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
 
-BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver2DHistogram)->RangeMultiplier(2)->Range(100, 10<<5);
+BENCHMARK_REGISTER_F(JetContextFixture, BM_getJetContextValueOver1DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
+BENCHMARK_REGISTER_F(JetContextFixture, BM_getJetContextValueOver2DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
 
-BENCHMARK_MAIN();*/
+BENCHMARK_MAIN();
 
-int main() {
-    auto hist = make_histo("pt", "float", true);
-    
-    return 0;
-}
+

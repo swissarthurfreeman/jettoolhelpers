@@ -6,14 +6,11 @@ set(CMAKE_CXX_FLAGS "-pthread -std=c++17 -m64")
 add_compile_options("-Wall")
 
 set(SOURCES
-   ./Root/HistoInput.Static.cpp
-   ./Root/HistoInput.Tool.cpp
    ./Root/InputVariable.cpp)
 
 set(HEADER_FILES
    ./JetToolHelpers/HistoInput.h
-   ./JetToolHelpers/make_histoinput.h
-   ./JetToolHelpers/IInputBase.h
+   ./JetToolHelpers/make_histo.h
    ./JetToolHelpers/InputVariable.h
    ./JetToolHelpers/JetContext.h
    ./JetToolHelpers/Mock.h)   # to mock root and athena-
