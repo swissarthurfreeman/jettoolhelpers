@@ -9,12 +9,10 @@ InputVariable::InputVariable(
     customFunction = func;
 }
 
-// TODO : why are we returning a unique_ptr ? 
-// TODO : Confer with steven about throwing exceptions instead of returning nullptrs. 
+// TODO : why are we returning a unique_ptr ? : ATLAS politics.
+// TODO : Confer with steven about throwing exceptions instead of returning nullptrs.
+// Atlas doesn't allow exceptions in Config time.
 std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& name, const std::string& type, const bool isJetVar) {
-    if(name == "" || type == "")
-        return nullptr; 
-
     if (isJetVar) {
         // Variables stored on the xAOD::Jet
         // First, check for pre-defined attributes (not stored as generic auxdata)
