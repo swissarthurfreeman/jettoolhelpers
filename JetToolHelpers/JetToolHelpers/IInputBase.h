@@ -12,6 +12,12 @@
     #include "JetToolHelpers/JetContext.h"
 #endif
 
+/**
+ * @brief basic interface for an input. Contains core 
+ * bool getValue(jet, jetContext, value) method. The
+ * underlying structure being read from is left to the 
+ * implementations. 
+ */
 class IInputBase {
     public:
         IInputBase(const std::string& name) : m_name{name} {}

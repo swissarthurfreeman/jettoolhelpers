@@ -1,4 +1,8 @@
+#ifndef MAKE_HISTO
+#define MAKE_HISTO
+
 #include <tuple>
+#include "Mock.h"
 #include "JetToolHelpers/HistoInput.h"
 
 struct Config {
@@ -14,14 +18,11 @@ auto make_histogram_with(Config config, InVar invar, InVars... invars) {
 }
 
 // makes a 1D histogram.
-auto make_histogram(
-    const std::string& name, 
-    const std::string& fileName, 
-    const std::string& histName, 
-    const std::string& varName, 
-    const std::string& varType,
-    const bool isJetVar
-) {
+auto MakeHistoInput(
+    const std::string& name, const std::string& fileName, 
+    const std::string& histName, const std::string& varName, 
+    const std::string& varType, const bool isJetVar) {
+    
     Config conf = {
         name,
         fileName,
@@ -32,17 +33,13 @@ auto make_histogram(
     return make_histogram_with(conf, iv1);
 }
 
-auto make_histogram(
-    const std::string& name, 
-    const std::string& fileName, 
-    const std::string& histName, 
-    const std::string& varName1, 
-    const std::string& varType1,
-    const bool isJetVar1,
-    const std::string& varName2, 
-    const std::string& varType2,
-    const bool isJetVar2
-) {
+auto MakeHistoInput(
+    const std::string& name, const std::string& fileName, 
+    const std::string& histName, const std::string& varName1, 
+    const std::string& varType1, const bool isJetVar1,
+    const std::string& varName2, const std::string& varType2,
+    const bool isJetVar2) {
+    
     Config conf = {
         name,
         fileName,
@@ -54,3 +51,5 @@ auto make_histogram(
     
     return make_histogram_with(conf, iv1, iv2);
 }
+
+#endif

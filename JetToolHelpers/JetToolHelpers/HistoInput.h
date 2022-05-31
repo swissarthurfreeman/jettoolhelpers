@@ -5,8 +5,7 @@
  * @version 0.1
  * @date 2022-04-22
  * 
- * @copyright Copyright (C) 2002-2022 CERN for the benefit of the ATLAS collaboration
- * 
+ * @copyright Copyright (C) 2002-2022 CERN for the benefit of the ATLAS collaboration 
  */
 #ifndef JET_HISTOINPUT_H
 #define JET_HISTOINPUT_H
@@ -32,14 +31,9 @@
 template <typename T>
 class HistoInput : public IInputBase {
     public:         
-        static bool readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string fileName, const std::string histName);
-        static double enforceAxisRange(const TAxis& axis, const double inputValue);
-        
         static constexpr double Dim = std::tuple_size_v<T>;
         ~HistoInput() {}
-        HistoInput(
-            const std::string& name, const std::string& filename, 
-            const std::string& histName, const T& vars): 
+        HistoInput(const std::string& name, const std::string& filename, const std::string& histName, const T& vars): 
             IInputBase{name}, m_fileName{filename}, m_histName{histName}, in_vars_{vars} {};
         
         virtual bool getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const {
@@ -90,22 +84,28 @@ class HistoInput : public IInputBase {
         
         virtual StatusCode finalize() {
             if (m_hist)
-                m_hist.reset();
+                m_hist.reset();     // releases and deletes the owned histogram.
             return true;
         }
 
+        void setHist(TH1* hist) { m_hist.reset(hist); }
+
         std::string getFileName() const { return m_fileName; }
         std::string getHistName() const { return m_histName; }
-            
+        
+    private:
         const std::string name; 
         const std::string m_fileName;
         const std::string m_histName;
 
         std::unique_ptr<TH1> m_hist;
         T in_vars_;
+
+        static bool readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string fileName, const std::string histName);
+        static double enforceAxisRange(const TAxis& axis, const double inputValue);
 };
 
-template< typename T >
+template<typename T>
 bool HistoInput<T>::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string fileName, const std::string histName) {
     TFile inputFile(fileName.c_str(), "READ");
     if (inputFile.IsZombie()) {
@@ -117,7 +117,8 @@ bool HistoInput<T>::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::s
     // Get the input object
     TObject* inputObject = inputFile.Get(histName.c_str());
     if (!inputObject) {
-        std::cout << "Failed to retreive the requested histogram \"" << histName << "\" from the file: " << fileName << "\n";
+        std::cout << "Failed to retreive the requested histogram \"" 
+        << histName << "\" from the file: " << fileName << "\n";
         inputFile.Close();
         return false;
     }
@@ -125,7 +126,8 @@ bool HistoInput<T>::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::s
     // Confirm that the input object is a histogram
     m_hist = std::unique_ptr<TH1>(dynamic_cast<TH1*>(inputObject));
     if (!m_hist) {
-        std::cout << "Failed to convert the retrieved input to a histogram \"" << histName << "\" from the file: " << fileName << "\n";
+        std::cout << "Failed to convert the retrieved input to a histogram \"" 
+        << histName << "\" from the file: " << fileName << "\n";
         inputFile.Close();
         return false;
     }
@@ -136,21 +138,30 @@ bool HistoInput<T>::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::s
     return true;
 }
 
-template< typename T >
+/**
+ * @brief Returns clipped inputValue to the axis range.
+ * Returns a copy of returnValue if no clipping is done. 
+ * @param axis a root TAxis.
+ * @param inputValue 
+ * @return double the clipped inputValue.
+ */
+template<typename T>
 double HistoInput<T>::enforceAxisRange(const TAxis& axis, const double inputValue) {
     static constexpr double edgeOffset {1.e-4};
-    // Root histogram binning: bin 0 = underflow bin, bin 1 = first actual bin, bin N = last actual bin, bin N+1 = overflow bin
+    // Root histogram binning: bin 0 = underflow bin, 
+    // bin 1 = first actual bin, bin N = last actual bin, bin N+1 = overflow bin
     const int numBins {axis.GetNbins()};
     const int binIndex {axis.FindFixBin(inputValue)};
 
+    // Return just inside the range of the first real bin
     if (binIndex < 1)
         return axis.GetBinLowEdge(1) + edgeOffset*axis.GetBinWidth(1);
-        // Return just inside the range of the first real bin
+        
+    // Don't use the upper edge as floating point can make it roll into the next bin (which is overflow)
+    // Instead, use the last bin width to go slightly within the boundary, return just inside the range of the last real bin
     if (binIndex > numBins)
         return axis.GetBinLowEdge(numBins) + (1-edgeOffset)*axis.GetBinWidth(numBins);
-        // Return just inside the range of the last real bin
-        // Don't use the upper edge as floating point can make it roll into the next bin (which is overflow)
-        // Instead, use the last bin width to go slightly within the boundary
+
     return inputValue;
 }
 

@@ -20,7 +20,7 @@
  * - Inserting unsupported types
  * - Inserting supported types
  */
-
+#include "JetToolHelpers/Mock.h"
 #include "JetToolHelpers/JetContext.h"
 #include "test/Test.h"
 

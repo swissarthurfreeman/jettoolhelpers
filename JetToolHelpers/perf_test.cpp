@@ -1,10 +1,19 @@
+/**
+ * @file perf_test.cpp
+ * @author A. Freeman (github.com/swissarthurfreeman/)
+ * @brief Set of JetToolHelpers benchmark to test reading values
+ * from Histogram speeds between branches. 
+ * @date 2022-05-31
+ * 
+ * @copyright Copyright (c) 2022 for the benefit of the ATLAS collaboration.
+ * 
+ */
 #include <iostream>
 #include <random>
 #include <limits>
 #include <benchmark/benchmark.h>
 
 #include "JetToolHelpers/make_histo.h"
-
 #include "JetToolHelpers/Mock.h"
 
 class JetFixture : public benchmark::Fixture {
@@ -49,7 +58,7 @@ class JetContextFixture: public benchmark::Fixture {
 
 BENCHMARK_DEFINE_F(JetFixture, BM_getJetValueOver2DHistogram)(benchmark::State& state) {
     // benchmarking with 2D histogram.
-    auto histogram = make_histogram(
+    auto histogram = MakeHistoInput(
         "Test Histogram",
         "./R4_AllComponents.root",
         "EtaIntercalibration_Modelling_AntiKt4EMPFlow", 
@@ -69,7 +78,7 @@ BENCHMARK_DEFINE_F(JetFixture, BM_getJetValueOver1DHistogram)(benchmark::State& 
     std::string fileName("./R4_AllComponents.root");
     std::string histName1D("EffectiveNP_1_AntiKt4EMTopo");
 
-    HistoInput histogram = make_histogram("Test histogram", fileName, histName1D, "pt", "float", true);
+    HistoInput histogram = MakeHistoInput("Test histogram", fileName, histName1D, "pt", "float", true);
     histogram.initialize();
 
     JetContext jc;
@@ -87,7 +96,7 @@ BENCHMARK_DEFINE_F(JetContextFixture, BM_getJetContextValueOver1DHistogram)(benc
     std::string fileName("./R4_AllComponents.root");
     std::string histName1D("EffectiveNP_1_AntiKt4EMTopo");
 
-    HistoInput histogram = make_histogram("Test histogram", fileName, histName1D, "saspidity", "float", false);
+    HistoInput histogram = MakeHistoInput("Test histogram", fileName, histName1D, "saspidity", "float", false);
     histogram.initialize();
 
     xAOD::Jet jet{5, 5, 5, 5};
@@ -105,7 +114,7 @@ BENCHMARK_DEFINE_F(JetContextFixture, BM_getJetContextValueOver2DHistogram)(benc
     std::string fileName("./R4_AllComponents.root");
     std::string histName2D("EtaIntercalibration_Modelling_AntiKt4EMPFlow");
 
-    HistoInput histogram = make_histogram("Test histogram", fileName, histName2D, "pt", "float", true, "abseta", "float", true);
+    HistoInput histogram = MakeHistoInput("Test histogram", fileName, histName2D, "pt", "float", true, "abseta", "float", true);
     histogram.initialize();
 
     xAOD::Jet jet{5, 5, 5, 5};

@@ -1,3 +1,4 @@
+#include "JetToolHelpers/Mock.h"
 #include <memory>
 #include "JetToolHelpers/InputVariable.h"
 #include "test/Test.h"
