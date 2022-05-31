@@ -7,7 +7,13 @@
 #include <functional>
 
 #include "JetToolHelpers/JetContext.h"
-#include "JetToolHelpers/Mock.h"
+
+#ifdef USING_XAOD
+    #include "xAODJet/Jet.h"
+    #include "AthContainers/AuxElement.h"
+#else
+    #include "JetToolHelpers/Mock.h"
+#endif
 
 /**
  * @brief 
@@ -67,10 +73,10 @@ class InputVariable {
  * is not predefined variation of et, pt, eta, phi... But an arbitrary one. 
  * We suppose that the user is using jets which contain this metadata or else we return
  * an ERRORVALUE.  
- * 
+ * TODO : Update to throwing exception, remove ERRORVALUE
  * @tparam T 
  */
-#ifdef USE_ATHENA
+#ifdef USING_XAOD
 template <typename T> class InputVariableAttribute : public InputVariable {
     public:
         InputVariableAttribute(const std::string& name) : InputVariable(name), m_acc{name} {}

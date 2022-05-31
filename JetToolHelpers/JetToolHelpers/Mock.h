@@ -8,6 +8,8 @@
 #ifndef XAOD_JET_H
 #define XAOD_JET_H
 
+typedef bool StatusCode;
+
 class LocalP4 {
     public:
         LocalP4(double pt, double eta, double phi, double m)
