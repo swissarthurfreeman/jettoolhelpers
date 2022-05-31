@@ -49,7 +49,6 @@ auto make_histogram(
         histName
     };
 
-
     auto iv1 = *InputVariable::createVariable(varName1, varType1, isJetVar1);
     auto iv2 = *InputVariable::createVariable(varName2, varType2, isJetVar2);
     

@@ -100,7 +100,9 @@ int main() {
     TEST_BEGIN("InputVariable Unit Test");
 
     testClassicalSupportedAttributes();
-    testArbitrarySupportedJetAttributes();
+    #ifdef USING_XAOD
+        testArbitrarySupportedJetAttributes();
+    #endif
     testSupportedJetContextAttributes();
     testJetContextAttributeGetValue();
     

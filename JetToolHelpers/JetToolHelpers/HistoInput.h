@@ -18,39 +18,52 @@
 #include <tuple>
 #include "TH1.h"
 #include "TFile.h"
-#include "JetToolHelpers/Mock.h"
+
+#ifdef USING_XAOD
+    #include "AsgTools/AsgTool.h"
+#else
+    #include "JetToolHelpers/Mock.h"
+#endif
 
 #include "JetToolHelpers/JetContext.h"
 #include "JetToolHelpers/InputVariable.h"
+#include "JetToolHelpers/IInputBase.h"
 
 template <typename T>
-class HistoInput {
+class HistoInput : public IInputBase {
     public:         
         static bool readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string fileName, const std::string histName);
         static double enforceAxisRange(const TAxis& axis, const double inputValue);
         
         static constexpr double Dim = std::tuple_size_v<T>;
         ~HistoInput() {}
-        HistoInput(const std::string& name, const std::string& filename, const std::string histName, const T& vars): 
-            m_fileName{filename}, m_histName{histName}, in_vars_{vars} {};
+        HistoInput(
+            const std::string& name, const std::string& filename, 
+            const std::string& histName, const T& vars): 
+            IInputBase{name}, m_fileName{filename}, m_histName{histName}, in_vars_{vars} {};
         
-        bool getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const {
+        virtual bool getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const {
             if constexpr (Dim == 1) {
                 value = m_hist->Interpolate(enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_).getValue(jet, event)));
-                return true;
             } else if constexpr(Dim == 2) { 
                 value = m_hist->Interpolate(
                     enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_).getValue(jet, event)),
                     enforceAxisRange(*m_hist->GetYaxis(), std::get<1>(in_vars_).getValue(jet, event))
                 );
-                return true;
+            } else if constexpr(Dim == 3) {
+                value = m_hist->Interpolate(
+                    enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_).getValue(jet, event)),
+                    enforceAxisRange(*m_hist->GetYaxis(), std::get<1>(in_vars_).getValue(jet, event)),
+                    enforceAxisRange(*m_hist->GetYaxis(), std::get<2>(in_vars_).getValue(jet, event))
+                );
             } else {
                 throw std::runtime_error("Unsupported number of dimensions of histogram.");
                 return false;
             }
+            return true;
         }
 
-        virtual bool initialize() {
+        virtual StatusCode initialize() {
             if (m_hist != nullptr) {
                 std::cerr << "The histogram already exists" << std::endl;
                 return false;
@@ -75,7 +88,7 @@ class HistoInput {
             return true;
         }
         
-        virtual bool finalize() {
+        virtual StatusCode finalize() {
             if (m_hist)
                 m_hist.reset();
             return true;

@@ -1,7 +1,7 @@
 #include "TFile.h"
 #include "TChain.h"
 
-#ifdef USE_ATHENA
+#ifdef USING_XAOD
     #include "xAODEventInfo/EventInfo.h"
     #include "xAODJet/Jet.h"
     #include "xAODJet/JetContainer.h"

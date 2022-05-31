@@ -1,17 +1,20 @@
 #include "JetToolHelpers/InputVariable.h"
 
-InputVariable::InputVariable(
-    const std::string& name, 
-    std::function<float(const xAOD::Jet& jet, const JetContext& jc)> func
-):
-    InputVariable(name) 
-{
+InputVariable::InputVariable(const std::string& name, std::function<float(const xAOD::Jet& jet, const JetContext& jc)> func): InputVariable(name) {
     customFunction = func;
 }
 
-// TODO : why are we returning a unique_ptr ? : ATLAS politics.
-// TODO : Confer with steven about throwing exceptions instead of returning nullptrs.
-// Atlas doesn't allow exceptions in Config time.
+/**
+ * @brief 
+ * 
+ * @param name 
+ * @param type 
+ * @param isJetVar 
+ * @return std::unique_ptr<InputVariable>
+ * 
+ * @note Atlas doesn't allow exceptions in Config time, this is a config time function so we return nullptrs
+ * in case a variable is not supported. 
+ */
 std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& name, const std::string& type, const bool isJetVar) {
     if (isJetVar) {
         // Variables stored on the xAOD::Jet
@@ -59,12 +62,12 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
                 }); 
 
         // Not a pre-defined attribute, assume it is a generic attribute
-        #ifdef USE_ATHENA
-        if (type == "float")
-            return std::make_unique<InputVariableAttribute<float>>(name);
-        
-        if (type == "int")
-            return std::make_unique<InputVariableAttribute<int>>(name);
+        #ifdef IN_PRODUCTION
+            if (type == "float")
+                return std::make_unique<InputVariableAttribute<float>>(name);
+            
+            if (type == "int")
+                return std::make_unique<InputVariableAttribute<int>>(name);
         #endif
         // Unsupported type for a generic attribute
         return nullptr;

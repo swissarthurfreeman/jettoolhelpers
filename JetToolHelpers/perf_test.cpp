@@ -4,6 +4,7 @@
 #include <benchmark/benchmark.h>
 
 #include "JetToolHelpers/make_histo.h"
+
 #include "JetToolHelpers/Mock.h"
 
 class JetFixture : public benchmark::Fixture {
