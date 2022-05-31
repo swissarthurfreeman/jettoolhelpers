@@ -19,6 +19,7 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
     if (isJetVar) {
         // Variables stored on the xAOD::Jet
         // First, check for pre-defined attributes (not stored as generic auxdata)
+        // TODO : What about phi ? 
         if (name == "e")
             return std::make_unique<InputVariable>(name,
                 [](const xAOD::Jet& jet, const JetContext&) {
@@ -52,8 +53,8 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
         if (name == "rapidity" || name == "y")
             return std::make_unique<InputVariable>(name,
                 [](const xAOD::Jet& jet, const JetContext&) {
-                    return std::abs(jet.eta());
-                }); 
+                    return jet.rapidity();
+                });
 
         if (name == "absrapidity" || name == "|rapidity|" || name == "absy" || name == "|y|")
             return std::make_unique<InputVariable>(name,

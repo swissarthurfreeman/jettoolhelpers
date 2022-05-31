@@ -52,4 +52,26 @@ auto MakeHistoInput(
     return make_histogram_with(conf, iv1, iv2);
 }
 
+auto MakeHistoInput(
+    const std::string& name, const std::string& fileName, 
+    const std::string& histName, const std::string& varName1, 
+    const std::string& varType1, const bool isJetVar1,
+    const std::string& varName2, const std::string& varType2,
+    bool isJetVar2,
+    const std::string& varName3, const std::string& varType3,
+    const bool isJetVar3) {
+    
+    Config conf = {
+        name,
+        fileName,
+        histName
+    };
+
+    auto iv1 = *InputVariable::createVariable(varName1, varType1, isJetVar1);
+    auto iv2 = *InputVariable::createVariable(varName2, varType2, isJetVar2);
+    auto iv3 = *InputVariable::createVariable(varName3, varType3, isJetVar3);
+    
+    return make_histogram_with(conf, iv1, iv2, iv3);
+}
+
 #endif

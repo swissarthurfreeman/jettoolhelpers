@@ -38,17 +38,27 @@ class HistoInput : public IInputBase {
         
         virtual bool getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const {
             if constexpr (Dim == 1) {
-                value = m_hist->Interpolate(enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_).getValue(jet, event)));
+                value = m_hist->Interpolate(
+                    enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_).getValue(jet, event))
+                );
             } else if constexpr(Dim == 2) { 
                 value = m_hist->Interpolate(
                     enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_).getValue(jet, event)),
                     enforceAxisRange(*m_hist->GetYaxis(), std::get<1>(in_vars_).getValue(jet, event))
                 );
             } else if constexpr(Dim == 3) {
+                std::cout << "3D interpolate on \n";
+                double x = enforceAxisRange(*(m_hist->GetXaxis()), std::get<0>(in_vars_).getValue(jet, event));
+                double y = enforceAxisRange(*(m_hist->GetYaxis()), std::get<1>(in_vars_).getValue(jet, event));
+                double z = enforceAxisRange(*(m_hist->GetZaxis()), std::get<2>(in_vars_).getValue(jet, event));
+                std::cout << "x = " << x << " y = " << y << " z = " << z << std::endl;
+                std::cout << "value = " << m_hist->Interpolate(x, y, z) << "\n";
+                std::cout << "bins = " << m_hist->GetXaxis()->FindBin(x) << " " << m_hist->GetYaxis()->FindBin(y) << " " << m_hist->GetZaxis()->FindBin(z) << "\n"; 
+                
                 value = m_hist->Interpolate(
-                    enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_).getValue(jet, event)),
-                    enforceAxisRange(*m_hist->GetYaxis(), std::get<1>(in_vars_).getValue(jet, event)),
-                    enforceAxisRange(*m_hist->GetYaxis(), std::get<2>(in_vars_).getValue(jet, event))
+                    enforceAxisRange(*(m_hist->GetXaxis()), std::get<0>(in_vars_).getValue(jet, event)),
+                    enforceAxisRange(*(m_hist->GetYaxis()), std::get<1>(in_vars_).getValue(jet, event)),
+                    enforceAxisRange(*(m_hist->GetZaxis()), std::get<2>(in_vars_).getValue(jet, event))
                 );
             } else {
                 throw std::runtime_error("Unsupported number of dimensions of histogram.");
@@ -152,7 +162,7 @@ double HistoInput<T>::enforceAxisRange(const TAxis& axis, const double inputValu
     // bin 1 = first actual bin, bin N = last actual bin, bin N+1 = overflow bin
     const int numBins {axis.GetNbins()};
     const int binIndex {axis.FindFixBin(inputValue)};
-
+    
     // Return just inside the range of the first real bin
     if (binIndex < 1)
         return axis.GetBinLowEdge(1) + edgeOffset*axis.GetBinWidth(1);
