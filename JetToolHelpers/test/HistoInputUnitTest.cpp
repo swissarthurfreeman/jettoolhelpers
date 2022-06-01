@@ -23,6 +23,8 @@ void test1DHistogramReadingOn(std::vector<xAOD::Jet>& jets) {
     double val{0};
     for(auto jet: jets) {
         histoInput.getValue(jet, jc, val);
+        // interpolation might on i yield a larger value than i which when rounded could
+        // be in bin i, i-1 or i + 1. We have to try them all.
         try {
             ASSERT_EQUAL((int) round(val), histo->FindBin(jet.e()));
         } catch(std::runtime_error& e) {
@@ -94,10 +96,11 @@ void test3DHistogramReadingOn(std::vector<xAOD::Jet>& jets) {
             for(int k=1; k <= histo->GetNbinsZ(); k++)
                 histo->SetBinContent(i, j, k, i + j + k);
     
+    std::cerr << "\nHere\n"; 
     auto histoInput = MakeHistoInput("Test Histo", "randomFile", "hello", 
-                                     "e", "float", true, 
+                                     "pt", "float", true, 
                                      "eta", "float", true, 
-                                     "rapidity", "float", true);
+                                     "phi", "float", true);
     
     histoInput.setHist(histo); // copies raw ptr, memory is freed once histoInput steps out of frame. 
     JetContext jc;
@@ -110,30 +113,30 @@ void test3DHistogramReadingOn(std::vector<xAOD::Jet>& jets) {
     for(auto jet: jets) {
         // if jet value was overflow, round will always round to the value
         // of the bucket val is in.
-        std::cerr << "\n(e = " << jet.e() << ", eta = " << jet.eta() << ", rapidity = " << jet.rapidity() << ")\n";
+        std::cerr << "\n(pt = " << jet.pt() << ", eta = " << jet.eta() << ", phi = " << jet.phi() << ")\n";
         
         histoInput.getValue(jet, jc, val);
         
         // 3D, underflow / overflow to manage on every axis... 
         try {
-            ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.e()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.rapidity()));
+            ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.pt()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.phi()));
         } catch(std::runtime_error& e) {
             try {
-                ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.e()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.rapidity()) - 1);
+                ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.pt()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.phi()) - 1);
             } catch(std::runtime_error& e) {
                 try {
-                    ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.e()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.rapidity()) - 2);
+                    ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.pt()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.phi()) - 2);
                 } catch(std::runtime_error& e) {
                     try {
-                        ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.e()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.rapidity()) - 3);
+                        ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.pt()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.phi()) - 3);
                     } catch(std::runtime_error& e) { 
                         try {
-                            ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.e()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.rapidity()) + 1);
+                            ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.pt()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.phi()) + 1);
                         } catch(std::runtime_error& e) { 
                             try {
-                                ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.e()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.rapidity()) + 2);
+                                ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.pt()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.phi()) + 2);
                             } catch(std::runtime_error& e) { 
-                                ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.e()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.rapidity()) + 3);
+                                ASSERT_EQUAL((int) round(val), xaxis->FindBin(jet.pt()) + yaxis->FindBin(jet.eta()) + zaxis->FindBin(jet.phi()) + 3);
                             }
                         }
                     }

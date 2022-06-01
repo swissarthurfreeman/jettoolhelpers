@@ -38,6 +38,12 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
                     return jet.pt();
                 });
 
+        if(name == "phi")
+            return std::make_unique<InputVariable>(name,
+                [](const xAOD::Jet& jet, const JetContext&) {
+                    return jet.phi();
+                });
+
         if (name == "eta")
             return std::make_unique<InputVariable>(name,
                 [](const xAOD::Jet& jet, const JetContext&) {
