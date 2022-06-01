@@ -74,7 +74,6 @@ class HistoInput : public IInputBase {
                 else if(z > z_axis->GetBinCenter(z_axis->GetNbins()))
                     z = z_axis->GetBinCenter(z_axis->GetNbins()) - 0.001;
 
-                std::cout << "Interpolating on x = " << x << " y = " << y << " z = " << z << "\n";
                 value = m_hist->Interpolate(x, y, z);
             } else {
                 throw std::runtime_error("Unsupported number of dimensions of histogram.");

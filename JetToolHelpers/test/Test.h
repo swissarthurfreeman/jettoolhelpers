@@ -66,17 +66,17 @@ namespace Test {
 
     #define TEST_BEGIN( name )\
     {\
-    std::cerr << "-- Running test \"" << name << "\"...";\
+    std::cerr << "-- Running test \"" << name << "\"...\n";\
     }
 
     #define TEST_BEGIN_CASE( name )\
     {\
-    std::cerr << "\n        -- Running test case \"" << name << "\"...";\
+    std::cerr << "        -- Running test case \"" << name << "\"...\n";\
     }
 
     #define TEST_END_CASE( name )\
     {\
-    std::cerr << "\n        -- Succesfuly finished test case \"" << name << "\"...";\
+    std::cerr << "        -- Succesfuly finished test case \"" << name << "\"...\n";\
     }
 
     #define TEST_END( name ) \

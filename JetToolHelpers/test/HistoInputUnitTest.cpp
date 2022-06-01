@@ -97,7 +97,6 @@ void test1DHistogramReadingOnXH(std::vector<JetContext>& events) {
         }
     }
 
-    std::cerr << "HELLLOOOO\n";
     TEST_END_CASE("HistoInput 1D Histogram Reading from Jet Context");
 }
 
@@ -121,10 +120,6 @@ void test2DHistogramReadingOnXYH(std::vector<xAOD::Jet>& jets) {
         histoInput.getValue(jet, jc, val);
         // if jet value was overflow, round will always round to the value
         // of the bucket val is in.
-        std::cerr << "(e = " << jet.e() << ", eta = " << jet.eta() << ")\n";
-        std::cerr << "val = " << (int) round(val) << std::endl;
-        std::cerr << "xbin = " << histo->GetXaxis()->FindBin(jet.e()) << std::endl;
-        std::cerr << "ybin = " << histo->GetYaxis()->FindBin(jet.eta()) << std::endl;
         try {
             ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()));
         } catch(std::runtime_error& e) {
@@ -152,8 +147,8 @@ void test2DHistogramReadingOnXYH(std::vector<xAOD::Jet>& jets) {
  * 
  * @param events a vector of JetContext with two keys : (float) saspidity and (int) durphi. 
  */
-/*
-void test2DHistogramReadingOnXYH(std::vector<JetContext>& events) {
+
+void test2DHistogramReadingOnXYH(std::vector<xAOD::Jet>& jets, std::vector<JetContext>& events) {
     TEST_BEGIN_CASE("HistoInput 2D Histogram Reading from Jet Variable");
 
     // X histogram
@@ -163,33 +158,33 @@ void test2DHistogramReadingOnXYH(std::vector<JetContext>& events) {
         for(int j=1; j <= histo->GetNbinsY(); j++)
             histo->SetBinContent(i, j, i + j);
     
-    auto histoInput = MakeHistoInput("Test Histo", "randomFile", "hello", "e", "float", true, "eta", "float", true);
+    auto histoInput = MakeHistoInput("Test Histo", "randomFile", "hello", "e", "float", true, "saspidity", "float", false);
     
     histoInput.setHist(histo); // copies raw ptr, memory is freed once histoInput steps out of frame. 
     JetContext jc;
     
     double val{0};
-    for(auto jet: jets) {
-        histoInput.getValue(jet, jc, val);
-        // if jet value was overflow, round will always round to the value
-        // of the bucket val is in.
-        std::cerr << "(e = " << jet.e() << ", eta = " << jet.eta() << ")\n";
-        std::cerr << "val = " << (int) round(val) << std::endl;
-        std::cerr << "xbin = " << histo->GetXaxis()->FindBin(jet.e()) << std::endl;
-        std::cerr << "ybin = " << histo->GetYaxis()->FindBin(jet.eta()) << std::endl;
-        try {
-            ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()));
-        } catch(std::runtime_error& e) {
+    for (auto jet: jets) {
+        for(auto jc: events) {
+            histoInput.getValue(jet, jc, val);
+            // if jet value was overflow, round will always round to the value
+            // of the bucket val is in.
+            float sas_value{0}; // TODO : manage jc.getValue() when value passed by reference is double. 
+            jc.getValue("saspidity", sas_value);
             try {
-                ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()) - 1);
+                ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(sas_value));
             } catch(std::runtime_error& e) {
                 try {
-                    ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()) - 2);
+                    ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(sas_value) - 1);
                 } catch(std::runtime_error& e) {
                     try {
-                        ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()) + 1);
-                    } catch(std::runtime_error& e) { 
-                        ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()) + 2);
+                        ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(sas_value) - 2);
+                    } catch(std::runtime_error& e) {
+                        try {
+                            ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(sas_value) + 1);
+                        } catch(std::runtime_error& e) { 
+                            ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(sas_value) + 2);
+                        }
                     }
                 }
             }
@@ -197,7 +192,7 @@ void test2DHistogramReadingOnXYH(std::vector<JetContext>& events) {
     }
     TEST_END_CASE("HistoInput 2D Histogram Reading from Jet Variable");
 }
-*/
+
 /**
  * @brief Test reading out of 3D H=X+Y+Z Histogram where all axis are Jet variables. 
  * 
@@ -214,7 +209,6 @@ void test3DHistogramReadingOnXYZH(std::vector<xAOD::Jet>& jets) {
             for(int k=1; k <= histo->GetNbinsZ(); k++)
                 histo->SetBinContent(i, j, k, i + j + k);
     
-    std::cerr << "\nHere\n"; 
     auto histoInput = MakeHistoInput("Test Histo", "randomFile", "hello", 
                                      "pt", "float", true, 
                                      "eta", "float", true, 
@@ -231,8 +225,6 @@ void test3DHistogramReadingOnXYZH(std::vector<xAOD::Jet>& jets) {
     for(auto jet: jets) {
         // if jet value was overflow, round will always round to the value
         // of the bucket val is in.
-        std::cerr << "\n(pt = " << jet.pt() << ", eta = " << jet.eta() << ", phi = " << jet.phi() << ")\n";
-        
         histoInput.getValue(jet, jc, val);
         
         // 3D, underflow / overflow to manage on every axis... 
@@ -303,7 +295,8 @@ int main() {
     std::vector<JetContext> events;
     SetUpJetContexts(1000, events);
     test1DHistogramReadingOnXH(events);
-    std::cerr << "HELLLOOOO\n";
+    test2DHistogramReadingOnXYH(jets, events);
+    
 
     TEST_END("InputVariable Unit Test");
     return 0;
