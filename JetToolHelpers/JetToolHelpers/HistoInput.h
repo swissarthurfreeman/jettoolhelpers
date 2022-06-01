@@ -82,6 +82,11 @@ class HistoInput : public IInputBase {
             return true;
         }
 
+        /**
+         * @brief Reads the specified .root file specified by m_fileName 
+         * and loads the Histogram specified by @ref m_histName and loads it into m_hist.
+         * @return StatusCode true if succeeded, false if an error happened.
+         */
         virtual StatusCode initialize() {
             if (m_hist != nullptr) {
                 std::cerr << "The histogram already exists" << std::endl;
@@ -121,7 +126,8 @@ class HistoInput : public IInputBase {
     private:
         const std::string name; 
         const std::string m_fileName;
-        const std::string m_histName;
+        
+        const std::string m_histName; // @m_histName name of the histogram within @m_fileName
 
         std::unique_ptr<TH1> m_hist;
         T in_vars_;

@@ -296,7 +296,6 @@ int main() {
     SetUpJetContexts(1000, events);
     test1DHistogramReadingOnXH(events);
     test2DHistogramReadingOnXYH(jets, events);
-    
 
     TEST_END("InputVariable Unit Test");
     return 0;
