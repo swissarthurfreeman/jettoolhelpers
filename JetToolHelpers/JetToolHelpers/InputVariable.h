@@ -58,7 +58,7 @@ class InputVariable {
         std::string getName() const { return m_name;   }
         float getScale() const { return m_scale;  }
         void setScale(const float scale) { m_scale = scale; }
-        void setGeV() { m_scale = 1.e-3; }
+        void setGeV() { m_scale = 1.e3; }   // this is not -3, if we give 500, by default it's MeV, so if it's GeV we must multiply by 1e3.
         void setMeV() { m_scale = 1.;    }
 
         static constexpr int ERRORVALUE {-999};

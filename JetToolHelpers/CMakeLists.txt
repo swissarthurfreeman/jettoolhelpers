@@ -34,11 +34,7 @@ if(NOT IN_PRODUCTION)
    enable_testing()
    add_subdirectory(test)
 
-   message("Configuring Benchmarking...")
-   find_package(benchmark REQUIRED)
-
-   add_executable(perf_test "./perf_test.cpp")
-   target_link_libraries(perf_test JetToolHelpers benchmark::benchmark)
+   add_subdirectory(util)
 else()
    add_compile_definitions(USING_XAOD)
 endif()

@@ -18,3 +18,4 @@ target_include_directories(HistoInputUnitTest PUBLIC ".")
 add_test(JetContextUnitTest JetContextUnitTest)
 add_test(InputVariableUnitTest InputVariableUnitTest)
 add_test(HistoInputUnitTest HistoInputUnitTest)
+
