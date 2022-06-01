@@ -12,8 +12,9 @@ struct Config {
 };
 
 template <class InVar, class... InVars>
-auto make_histogram_with(Config config, InVar invar, InVars... invars) {
-    auto t = std::make_tuple(invar, invars...);
+auto make_histogram_with(Config config, std::unique_ptr<InVar>& invar, std::unique_ptr<InVars>&... invars) {
+    auto t = std::make_tuple(std::move(invar), std::move(invars)...);
+    //return t;
     return HistoInput<decltype(t)>(config.name, config.fileName, config.histName, t);
 }
 
@@ -29,7 +30,7 @@ auto MakeHistoInput(
         histName
     };
 
-    auto iv1 = *InputVariable::createVariable(varName, varType, isJetVar);
+    auto iv1 = InputVariable::createVariable(varName, varType, isJetVar);
     return make_histogram_with(conf, iv1);
 }
 
@@ -46,8 +47,8 @@ auto MakeHistoInput(
         histName
     };
 
-    auto iv1 = *InputVariable::createVariable(varName1, varType1, isJetVar1);
-    auto iv2 = *InputVariable::createVariable(varName2, varType2, isJetVar2);
+    auto iv1 = InputVariable::createVariable(varName1, varType1, isJetVar1);
+    auto iv2 = InputVariable::createVariable(varName2, varType2, isJetVar2);
     
     return make_histogram_with(conf, iv1, iv2);
 }
@@ -67,9 +68,9 @@ auto MakeHistoInput(
         histName
     };
 
-    auto iv1 = *InputVariable::createVariable(varName1, varType1, isJetVar1);
-    auto iv2 = *InputVariable::createVariable(varName2, varType2, isJetVar2);
-    auto iv3 = *InputVariable::createVariable(varName3, varType3, isJetVar3);
+    auto iv1 = InputVariable::createVariable(varName1, varType1, isJetVar1);
+    auto iv2 = InputVariable::createVariable(varName2, varType2, isJetVar2);
+    auto iv3 = InputVariable::createVariable(varName3, varType3, isJetVar3);
     
     return make_histogram_with(conf, iv1, iv2, iv3);
 }

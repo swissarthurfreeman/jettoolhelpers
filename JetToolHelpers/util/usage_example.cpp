@@ -17,15 +17,16 @@ int main() {
     auto inVarGeVpt = InputVariable::createVariable("pt", "float", true);
     inVarGeVpt->setGeV();
 
-    auto inVarMuDet = InputVariable::createVariable("eta", "float", true);
-
-    auto histo = make_histogram_with(conf, *inVarGeVpt, *inVarMuDet);   // y variable is mu_det, we just say it's e in this test.
-
+    // eta is the greek letter of the Y axis.
+    auto inVarEta = InputVariable::createVariable("eta", "float", true);  // inVarGeVpt, inVarEta are moved, owner is HistoInput
+    auto histo = make_histogram_with(conf, inVarGeVpt, inVarEta);         // do not attempt to reuse them or you'll segfault !
+    
     histo.initialize();
 
     double value{0};
     histo.getValue(jet, jc, value);
     std::cout << "HistoGram readout value = " << value << " where histname is " << histName2D << std::endl;
 
+    
     return 0;
 }

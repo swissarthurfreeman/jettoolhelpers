@@ -35,18 +35,18 @@ class HistoInput : public IInputBase {
     public:         
         static constexpr double Dim = std::tuple_size_v<T>;
         ~HistoInput() {}
-        HistoInput(const std::string& name, const std::string& filename, const std::string& histName, const T& vars): 
-            IInputBase{name}, m_fileName{filename}, m_histName{histName}, in_vars_{vars} {};
+        HistoInput(const std::string& name, const std::string& filename, const std::string& histName, T& vars): 
+            IInputBase{name}, m_fileName{filename}, m_histName{histName}, in_vars_{std::move(vars)} {};
         
         virtual bool getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const {
             if constexpr (Dim == 1) {
                 value = m_hist->Interpolate(
-                    enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_).getValue(jet, event))
+                    enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_)->getValue(jet, event))
                 );
             } else if constexpr(Dim == 2) { 
                 value = m_hist->Interpolate(
-                    enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_).getValue(jet, event)),
-                    enforceAxisRange(*m_hist->GetYaxis(), std::get<1>(in_vars_).getValue(jet, event))
+                    enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_)->getValue(jet, event)),
+                    enforceAxisRange(*m_hist->GetYaxis(), std::get<1>(in_vars_)->getValue(jet, event))
                 );
             } else if constexpr(Dim == 3) {
                 // readability purposes
@@ -55,9 +55,9 @@ class HistoInput : public IInputBase {
                 auto z_axis = m_hist->GetZaxis();
 
                 // 3D interpolation requires every value to be between first and last bin center on every axis...
-                double x = std::get<0>(in_vars_).getValue(jet, event);
-                double y = std::get<1>(in_vars_).getValue(jet, event);
-                double z = std::get<2>(in_vars_).getValue(jet, event);
+                double x = std::get<0>(in_vars_)->getValue(jet, event);
+                double y = std::get<1>(in_vars_)->getValue(jet, event);
+                double z = std::get<2>(in_vars_)->getValue(jet, event);
                 
                 if(x < x_axis->GetBinCenter(1))
                     x = x_axis->GetBinCenter(1) + 0.001;    // required not to interpolate outside of domain...

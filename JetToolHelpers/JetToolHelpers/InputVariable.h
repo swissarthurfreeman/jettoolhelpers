@@ -61,6 +61,7 @@ class InputVariable {
         void setGeV() { m_scale = 1.e3; }   // this is not -3, if we give 500, by default it's MeV, so if it's GeV we must multiply by 1e3.
         void setMeV() { m_scale = 1.;    }
 
+        InputVariable(const InputVariable&) = delete;
         static constexpr int ERRORVALUE {-999};
 
     protected:
