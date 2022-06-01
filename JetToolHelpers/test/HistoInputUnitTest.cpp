@@ -113,7 +113,6 @@ void test3DHistogramReadingOn(std::vector<xAOD::Jet>& jets) {
         std::cerr << "\n(e = " << jet.e() << ", eta = " << jet.eta() << ", rapidity = " << jet.rapidity() << ")\n";
         
         histoInput.getValue(jet, jc, val);
-        std::cerr << "val = " << (int) round(val) << std::endl;
         
         // 3D, underflow / overflow to manage on every axis... 
         try {

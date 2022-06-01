@@ -47,19 +47,32 @@ class HistoInput : public IInputBase {
                     enforceAxisRange(*m_hist->GetYaxis(), std::get<1>(in_vars_).getValue(jet, event))
                 );
             } else if constexpr(Dim == 3) {
-                std::cout << "3D interpolate on \n";
-                double x = enforceAxisRange(*(m_hist->GetXaxis()), std::get<0>(in_vars_).getValue(jet, event));
-                double y = enforceAxisRange(*(m_hist->GetYaxis()), std::get<1>(in_vars_).getValue(jet, event));
-                double z = enforceAxisRange(*(m_hist->GetZaxis()), std::get<2>(in_vars_).getValue(jet, event));
-                std::cout << "x = " << x << " y = " << y << " z = " << z << std::endl;
-                std::cout << "value = " << m_hist->Interpolate(x, y, z) << "\n";
-                std::cout << "bins = " << m_hist->GetXaxis()->FindBin(x) << " " << m_hist->GetYaxis()->FindBin(y) << " " << m_hist->GetZaxis()->FindBin(z) << "\n"; 
+                auto x_axis = m_hist->GetXaxis();
+                auto y_axis = m_hist->GetYaxis();
+                auto z_axis = m_hist->GetZaxis();
+
+                // 3D interpolation requires every value to be between first and last bin center on every axis...
+                double x = enforceAxisRange(*(x_axis), std::get<0>(in_vars_).getValue(jet, event));
+                double y = enforceAxisRange(*(y_axis), std::get<1>(in_vars_).getValue(jet, event));
+                double z = enforceAxisRange(*(z_axis), std::get<2>(in_vars_).getValue(jet, event));
                 
-                value = m_hist->Interpolate(
-                    enforceAxisRange(*(m_hist->GetXaxis()), std::get<0>(in_vars_).getValue(jet, event)),
-                    enforceAxisRange(*(m_hist->GetYaxis()), std::get<1>(in_vars_).getValue(jet, event)),
-                    enforceAxisRange(*(m_hist->GetZaxis()), std::get<2>(in_vars_).getValue(jet, event))
-                );
+                if(x < x_axis->GetBinCenter(1))
+                    x = x_axis->GetBinCenter(1) + 0.001;
+                else if(x > x_axis->GetBinCenter(x_axis->GetNbins()))
+                    x = x_axis->GetBinCenter(x_axis->GetNbins()) - 0.001;
+
+                if(y < y_axis->GetBinCenter(1))
+                    y = y_axis->GetBinCenter(1) + 0.001;
+                else if(y > y_axis->GetBinCenter(y_axis->GetNbins()))
+                    y = y_axis->GetBinCenter(y_axis->GetNbins()) - 0.001;
+
+                if(z < z_axis->GetBinCenter(1))
+                    z = z_axis->GetBinCenter(1) + 0.001;
+                else if(z > z_axis->GetBinCenter(z_axis->GetNbins()))
+                    z = z_axis->GetBinCenter(z_axis->GetNbins()) - 0.001;
+
+                std::cout << "Interpolating on x = " << x << " y = " << y << " z = " << z << "\n";
+                value = m_hist->Interpolate(x, y, z);
             } else {
                 throw std::runtime_error("Unsupported number of dimensions of histogram.");
                 return false;
