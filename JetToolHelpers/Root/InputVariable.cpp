@@ -1,3 +1,11 @@
+/**
+ * @file InputVariable.cpp
+ * @author A. Freeman, S. Schramm (swissarthurfreeman@gmail.com, steven.schramm@cern.ch)
+ * @date 2022-06-01
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include <iostream>
 #include "JetToolHelpers/InputVariable.h"
 
@@ -5,17 +13,6 @@ InputVariable::InputVariable(const std::string& name, std::function<float(const 
     customFunction = func;
 }
 
-/**
- * @brief 
- * 
- * @param name 
- * @param type 
- * @param isJetVar 
- * @return std::unique_ptr<InputVariable>
- * 
- * @note Atlas doesn't allow exceptions in Config time, this is a config time function so we return nullptrs
- * in case a variable is not supported. 
- */
 std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& name, const std::string& type, const bool isJetVar) {
     if (isJetVar) {
         // Variables stored on the xAOD::Jet
@@ -78,7 +75,7 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
                 return std::make_unique<InputVariableAttribute<int>>(name);
         #endif
         // Unsupported type for a generic attribute
-        std::cerr << "WARNING : user requested Jet InputVariable " << name << " is unsupported\n"; 
+        std::cerr << "\nWARNING : user requested Jet InputVariable " << name << " is unsupported\n"; 
         return nullptr;
     } else {
         // Variables not stored on the xAOD::Jet
@@ -98,7 +95,7 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
                 });
 
         // Unsupported type for a non-jet-level variable
-        std::cerr << "WARNING : user requested JetContext InputVariable type" << name << " is unsupported\n"; 
+        std::cerr << "\nWARNING : user requested JetContext InputVariable type" << name << " is unsupported\n"; 
         return nullptr;
     }
 }

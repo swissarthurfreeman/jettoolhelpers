@@ -30,6 +30,17 @@
 #include "JetToolHelpers/InputVariable.h"
 #include "JetToolHelpers/IInputBase.h"
 
+/**
+ * @brief Core template class to read values from histograms with arbitrary 
+ * axis interpretations. 
+ * 
+ * @tparam T a pointer type to an object with a 
+ * @code {.cpp}
+ *  double getValue(xAOD::Jet& jet, JetContext& jc);
+ * @endcode
+ * method. Default factory methods will use unique_ptrs, it is recommended to not 
+ * handle raw pointers, but this template can be instantiated with raw pointers. 
+ */
 template <typename T>
 class HistoInput : public IInputBase {
     public:         
@@ -38,6 +49,17 @@ class HistoInput : public IInputBase {
         HistoInput(const std::string& name, const std::string& filename, const std::string& histName, T& vars): 
             IInputBase{name}, m_fileName{filename}, m_histName{histName}, in_vars_{std::move(vars)} {};
         
+        /**
+         * @brief Readout the value from the Histogram. Every axis is a certain combination
+         * of Jet attributes or a JetContext attribute. This is specified by the underlying InputVariable
+         * of the axis.  
+         * @param jet an instance of xAOD::Jet.
+         * @param event a JetContext with the required attributes. 
+         * (if used, JetContext must have a key with the same name as the input variable)
+         * @param value a reference that's written to. 
+         * @return true if the reading succeeded
+         * @return false if an unsupported number of dimensions was provided. 
+         */
         virtual bool getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const {
             if constexpr (Dim == 1) {
                 value = m_hist->Interpolate(
@@ -83,8 +105,8 @@ class HistoInput : public IInputBase {
         }
 
         /**
-         * @brief Reads the specified .root file specified by m_fileName 
-         * and loads the Histogram specified by @ref m_histName and loads it into m_hist.
+         * @brief Reads the specified .root file specified by getFileName() and loads 
+         * the Histogram specified by getHistName() and loads it into the class.
          * @return StatusCode true if succeeded, false if an error happened.
          */
         virtual StatusCode initialize() {
@@ -112,20 +134,32 @@ class HistoInput : public IInputBase {
             return true;
         }
         
+        /**
+         * @brief frees the memory reserved for the underlying histogram. 
+         * @return StatusCode true, freeing always succeeds. 
+         */
         virtual StatusCode finalize() {
             if (m_hist)
                 m_hist.reset();     // releases and deletes the owned histogram.
             return true;
         }
 
+        /**
+         * @brief configure the HistoInput histogram. 
+         * This function is useful for local testing. 
+         * @param hist the new histogram. 
+         */
         void setHist(TH1* hist) { m_hist.reset(hist); }
 
+        /** @brief return the .root file name */
         std::string getFileName() const { return m_fileName; }
+
+        /** @brief return the histogram name, contained in the .root file. */
         std::string getHistName() const { return m_histName; }
         
     private:
         const std::string name; 
-        const std::string m_fileName;
+        const std::string m_fileName;   /**< A member variable */
         
         const std::string m_histName; // @m_histName name of the histogram within @m_fileName
 

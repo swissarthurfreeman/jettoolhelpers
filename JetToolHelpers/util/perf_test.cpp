@@ -4,9 +4,28 @@
  * @brief Set of JetToolHelpers benchmark to test reading values
  * from Histogram speeds between branches. 
  * @date 2022-05-31
+ * @note This requires the google benchmark library. Will not be compiled
+ * in production. 
+ * 
+ * The general workflow to register a benchmark is this : Create a fixture
+ * class which inherits publicly from benchmark::Fixture. (a fixture is a set of preconditions
+ * this is where we generate benchmark data, it's not counted in the measured times)
+ * 
+ * Register and declare a new benchmark by using the following macro, 
+ * @code {.cpp}
+ * BENCHMARK_DEFINE_F(fixture_class, name_of_method)(benchmark::State& state) {
+ *      //specialized config... (not counted in time)     
+ *      // method declaration
+ *      for(auto _: state) {
+ *          // actual benchmark code (this is where what you're measuring goes)
+ *          // access whatever you defined as protected in your fixture by the
+ *          // same name than what you declared in the fixture
+ *          doComputationallyExpensiveThing();
+ *      }
+ * }
+ * @endcode
  * 
  * @copyright Copyright (c) 2022 for the benefit of the ATLAS collaboration.
- * 
  */
 #include <iostream>
 #include <random>
@@ -16,6 +35,11 @@
 #include "JetToolHelpers/make_histo.h"
 #include "JetToolHelpers/Mock.h"
 
+/**
+ * @brief Simple test setup for benchmarking
+ * reading from jet vector. Jets are distributed for every
+ * variable between -10k, 10k following a uniform distribution. 
+ */
 class JetFixture : public benchmark::Fixture {
     protected:
         std::vector<xAOD::Jet> jets;
@@ -36,10 +60,15 @@ class JetFixture : public benchmark::Fixture {
         }
 };
 
+/**
+ * @brief Simple test setup for benchmarking
+ * reading from jet context. Context value is "saspidity" and is 
+ * distributed uniformly for every between -10k, 10k. 
+ */
 class JetContextFixture: public benchmark::Fixture {
     protected:
         std::vector<JetContext> events;
-
+        
         void SetUp(const ::benchmark::State& state) {    
             std::mt19937 gen( 43294 );
             std::uniform_real_distribution< float > dist( -10000, 10000 );

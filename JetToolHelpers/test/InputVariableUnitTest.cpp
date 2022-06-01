@@ -1,3 +1,12 @@
+/**
+ * @file InputVariableUnitTest.cpp
+ * @author A. Freeman (swissarthurfreeman@gmail.com)
+ * @brief Unit test to test intended InputVariable behaviour. 
+ * @date 2022-06-01
+ * 
+ * @copyright Copyright (c) 2022 for the benefit of the atlas collaboration. 
+ * 
+ */
 #include "JetToolHelpers/Mock.h"
 #include <memory>
 #include "JetToolHelpers/InputVariable.h"

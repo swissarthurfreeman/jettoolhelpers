@@ -1,3 +1,12 @@
+/**
+ * @file JetContext.h
+ * @author A. Freeman (swissarthurfreeman@gmail.com)
+ * @brief a class for storing arbitrary event data. 
+ * @date 2022-06-01
+ * 
+ * @copyright Copyright (c) 2022 for the benefit of the ATLAS collaboration. 
+ * 
+ */
 #ifndef JETCONTEXT_H
 #define JETCONTEXT_H
 
@@ -6,6 +15,12 @@
 #include <variant>
 #include <type_traits>
 
+/**
+ * @brief Class for storing arbitrary event data in string indexed
+ * map. The types storable are only float and int. 
+ * Every method is templated and compile time checks are done to make
+ * sure types are respected.
+ */
 class JetContext {
     public:
         /**
@@ -32,6 +47,8 @@ class JetContext {
          * @return T the value. 
          */
         template <typename T> void getValue(const std::string& name, T& value) const;
+        
+        /** @brief wrapper for void getValue(const std::string& name, T& value) */
         template <typename T> T getValue(const std::string& name) const;
         
         /**
@@ -62,8 +79,7 @@ template <typename T> T JetContext::getValue(const std::string& name) const {
 }
 
 template <typename T> bool JetContext::setValue(const std::string& name, const T value, bool allowOverwrite) {
-    if(name == "" || ( !allowOverwrite && isAvailable(name))) 
-        return false;
+    if(( !allowOverwrite && isAvailable(name)) ) return false;
         
     if constexpr (!std::is_same<T, int>::value && !std::is_same<T, float>::value) {
         if constexpr ( std::is_same<T, double>::value) // if instantiated with double cast to float. 

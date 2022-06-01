@@ -10,16 +10,6 @@
  * @copyright Copyright (c) 2022
  */
 
-/**
- * 
- * To do : 
- * STEVEN : With variant code any unsupported type results in a 
- * compile error, do we want to return an exception instead ?
- * What happens when we pass a nullptr to a reference ?  
- * What we have to test is :  => results in compilation error.
- * - Inserting unsupported types
- * - Inserting supported types
- */
 #include "JetToolHelpers/Mock.h"
 #include "JetToolHelpers/JetContext.h"
 #include "test/Test.h"

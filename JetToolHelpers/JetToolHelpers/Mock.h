@@ -1,8 +1,5 @@
-/**
- * @file Mock.h
- * @brief Contains all mock implementations of  Athena 
- * required to run JetToolHelpers.
- */
+// Contains all mock implementations of Athena 
+// required to run JetToolHelpers.
 #include <string>
 
 #ifndef XAOD_JET_H

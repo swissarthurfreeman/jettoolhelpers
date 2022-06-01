@@ -14,7 +14,8 @@ if(NOT IN_PRODUCTION)
       ./JetToolHelpers/make_histo.h
       ./JetToolHelpers/InputVariable.h
       ./JetToolHelpers/JetContext.h
-      ./JetToolHelpers/Mock.h)   # to mock root and athena-
+      ./JetToolHelpers/Mock.h    # to mock root and athena
+   )   
 
    set(ROOT_DIR /home/gordon/Documents/gordon_bsci/Sem6/BProject/root)
    find_package( ROOT COMPONENTS Core Tree MathCore Hist RIO Graf Gpad)   # configs ROOT_INCLUDE_DIRS and ROOT_LIBRARIES
@@ -23,7 +24,7 @@ if(NOT IN_PRODUCTION)
    #message(${ROOT_LIBRARIES})      # very useful to setup include path in vscode ! 
 
    message("Adding JetToolHelpers library")
-   add_library(JetToolHelpers ${HEADER_FILES} ${SOURCES})
+   add_library(JetToolHelpers SHARED ${HEADER_FILES} ${SOURCES})
 
    message("Adding include directories")
    target_include_directories(JetToolHelpers PUBLIC "." PUBLIC ${ROOT_INCLUDE_DIRS})
@@ -31,10 +32,13 @@ if(NOT IN_PRODUCTION)
    message("Linking...")
    target_link_libraries( JetToolHelpers PUBLIC ${PROJECT_BINARY_DIR} ${ROOT_LIBRARIES} )
 
+   ROOT_GENERATE_DICTIONARY(JetToolHelpersDict ./JetToolHelpers/JetContext.h LINKDEF ./JetToolHelpers/LinkDef.h MODULE JetToolHelpers)
+
    enable_testing()
    add_subdirectory(test)
 
    add_subdirectory(util)
+
 else()
    add_compile_definitions(USING_XAOD)
 endif()

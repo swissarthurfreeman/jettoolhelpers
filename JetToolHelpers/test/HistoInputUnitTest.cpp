@@ -1,3 +1,14 @@
+/**
+ * @file HistoInputUnitTest.cpp
+ * @author A. Freeman (github.com/swissarthurfreena)
+ * @brief Unit test to test HistoInput class with various scenarios. 
+ * These scenarios depend on the dimensionality of the histogram
+ * and the axis interpretation, every function is a variation of
+ * those parameters. 
+ * @date 2022-06-01
+ * 
+ * @copyright Copyright (c) 2022 for make benefit great nation of Kazakhstan. 
+ */
 #include <random>
 #include <memory>
 #include "test/Test.h"
@@ -6,6 +17,10 @@
 #include "TH3.h"
 #include <cmath>
 
+/**
+ * @brief Test reading out of 1D H=X Histogram where X axis is a jet variable. 
+ * @param jets a vector of jets. 
+ */
 void test1DHistogramReadingOnXH(std::vector<xAOD::Jet>& jets) {
     TEST_BEGIN_CASE("HistoInput 1D Histogram Reading from Jet Variable");
 
@@ -40,9 +55,7 @@ void test1DHistogramReadingOnXH(std::vector<xAOD::Jet>& jets) {
 }
 
 /**
- * @brief Test reading out of 1D H=X Histogram where X axis is a JetContext
- * variable. 
- * 
+ * @brief Test reading out of 1D H=X Histogram where X axis is a JetContext variable. 
  * @param events a vector of JetContext with two keys : (float) saspidity and (int) durphi. 
  */
 void test1DHistogramReadingOnXH(std::vector<JetContext>& events) {
@@ -100,6 +113,10 @@ void test1DHistogramReadingOnXH(std::vector<JetContext>& events) {
     TEST_END_CASE("HistoInput 1D Histogram Reading from Jet Context");
 }
 
+/**
+ * @brief Test reading out of 2D H=X+Y Histogram where X and Y axis are jet variables. 
+ * @param jets a vector of jets. 
+ */
 void test2DHistogramReadingOnXYH(std::vector<xAOD::Jet>& jets) {
     TEST_BEGIN_CASE("HistoInput 2D Histogram Reading from Jet Variable");
 
@@ -144,10 +161,8 @@ void test2DHistogramReadingOnXYH(std::vector<xAOD::Jet>& jets) {
 /**
  * @brief Test reading out of 2D H=X+Y Histogram where Y axis is a JetContext
  * variable and X axis is a Jet variable. 
- * 
  * @param events a vector of JetContext with two keys : (float) saspidity and (int) durphi. 
  */
-
 void test2DHistogramReadingOnXYH(std::vector<xAOD::Jet>& jets, std::vector<JetContext>& events) {
     TEST_BEGIN_CASE("HistoInput 2D Histogram Reading from Jet Variable");
 
@@ -195,7 +210,6 @@ void test2DHistogramReadingOnXYH(std::vector<xAOD::Jet>& jets, std::vector<JetCo
 
 /**
  * @brief Test reading out of 3D H=X+Y+Z Histogram where all axis are Jet variables. 
- * 
  * @param jets a vector of jets with arbitrary 4 component values returned by SetUp(). 
  */
 void test3DHistogramReadingOnXYZH(std::vector<xAOD::Jet>& jets) {
@@ -257,6 +271,12 @@ void test3DHistogramReadingOnXYZH(std::vector<xAOD::Jet>& jets) {
     TEST_END_CASE("HistoInput 3D Histogram Reading from Jet Variable");
 }
 
+/**
+ * @brief fills the jets vector with N_JETS where every coordinate is
+ * generated according to a uniform distribution between -2000, 2000.
+ * @param N_JETS the number of desired jets.
+ * @param jets the jet vector. (modified by reference)
+ */
 void SetUpJets(const int& N_JETS, std::vector<xAOD::Jet>& jets) {
     std::mt19937 gen( 43294 );
     std::uniform_real_distribution< double > dist( -2000, 2000 );
