@@ -1,8 +1,10 @@
 /**
  * @file HistoInput.h
- * @author your name (you@domain.com)
- * @brief 
- * @version 0.1
+ * @author A. Freeman (swissarthurfreeman@gmail.com)
+ * @brief Wrapper Class around ROOT::TH1 that aggregates 1, 2 or 3 InputVariables,
+ * which all have a getValue(jet, jetContext). This class should be used to read
+ * out values from histograms with Jet or JetContext axis interpretations using
+ * HistoInput::getValue(Jet, JetContext, value).
  * @date 2022-04-22
  * 
  * @copyright Copyright (C) 2002-2022 CERN for the benefit of the ATLAS collaboration 
@@ -47,17 +49,18 @@ class HistoInput : public IInputBase {
                     enforceAxisRange(*m_hist->GetYaxis(), std::get<1>(in_vars_).getValue(jet, event))
                 );
             } else if constexpr(Dim == 3) {
+                // readability purposes
                 auto x_axis = m_hist->GetXaxis();
                 auto y_axis = m_hist->GetYaxis();
                 auto z_axis = m_hist->GetZaxis();
 
                 // 3D interpolation requires every value to be between first and last bin center on every axis...
-                double x = enforceAxisRange(*(x_axis), std::get<0>(in_vars_).getValue(jet, event));
-                double y = enforceAxisRange(*(y_axis), std::get<1>(in_vars_).getValue(jet, event));
-                double z = enforceAxisRange(*(z_axis), std::get<2>(in_vars_).getValue(jet, event));
+                double x = std::get<0>(in_vars_).getValue(jet, event);
+                double y = std::get<1>(in_vars_).getValue(jet, event);
+                double z = std::get<2>(in_vars_).getValue(jet, event);
                 
                 if(x < x_axis->GetBinCenter(1))
-                    x = x_axis->GetBinCenter(1) + 0.001;
+                    x = x_axis->GetBinCenter(1) + 0.001;    // required not to interpolate outside of domain...
                 else if(x > x_axis->GetBinCenter(x_axis->GetNbins()))
                     x = x_axis->GetBinCenter(x_axis->GetNbins()) - 0.001;
 

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "JetToolHelpers/InputVariable.h"
 
 InputVariable::InputVariable(const std::string& name, std::function<float(const xAOD::Jet& jet, const JetContext& jc)> func): InputVariable(name) {
@@ -77,6 +78,7 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
                 return std::make_unique<InputVariableAttribute<int>>(name);
         #endif
         // Unsupported type for a generic attribute
+        std::cerr << "WARNING : user requested Jet InputVariable " << name << " is unsupported\n"; 
         return nullptr;
     } else {
         // Variables not stored on the xAOD::Jet
@@ -96,6 +98,7 @@ std::unique_ptr<InputVariable> InputVariable::createVariable(const std::string& 
                 });
 
         // Unsupported type for a non-jet-level variable
+        std::cerr << "WARNING : user requested JetContext InputVariable type" << name << " is unsupported\n"; 
         return nullptr;
     }
 }

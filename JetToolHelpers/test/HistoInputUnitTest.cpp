@@ -6,7 +6,7 @@
 #include "TH3.h"
 #include <cmath>
 
-void test1DHistogramReadingOn(std::vector<xAOD::Jet>& jets) {
+void test1DHistogramReadingOnXH(std::vector<xAOD::Jet>& jets) {
     TEST_BEGIN_CASE("HistoInput 1D Histogram Reading from Jet Variable");
 
     // X histogram
@@ -39,7 +39,69 @@ void test1DHistogramReadingOn(std::vector<xAOD::Jet>& jets) {
     TEST_END_CASE("HistoInput 1D Histogram Reading from Jet Variable");
 }
 
-void test2DHistogramReadingOn(std::vector<xAOD::Jet>& jets) {
+/**
+ * @brief Test reading out of 1D H=X Histogram where X axis is a JetContext
+ * variable. 
+ * 
+ * @param events a vector of JetContext with two keys : (float) saspidity and (int) durphi. 
+ */
+void test1DHistogramReadingOnXH(std::vector<JetContext>& events) {
+    TEST_BEGIN_CASE("HistoInput 1D Histogram Reading from JetContext Variable");
+
+    // X histogram
+    auto sas_histo = new TH1F("1D", "boring histo", 500, 0, 1000);
+    auto durph_histo = new TH1F("1D", "boring histo", 500, 0, 1000);
+    
+    for(int i=1; i <= sas_histo->GetNbinsX(); i++) {
+        durph_histo->SetBinContent(i, i);
+        sas_histo->SetBinContent(i, i);
+    }
+    
+    auto durpHistoInput = MakeHistoInput("Test Histo", "randomFile", "hello", "durphi", "int", false); 
+    auto sasHistoInput = MakeHistoInput("Another Histo", "someRandomFile", "bork", "saspidity", "float", false);
+    
+    durpHistoInput.setHist(sas_histo);
+    sasHistoInput.setHist(durph_histo); // copies raw ptr, memory is freed once histoInput steps out of frame. 
+    
+    xAOD::Jet jet{0.5, 0.5, 0.5, 0.5};
+    double sas_val{0};
+    double durp_val{0};
+    for(auto jc: events) {
+        sasHistoInput.getValue(jet, jc, sas_val);
+        durpHistoInput.getValue(jet, jc, durp_val);
+        
+        // interpolation might on i yield a larger value than i which when rounded could
+        // be in bin i, i-1 or i + 1. We have to try them all.
+        float saspidity_val{0}; 
+        jc.getValue("saspidity", saspidity_val); 
+        try {
+            ASSERT_EQUAL((int) round(sas_val), sas_histo->FindBin(saspidity_val));
+        } catch(std::runtime_error& e) {
+            try {
+                ASSERT_EQUAL((int) round(sas_val), sas_histo->FindBin(saspidity_val) + 1);    // if underflow
+            } catch(std::runtime_error& e) {
+                ASSERT_EQUAL((int) round(sas_val), sas_histo->FindBin(saspidity_val) - 1);    // if overflow
+            }
+        }
+
+        int durphi_val{0}; 
+        jc.getValue("durphi", durphi_val);
+        try {
+            ASSERT_EQUAL((int) round(durp_val), durph_histo->FindBin(durphi_val));
+        } catch(std::runtime_error& e) {
+            try {
+                ASSERT_EQUAL((int) round(durp_val), durph_histo->FindBin(durphi_val) + 1);    // if underflow
+            } catch(std::runtime_error& e) {
+                ASSERT_EQUAL((int) round(durp_val), durph_histo->FindBin(durphi_val) - 1);    // if overflow
+            }
+        }
+    }
+
+    std::cerr << "HELLLOOOO\n";
+    TEST_END_CASE("HistoInput 1D Histogram Reading from Jet Context");
+}
+
+void test2DHistogramReadingOnXYH(std::vector<xAOD::Jet>& jets) {
     TEST_BEGIN_CASE("HistoInput 2D Histogram Reading from Jet Variable");
 
     // X histogram
@@ -84,8 +146,64 @@ void test2DHistogramReadingOn(std::vector<xAOD::Jet>& jets) {
     TEST_END_CASE("HistoInput 2D Histogram Reading from Jet Variable");
 }
 
+/**
+ * @brief Test reading out of 2D H=X+Y Histogram where Y axis is a JetContext
+ * variable and X axis is a Jet variable. 
+ * 
+ * @param events a vector of JetContext with two keys : (float) saspidity and (int) durphi. 
+ */
+/*
+void test2DHistogramReadingOnXYH(std::vector<JetContext>& events) {
+    TEST_BEGIN_CASE("HistoInput 2D Histogram Reading from Jet Variable");
 
-void test3DHistogramReadingOn(std::vector<xAOD::Jet>& jets) {
+    // X histogram
+    auto histo = new TH2F("1D", "boring histo", 100, 0, 1000, 100, 0, 1000);
+    
+    for(int i=1; i <= histo->GetNbinsX(); i++)
+        for(int j=1; j <= histo->GetNbinsY(); j++)
+            histo->SetBinContent(i, j, i + j);
+    
+    auto histoInput = MakeHistoInput("Test Histo", "randomFile", "hello", "e", "float", true, "eta", "float", true);
+    
+    histoInput.setHist(histo); // copies raw ptr, memory is freed once histoInput steps out of frame. 
+    JetContext jc;
+    
+    double val{0};
+    for(auto jet: jets) {
+        histoInput.getValue(jet, jc, val);
+        // if jet value was overflow, round will always round to the value
+        // of the bucket val is in.
+        std::cerr << "(e = " << jet.e() << ", eta = " << jet.eta() << ")\n";
+        std::cerr << "val = " << (int) round(val) << std::endl;
+        std::cerr << "xbin = " << histo->GetXaxis()->FindBin(jet.e()) << std::endl;
+        std::cerr << "ybin = " << histo->GetYaxis()->FindBin(jet.eta()) << std::endl;
+        try {
+            ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()));
+        } catch(std::runtime_error& e) {
+            try {
+                ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()) - 1);
+            } catch(std::runtime_error& e) {
+                try {
+                    ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()) - 2);
+                } catch(std::runtime_error& e) {
+                    try {
+                        ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()) + 1);
+                    } catch(std::runtime_error& e) { 
+                        ASSERT_EQUAL((int) round(val), histo->GetXaxis()->FindBin(jet.e()) + histo->GetYaxis()->FindBin(jet.eta()) + 2);
+                    }
+                }
+            }
+        }
+    }
+    TEST_END_CASE("HistoInput 2D Histogram Reading from Jet Variable");
+}
+*/
+/**
+ * @brief Test reading out of 3D H=X+Y+Z Histogram where all axis are Jet variables. 
+ * 
+ * @param jets a vector of jets with arbitrary 4 component values returned by SetUp(). 
+ */
+void test3DHistogramReadingOnXYZH(std::vector<xAOD::Jet>& jets) {
     TEST_BEGIN_CASE("HistoInput 3D Histogram Reading from Jet Variable");
 
     // X histogram
@@ -147,7 +265,7 @@ void test3DHistogramReadingOn(std::vector<xAOD::Jet>& jets) {
     TEST_END_CASE("HistoInput 3D Histogram Reading from Jet Variable");
 }
 
-void SetUp(const int& N_JETS, std::vector<xAOD::Jet>& jets) {
+void SetUpJets(const int& N_JETS, std::vector<xAOD::Jet>& jets) {
     std::mt19937 gen( 43294 );
     std::uniform_real_distribution< double > dist( -2000, 2000 );
     for(int i=0; i < N_JETS; i++) {
@@ -156,14 +274,36 @@ void SetUp(const int& N_JETS, std::vector<xAOD::Jet>& jets) {
     }
 }
 
+/**
+ * @brief Set up the Jet Contexts vector. Every jc will have a float "saspidity"
+ * ant int "durphi" attribute.
+ * @param N_JC the number of JetContexts.
+ * @param events the initial vector push_back is called on.
+ */
+void SetUpJetContexts(const int& N_JC, std::vector<JetContext>& events) {
+    std::mt19937 gen( 43294 );
+    std::uniform_real_distribution< double > dist( -2000, 2000 );
+    for(int i=0; i < N_JC; i++) {
+        JetContext jc;
+        jc.setValue("saspidity", dist(gen));
+        jc.setValue("durphi", (int) dist(gen));
+        events.push_back( jc );
+    }
+}
+
 int main() {
     TEST_BEGIN("InputVariable Unit Test");
 
     std::vector<xAOD::Jet> jets;
-    SetUp(1000, jets);
-    test1DHistogramReadingOn(jets);
-    test2DHistogramReadingOn(jets);
-    test3DHistogramReadingOn(jets);
+    SetUpJets(1000, jets);
+    test1DHistogramReadingOnXH(jets);
+    test2DHistogramReadingOnXYH(jets);
+    test3DHistogramReadingOnXYZH(jets);
+
+    std::vector<JetContext> events;
+    SetUpJetContexts(1000, events);
+    test1DHistogramReadingOnXH(events);
+    std::cerr << "HELLLOOOO\n";
 
     TEST_END("InputVariable Unit Test");
     return 0;
