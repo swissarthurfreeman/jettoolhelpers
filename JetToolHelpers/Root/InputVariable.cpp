@@ -3,7 +3,7 @@
  * @author A. Freeman, S. Schramm (swissarthurfreeman@gmail.com, steven.schramm@cern.ch)
  * @date 2022-06-01
  * 
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2022 for the benefit of the ATLAS collaboration. 
  * 
  */
 #include <iostream>

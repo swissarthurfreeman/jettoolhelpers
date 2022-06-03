@@ -32,11 +32,7 @@ int main() {
     ASSERT_EQUAL(jc.getValue<int>("machuPichu"), 23);
 
     ASSERT_EQUAL(jc.setValue("atchoum", 10), true);
-    ASSERT_EQUAL(jc.getValue<int>("atchoum"), 10);
-
-    // empty string names are not allowed. (user might want to name inputVarJetContext)
-    // with same name as a jc property, and emptystring isn't allowed.
-    ASSERT_EQUAL(jc.setValue("", 10), false);    
+    ASSERT_EQUAL(jc.getValue<int>("atchoum"), 10); 
     
     // here "atchoum" is an int variable, asking another supported type should cause an error.
     // an unsupported type (e.g. not part of the types of unordered_map) won't even compile.

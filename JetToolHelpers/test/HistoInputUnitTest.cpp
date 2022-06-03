@@ -62,8 +62,8 @@ void test1DHistogramReadingOnXH(std::vector<JetContext>& events) {
     TEST_BEGIN_CASE("HistoInput 1D Histogram Reading from JetContext Variable");
 
     // X histogram
-    auto sas_histo = new TH1F("1D", "boring histo", 500, 0, 1000);
-    auto durph_histo = new TH1F("1D", "boring histo", 500, 0, 1000);
+    auto sas_histo = new TH1F("1D", "boring histo", 50, 0, 1000);
+    auto durph_histo = new TH1F("1D", "boring histo", 50, 0, 1000);
     
     for(int i=1; i <= sas_histo->GetNbinsX(); i++) {
         durph_histo->SetBinContent(i, i);
@@ -121,7 +121,7 @@ void test2DHistogramReadingOnXYH(std::vector<xAOD::Jet>& jets) {
     TEST_BEGIN_CASE("HistoInput 2D Histogram Reading from Jet Variable");
 
     // X histogram
-    auto histo = new TH2F("1D", "boring histo", 100, 0, 1000, 100, 0, 1000);
+    auto histo = new TH2F("1D", "boring histo", 50, 0, 1000, 50, 0, 1000);
     
     for(int i=1; i <= histo->GetNbinsX(); i++)
         for(int j=1; j <= histo->GetNbinsY(); j++)
@@ -216,7 +216,7 @@ void test3DHistogramReadingOnXYZH(std::vector<xAOD::Jet>& jets) {
     TEST_BEGIN_CASE("HistoInput 3D Histogram Reading from Jet Variable");
 
     // X histogram
-    auto histo = new TH3F("3D", "boring histo", 50, 0, 1000, 50, 0, 1000, 50, 0, 1000);
+    auto histo = new TH3F("3D", "boring histo", 25, 0, 1000, 25, 0, 1000, 25, 0, 1000);
     
     for(int i=1; i <= histo->GetNbinsX(); i++)
         for(int j=1; j <= histo->GetNbinsY(); j++)
@@ -307,13 +307,13 @@ int main() {
     TEST_BEGIN("InputVariable Unit Test");
 
     std::vector<xAOD::Jet> jets;
-    SetUpJets(1000, jets);
+    SetUpJets(500, jets);
     test1DHistogramReadingOnXH(jets);
     test2DHistogramReadingOnXYH(jets);
     test3DHistogramReadingOnXYZH(jets);
 
     std::vector<JetContext> events;
-    SetUpJetContexts(1000, events);
+    SetUpJetContexts(500, events);
     test1DHistogramReadingOnXH(events);
     test2DHistogramReadingOnXYH(jets, events);
 
