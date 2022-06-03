@@ -27,6 +27,7 @@ class LocalP4 {
 namespace xAOD {
     class Jet {
         public:
+            Jet(): m_pt{0.5}, m_eta{0.5}, m_phi{0.5}, m_mass{0.5} {};
             Jet(double pt, double eta, double phi, double m): m_pt{pt}, m_eta{eta}, m_phi{phi}, m_mass{m} {};
 
             double pt()  const { return m_pt;   }

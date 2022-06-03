@@ -45,7 +45,6 @@ template <typename T>
 class HistoInput : public IInputBase {
     public:         
         static constexpr double Dim = std::tuple_size_v<T>;
-        ~HistoInput() {}
         HistoInput(const std::string& name, const std::string& filename, const std::string& histName, T& vars): 
             IInputBase{name}, m_fileName{filename}, m_histName{histName}, in_vars_{std::move(vars)} {};
         

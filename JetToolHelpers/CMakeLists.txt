@@ -24,7 +24,7 @@ if(NOT IN_PRODUCTION)
    #message(${ROOT_LIBRARIES})      # very useful to setup include path in vscode ! 
 
    message("Adding JetToolHelpers library")
-   add_library(JetToolHelpers SHARED ${HEADER_FILES} ${SOURCES})
+   add_library(JetToolHelpers SHARED ${HEADER_FILES} ${SOURCES})  # must be shared to be accessed by pyROOT via Python interface.
 
    message("Adding include directories")
    target_include_directories(JetToolHelpers PUBLIC "." PUBLIC ${ROOT_INCLUDE_DIRS})
@@ -32,7 +32,13 @@ if(NOT IN_PRODUCTION)
    message("Linking...")
    target_link_libraries( JetToolHelpers PUBLIC ${PROJECT_BINARY_DIR} ${ROOT_LIBRARIES} )
 
-   ROOT_GENERATE_DICTIONARY(JetToolHelpersDict ./JetToolHelpers/JetContext.h LINKDEF ./JetToolHelpers/LinkDef.h MODULE JetToolHelpers)
+   ROOT_GENERATE_DICTIONARY(JetToolHelpersDict 
+      ./JetToolHelpers/JetContext.h
+      ./JetToolHelpers/Mock.h
+      ./JetToolHelpers/InputVariable.h
+      ./JetToolHelpers/HistoInput.h
+      ./JetToolHelpers/make_histo.h
+      LINKDEF ./JetToolHelpers/LinkDef.h MODULE JetToolHelpers)
 
    enable_testing()
    add_subdirectory(test)

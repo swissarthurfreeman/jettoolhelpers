@@ -29,8 +29,7 @@
 class IInputBase {
     public:
         IInputBase(const std::string& name) : m_name{name} {}
-        virtual ~IInputBase() {}
-
+        
         virtual StatusCode initialize() = 0;
         virtual StatusCode finalize() = 0;
 
