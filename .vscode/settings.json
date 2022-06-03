@@ -62,6 +62,7 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "cstring": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "forward_list": "cpp"
     }
 }

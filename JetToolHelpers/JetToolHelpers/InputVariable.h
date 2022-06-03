@@ -70,9 +70,9 @@ class InputVariable {
          */
         InputVariable(
             const std::string& name, 
-            std::function<float(const xAOD::Jet& jet, const JetContext& jc)> func
+            double (*customFunction)(const xAOD::Jet& jet, const JetContext& jc)
         );
-        std::function<float(const xAOD::Jet& jet, const JetContext& jc)> customFunction;
+        double (*customFunction)(const xAOD::Jet& jet, const JetContext& jc);
 
         // Core method for returning the value generically
         virtual float getValue(const xAOD::Jet& jet, const JetContext& jc) const {
