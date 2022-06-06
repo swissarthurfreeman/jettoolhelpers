@@ -15,35 +15,47 @@
 void testClassicalSupportedAttributes() {
     TEST_BEGIN_CASE("InputVariable Classical Attributes Support");
 
+    // pt, eta, phi, m
+    JetContext jc;
+    xAOD::Jet jet{-100, -200, -300, -400};
     std::unique_ptr<InputVariable> c = InputVariable::createVariable("e", "float", true);
     ASSERT_THROW(c->getName() == "e");
-    
+    ASSERT_THROW(c->getValue(jet, jc) == jet.e());
+
     c = InputVariable::createVariable("et", "float", true);
     ASSERT_THROW(c->getName() == "et");
+    ASSERT_THROW(c->getValue(jet, jc) == jet.p4().Et());
     
     c = InputVariable::createVariable("pt", "float", true);
     ASSERT_THROW(c->getName() == "pt");
+    ASSERT_THROW(c->getValue(jet, jc) == jet.pt());
 
     c = InputVariable::createVariable("eta", "float", true);
     ASSERT_THROW(c->getName() == "eta");
+    ASSERT_THROW(c->getValue(jet, jc) == jet.eta());
 
     c = InputVariable::createVariable("abseta", "double", true);
     ASSERT_THROW(c->getName() == "abseta");
+    ASSERT_THROW(c->getValue(jet, jc) == std::abs(jet.eta()));
 
     c = InputVariable::createVariable("|eta|", "double", true);
     ASSERT_THROW(c->getName() == "|eta|");
+    ASSERT_THROW(c->getValue(jet, jc) == std::abs(jet.eta()));
 
     c = InputVariable::createVariable("absrapidity", "double", true);
     ASSERT_THROW(c->getName() == "absrapidity");
 
     c = InputVariable::createVariable("|rapidity|", "double", true);
     ASSERT_THROW(c->getName() == "|rapidity|");
+    ASSERT_THROW(c->getValue(jet, jc) == std::abs(jet.rapidity()));
 
     c = InputVariable::createVariable("rapidity", "double", true);
     ASSERT_THROW(c->getName() == "rapidity");
+    ASSERT_THROW(c->getValue(jet, jc) == jet.rapidity());
 
     c = InputVariable::createVariable("y", "double", true);
     ASSERT_THROW(c->getName() == "y");
+    ASSERT_THROW(c->getValue(jet, jc) == jet.rapidity());
 
     TEST_END_CASE("InputVariable Classical Attributes Support");
 }
@@ -95,13 +107,13 @@ void testJetContextAttributeGetValue() {
     b = InputVariable::createVariable("anotherJetContextAttribute", "int", false);
     
     ASSERT_EQUAL(jc.setValue("anotherJetContextAttribute", 12), true);
-    ASSERT_EQUAL(b->getValue(jet, jc), 12);
+    ASSERT_EQUAL(b->getValue(jet, jc), 12); // catch std::invalid_argument
 
     b = InputVariable::createVariable("randomAttributeNotInJetContext", "int", false);
-    ASSERT_EQUAL(b->getValue(jet, jc), -999);
+    ASSERT_EQUAL(b->getValue(jet, jc), false);
 
     b = InputVariable::createVariable("randomAttributeNotInJetContext", "float", false);
-    ASSERT_EQUAL(b->getValue(jet, jc), -999);
+    ASSERT_EQUAL(b->getValue(jet, jc), false);
 
     TEST_END_CASE("JetContext Attribute GetValue");
 }
@@ -110,12 +122,14 @@ int main() {
     TEST_BEGIN("InputVariable Unit Test");
 
     testClassicalSupportedAttributes();
-    #ifdef USING_XAOD
+
+    #ifdef IN_PRODUCTION
         testArbitrarySupportedJetAttributes();
     #endif
+    
     testSupportedJetContextAttributes();
     testJetContextAttributeGetValue();
-    
+
     TEST_END("InputVariable Unit Test");
     return 0;
 }

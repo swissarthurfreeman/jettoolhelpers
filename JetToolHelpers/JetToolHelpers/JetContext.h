@@ -59,8 +59,6 @@ class JetContext {
         bool isAvailable(const std::string& name) const {
             return dict_.find(name) != dict_.end();
         };
-
-        static constexpr int ERRORVALUE {-999}; // set at compile time.
     private:
         std::unordered_map<std::string, std::variant<int, float>> dict_;
 };

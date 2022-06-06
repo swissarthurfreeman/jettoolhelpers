@@ -12,7 +12,7 @@
 
 #include <string>
 
-#ifdef USING_XAOD
+#ifdef IN_PRODUCTION
     #include "AsgTools/IAsgTool.h" // For definition of StatusCode
     #include "xAODJet/Jet.h"        
 #else

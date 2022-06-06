@@ -46,5 +46,5 @@ if(NOT IN_PRODUCTION)
    add_subdirectory(util)
 
 else()
-   add_compile_definitions(USING_XAOD)
+   add_compile_definitions(IN_PRODUCTION)
 endif()

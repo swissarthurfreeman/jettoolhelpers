@@ -20,7 +20,7 @@
 #include "TH1.h"
 #include "TFile.h"
 
-#ifdef USING_XAOD
+#ifdef IN_PRODUCTION
     #include "AsgTools/AsgTool.h"
 #else
     #include "JetToolHelpers/Mock.h"

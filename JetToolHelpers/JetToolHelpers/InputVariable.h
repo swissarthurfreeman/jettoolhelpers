@@ -17,7 +17,7 @@
 
 #include "JetToolHelpers/JetContext.h"
 
-#ifdef USING_XAOD
+#ifdef IN_PRODUCTION
     #include "xAODJet/Jet.h"
     #include "AthContainers/AuxElement.h"
 #else
@@ -86,7 +86,6 @@ class InputVariable {
         void setMeV() { m_scale = 1.;    }
 
         InputVariable(const InputVariable&) = delete;
-        static constexpr int ERRORVALUE {-999};
 
     protected:
         const std::string m_name;           // name of the InputVariable, if it's a JetContext, name must appear as attribute in the map !
@@ -101,25 +100,35 @@ template <typename T> class InputVariableJetContext : public InputVariable {
     public:
         InputVariableJetContext(const std::string& name) : InputVariable(name) {}
         // should be T
-        virtual float getValue(const xAOD::Jet&, const JetContext& event) const { 
-            return event.isAvailable(m_name) ? event.getValue<T>(m_name) : ERRORVALUE; 
+        virtual float getValue(const xAOD::Jet&, const JetContext& event) const {
+            if(event.isAvailable(m_name)) {
+                return event.getValue<T>(m_name);
+            } else {
+                throw std::invalid_argument("Requested attribute is not available in JetContext : " + m_name);
+                return false;
+            }  
         }
 };
 
-#ifdef USING_XAOD
+#ifdef IN_PRODUCTION
 /**
  * @brief Template covering the case where input variable is jet but the attribute
  * is not predefined variation of et, pt, eta, phi... But an arbitrary one. 
  * We suppose that the user is using jets which contain this metadata or else we return
  * an ERRORVALUE.  
- * TODO : Update to throwing exception, remove ERRORVALUE
+ * TODO : Update to throwing exception, remove
  * @tparam T 
  */
 template <typename T> class InputVariableAttribute : public InputVariable {
     public:
         InputVariableAttribute(const std::string& name) : InputVariable(name), m_acc{name} {}
         virtual float getValue(const xAOD::Jet& jet, const JetContext&) const { 
-            return m_acc.isAvailable(jet) ? m_acc(jet)*m_scale : ERRORVALUE; 
+           if(m_acc.isAvailable(jet)) {
+                return m_acc(jet)*m_scale;
+            } else {
+                throw std::invalid_argument("Requested attribute is not available in JetContext : " + m_name);
+                return false;
+            }  
         }
     private:
         SG::AuxElement::ConstAccessor<T> m_acc;
