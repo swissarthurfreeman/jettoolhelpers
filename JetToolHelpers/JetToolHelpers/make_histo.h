@@ -28,11 +28,13 @@ struct Config {
  * This code will always compile, it will yield a runtime error if InVar or InVars has
  * no getValue(jet, JetContext) method.
 */
+/*
 template <class InVar, class... InVars>
 auto make_histogram_with(Config config, std::unique_ptr<InVar>& invar, std::unique_ptr<InVars>&... invars) {
     auto t = std::make_tuple(std::move(invar), std::move(invars)...);
     return HistoInput<decltype(t)>(config.name, config.fileName, config.histName, t);
 }
+*/
 
 // makes a 1D histogram.
 auto MakeHistoInput(
@@ -47,7 +49,9 @@ auto MakeHistoInput(
     };
 
     auto iv1 = InputVariable::createVariable(varName, varType, isJetVar);
-    return make_histogram_with(conf, iv1);
+    std::array<std::unique_ptr<InputVariable>, 1> arr{ std::move(iv1) };    // array takes ownership
+    
+    return HistoInput<std::unique_ptr<InputVariable>, 1>(conf.name, conf.fileName, conf.histName, arr);
 }
 
 /** @brief makes a 2D histogram.*/
@@ -67,7 +71,8 @@ auto MakeHistoInput(
     auto iv1 = InputVariable::createVariable(varName1, varType1, isJetVar1);
     auto iv2 = InputVariable::createVariable(varName2, varType2, isJetVar2);
     
-    return make_histogram_with(conf, iv1, iv2);
+    std::array<std::unique_ptr<InputVariable>, 2> arr{ std::move(iv1), std::move(iv2) };
+    return HistoInput<std::unique_ptr<InputVariable>, 2>(conf.name, conf.fileName, conf.histName, arr);
 }
 
 /** @brief makes a 3D histogram.*/
@@ -90,7 +95,8 @@ auto MakeHistoInput(
     auto iv2 = InputVariable::createVariable(varName2, varType2, isJetVar2);
     auto iv3 = InputVariable::createVariable(varName3, varType3, isJetVar3);
     
-    return make_histogram_with(conf, iv1, iv2, iv3);
+    std::array<std::unique_ptr<InputVariable>, 3> arr{ std::move(iv1), std::move(iv2), std::move(iv3) };
+    return HistoInput<std::unique_ptr<InputVariable>, 3>(conf.name, conf.fileName, conf.histName, arr);
 }
 
 #endif

@@ -19,6 +19,7 @@
  * creating the inputvariable directly and calling the config
  * methods on it before passing it to make_histogram_with().
  */
+/*
 void readValueFrom2DHistogramWithScaledVariable() {
     Config conf = {
         "Test Histogram",                               // name of your histogram input
@@ -42,6 +43,7 @@ void readValueFrom2DHistogramWithScaledVariable() {
     histo.getValue(jet, jc, value);
     std::cout << "HistoGram readout value = " << value << std::endl;
 }
+*/
 
 /**
  * @brief Simple classical usage of HistoInput
@@ -63,7 +65,7 @@ void readValueFrom1DHistogram() {
 
 int main() {
     readValueFrom1DHistogram();
-    readValueFrom2DHistogramWithScaledVariable();
+    //readValueFrom2DHistogramWithScaledVariable();
 
     Config conf = {
         "Test Histogram",                               // name of your histogram input

@@ -16,7 +16,7 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <tuple>
+#include <array>
 #include "TH1.h"
 #include "TFile.h"
 
@@ -41,12 +41,13 @@
  * method. Default factory methods will use unique_ptrs, it is recommended to not 
  * handle raw pointers, but this template can be instantiated with raw pointers. 
  */
-template <typename T>
+template <typename T, int N>
 class HistoInput : public IInputBase {
     public:         
-        static constexpr double Dim = std::tuple_size_v<T>;
-        HistoInput(const std::string& name, const std::string& filename, const std::string& histName, T& vars): 
-            IInputBase{name}, m_fileName{filename}, m_histName{histName}, in_vars_{std::move(vars)} {};
+        HistoInput(const std::string& name, const std::string& filename, const std::string& histName, std::array<T, N>& vars): 
+            IInputBase{name}, m_fileName{filename}, m_histName{histName} {
+                std::move(std::begin(vars), std::end(vars), &in_vars_[0]);
+            };
         
         /**
          * @brief Readout the value from the Histogram. Every axis is a certain combination
@@ -60,25 +61,25 @@ class HistoInput : public IInputBase {
          * @return false if an unsupported number of dimensions was provided. 
          */
         virtual bool getValue(const xAOD::Jet& jet, const JetContext& event, double& value) const {
-            if constexpr (Dim == 1) {
+            if constexpr (N == 1) {
                 value = m_hist->Interpolate(
-                    enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_)->getValue(jet, event))
+                    enforceAxisRange(*m_hist->GetXaxis(), in_vars_[0]->getValue(jet, event))
                 );
-            } else if constexpr(Dim == 2) { 
+            } else if constexpr(N == 2) { 
                 value = m_hist->Interpolate(
-                    enforceAxisRange(*m_hist->GetXaxis(), std::get<0>(in_vars_)->getValue(jet, event)),
-                    enforceAxisRange(*m_hist->GetYaxis(), std::get<1>(in_vars_)->getValue(jet, event))
+                    enforceAxisRange(*m_hist->GetXaxis(), in_vars_[0]->getValue(jet, event)),
+                    enforceAxisRange(*m_hist->GetYaxis(), in_vars_[1]->getValue(jet, event))
                 );
-            } else if constexpr(Dim == 3) {
+            } else if constexpr(N == 3) {
                 // readability purposes
                 auto x_axis = m_hist->GetXaxis();
                 auto y_axis = m_hist->GetYaxis();
                 auto z_axis = m_hist->GetZaxis();
 
                 // 3D interpolation requires every value to be between first and last bin center on every axis...
-                double x = std::get<0>(in_vars_)->getValue(jet, event);
-                double y = std::get<1>(in_vars_)->getValue(jet, event);
-                double z = std::get<2>(in_vars_)->getValue(jet, event);
+                double x = in_vars_[0]->getValue(jet, event);
+                double y = in_vars_[1]->getValue(jet, event);
+                double z = in_vars_[2]->getValue(jet, event);
                 
                 if(x < x_axis->GetBinCenter(1))
                     x = x_axis->GetBinCenter(1) + 0.001;    // required not to interpolate outside of domain...
@@ -125,7 +126,7 @@ class HistoInput : public IInputBase {
                 return false;
             }
 
-            if (m_hist->GetDimension() != Dim) {
+            if (m_hist->GetDimension() != N) {
                 std::cout << "Read the specified histogram, but it has a dimension of " 
                 << m_hist->GetDimension() << " instead of the expected 1" << std::endl;
                 return false;
@@ -163,14 +164,14 @@ class HistoInput : public IInputBase {
         const std::string m_histName; // @m_histName name of the histogram within @m_fileName
 
         std::unique_ptr<TH1> m_hist;
-        T in_vars_;
+        T in_vars_[N];
 
         static bool readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string fileName, const std::string histName);
         static double enforceAxisRange(const TAxis& axis, const double inputValue);
 };
 
-template<typename T>
-bool HistoInput<T>::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string fileName, const std::string histName) {
+template<typename T, int N>
+bool HistoInput<T, N>::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::string fileName, const std::string histName) {
     TFile inputFile(fileName.c_str(), "READ");
     if (inputFile.IsZombie()) {
         std::cout << "Failed to open the file to read: " << fileName << "\n";
@@ -209,8 +210,8 @@ bool HistoInput<T>::readHistoFromFile(std::unique_ptr<TH1>& m_hist, const std::s
  * @param inputValue 
  * @return double the clipped inputValue.
  */
-template<typename T>
-double HistoInput<T>::enforceAxisRange(const TAxis& axis, const double inputValue) {
+template<typename T, int N>
+double HistoInput<T, N>::enforceAxisRange(const TAxis& axis, const double inputValue) {
     static constexpr double edgeOffset {1.e-4};
     // Root histogram binning: bin 0 = underflow bin, 
     // bin 1 = first actual bin, bin N = last actual bin, bin N+1 = overflow bin

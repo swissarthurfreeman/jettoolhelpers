@@ -304,7 +304,7 @@ void SetUpJetContexts(const int& N_JC, std::vector<JetContext>& events) {
 }
 
 int main() {
-    TEST_BEGIN("InputVariable Unit Test");
+    TEST_BEGIN("HistoInput Unit Test");
 
     std::vector<xAOD::Jet> jets;
     SetUpJets(500, jets);
@@ -317,6 +317,6 @@ int main() {
     test1DHistogramReadingOnXH(events);
     test2DHistogramReadingOnXYH(jets, events);
 
-    TEST_END("InputVariable Unit Test");
+    TEST_END("HistoInput Unit Test");
     return 0;
 }
