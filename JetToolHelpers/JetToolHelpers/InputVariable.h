@@ -107,5 +107,4 @@ class InputVariableJetContext : public InputVariable
         virtual float getValue(const xAOD::Jet&, const JetContext& event) const { return event.isAvailable<T>(m_name) ? event.getValue<T>(m_name) : ERRORVALUE; }
 };
 
-
 #endif
