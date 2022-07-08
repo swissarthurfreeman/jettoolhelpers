@@ -72,10 +72,12 @@ class JetContextFixture: public benchmark::Fixture {
         void SetUp(const ::benchmark::State& state) {    
             std::mt19937 gen( 43294 );
             std::uniform_real_distribution< float > dist( -10000, 10000 );
+            std::uniform_int_distribution< int > int_dist( -10000, 10000 );
             const int N_JETS = state.range(0);
             for(int i=0; i < N_JETS; i++) {
                 auto jc = JetContext();
                 jc.setValue("saspidity", dist(gen));
+                jc.setValue("acidity", int_dist(gen));
                 events.push_back( jc );
             }
         }
@@ -143,7 +145,7 @@ BENCHMARK_DEFINE_F(JetContextFixture, BM_getJetContextValueOver2DHistogram)(benc
     std::string fileName("./R4_AllComponents.root");
     std::string histName2D("EtaIntercalibration_Modelling_AntiKt4EMPFlow");
 
-    HistoInput histogram = MakeHistoInput("Test histogram", fileName, histName2D, "pt", "float", true, "abseta", "float", true);
+    HistoInput histogram = MakeHistoInput("Test histogram", fileName, histName2D, "saspidity", "float", false, "acidity", "int", false);
     histogram.initialize();
 
     xAOD::Jet jet{5, 5, 5, 5};
@@ -156,10 +158,10 @@ BENCHMARK_DEFINE_F(JetContextFixture, BM_getJetContextValueOver2DHistogram)(benc
     }
 }
 
-BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver1DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
-BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver2DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
+//BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver1DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
+//BENCHMARK_REGISTER_F(JetFixture, BM_getJetValueOver2DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
 
-BENCHMARK_REGISTER_F(JetContextFixture, BM_getJetContextValueOver1DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
+//BENCHMARK_REGISTER_F(JetContextFixture, BM_getJetContextValueOver1DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
 BENCHMARK_REGISTER_F(JetContextFixture, BM_getJetContextValueOver2DHistogram)->RangeMultiplier(2)->Range(1000, 10<<10);
 
 BENCHMARK_MAIN();
